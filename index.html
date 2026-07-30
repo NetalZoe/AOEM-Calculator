@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="sv">
+<html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
@@ -11,8 +11,6 @@
 <meta name="apple-mobile-web-app-title" content="AOEM Calc">
 
 <link rel="manifest" href="manifest.json">
-<link rel="icon" type="image/png" href="icon.png">
-<link rel="apple-touch-icon" href="icon.png">
 
 <title>AOEM Calculator V3</title>
 <style>
@@ -88,14 +86,6 @@
     letter-spacing: 1px;
     padding: 2px 6px;
     border-radius: 2px;
-  }
-
-  .subtitle {
-    font-size: 11px;
-    color: var(--gold-bright);
-    letter-spacing: 1px;
-    text-transform: uppercase;
-    margin-top: 4px;
   }
 
   .points-toggle {
@@ -200,7 +190,7 @@
   .field { display: flex; flex-direction: column; gap: 4px; }
   .field label { font-size: 8px; text-transform: uppercase; color: var(--text-sub); text-align: center; }
 
-  select, input[type="number"] {
+  select {
     width: 100%;
     background: #0a0d12;
     border: 1px solid var(--panel-border);
@@ -214,7 +204,7 @@
     height: 34px;
   }
 
-  select:focus, input:focus {
+  select:focus {
     border-color: var(--gold-primary);
     outline: none;
   }
@@ -259,12 +249,27 @@
     border-top: 2px solid var(--gold-primary);
   }
 
-  footer { text-align: center; font-size: 8px; color: var(--text-sub); margin-top: 6px; }
-  footer .credit { color: var(--gold-bright); font-size: 9px; font-weight: 700; }
-  footer .credit .uid { color: var(--gold-primary); font-size: 8px; font-weight: 500; }
-
-  @media (max-width: 600px) {
-    .gear-grid, .signet-grid { grid-template-columns: repeat(2, 1fr) !important; }
+  footer { text-align: center; margin-top: 12px; }
+  footer .credit { 
+    color: var(--gold-bright); 
+    font-size: 12px; 
+    font-weight: 700; 
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+  }
+  footer .credit .uid-box { 
+    color: var(--gold-primary); 
+    font-size: 11px; 
+    font-weight: 600;
+    background: #0a0d12;
+    border: 1px solid var(--panel-border);
+    padding: 4px 8px;
+    border-radius: var(--md-shape-corner-m);
+    user-select: all;
+    -webkit-user-select: all;
+    cursor: pointer;
   }
 </style>
 </head>
@@ -277,7 +282,6 @@
       <span class="aoe-badge">MOBILE</span>
     </div>
     
-    <div class="subtitle" id="pageTitle">Forge Calculator</div>
     <div class="points-toggle">
       <button type="button" class="global-toggle-btn active" data-mode="tme">TME</button>
       <button type="button" class="global-toggle-btn" data-mode="tmg">TMG</button>
@@ -295,7 +299,7 @@
       <div class="level-body" style="grid-template-columns: 1fr;">
         <div class="field">
           <label>Stamina Amount</label>
-          <input type="number" id="staminaInput" min="0" placeholder="0">
+          <select id="staminaInput" data-min="0" data-max="5000" data-step="10" data-default="0"></select>
         </div>
       </div>
     </div>
@@ -331,9 +335,9 @@
       <div class="tier" data-tier="speedups">
         <div class="tier-header"><span>Forge Speedups</span></div>
         <div class="speedup-body">
-          <div class="field"><label>Days</label><input type="number" id="sp-forge-d" min="0" placeholder="0"></div>
-          <div class="field"><label>Hours</label><input type="number" id="sp-forge-h" min="0" max="23" placeholder="0" oninput="limitTime(this, 23)"></div>
-          <div class="field"><label>Minutes</label><input type="number" id="sp-forge-m" min="0" max="59" placeholder="0" oninput="limitTime(this, 59)"></div>
+          <div class="field"><label>Days</label><select id="sp-forge-d" data-min="0" data-max="100" data-default="0"></select></div>
+          <div class="field"><label>Hours</label><select id="sp-forge-h" data-min="0" data-max="23" data-default="0"></select></div>
+          <div class="field"><label>Minutes</label><select id="sp-forge-m" data-min="0" data-max="59" data-default="0"></select></div>
         </div>
       </div>
     </div>
@@ -374,39 +378,39 @@
       <div class="tier" data-tier="speedups">
         <div class="tier-header"><span>Building Speedups</span></div>
         <div class="speedup-body">
-          <div class="field"><label>Days</label><input type="number" id="sp-bldg-d" min="0" placeholder="0"></div>
-          <div class="field"><label>Hours</label><input type="number" id="sp-bldg-h" min="0" max="23" placeholder="0" oninput="limitTime(this, 23)"></div>
-          <div class="field"><label>Minutes</label><input type="number" id="sp-bldg-m" min="0" max="59" placeholder="0" oninput="limitTime(this, 59)"></div>
+          <div class="field"><label>Days</label><select id="sp-bldg-d" data-min="0" data-max="100" data-default="0"></select></div>
+          <div class="field"><label>Hours</label><select id="sp-bldg-h" data-min="0" data-max="23" data-default="0"></select></div>
+          <div class="field"><label>Minutes</label><select id="sp-bldg-m" data-min="0" data-max="59" data-default="0"></select></div>
         </div>
       </div>
 
       <div class="tier" data-tier="speedups">
         <div class="tier-header"><span>Research Speedups</span></div>
         <div class="speedup-body">
-          <div class="field"><label>Days</label><input type="number" id="sp-res-d" min="0" placeholder="0"></div>
-          <div class="field"><label>Hours</label><input type="number" id="sp-res-h" min="0" max="23" placeholder="0" oninput="limitTime(this, 23)"></div>
-          <div class="field"><label>Minutes</label><input type="number" id="sp-res-m" min="0" max="59" placeholder="0" oninput="limitTime(this, 59)"></div>
+          <div class="field"><label>Days</label><select id="sp-res-d" data-min="0" data-max="100" data-default="0"></select></div>
+          <div class="field"><label>Hours</label><select id="sp-res-h" data-min="0" data-max="23" data-default="0"></select></div>
+          <div class="field"><label>Minutes</label><select id="sp-res-m" data-min="0" data-max="59" data-default="0"></select></div>
         </div>
       </div>
     </div>
 
-    <div class="input-row">
+    <div class="input-row" id="sec-signets">
       <div class="tier" style="flex: 1 1 100%;">
         <div class="tier-header"><span>Signet Rings</span></div>
         <div class="level-body signet-grid" style="grid-template-columns: repeat(4, 1fr);">
-          <div class="field"><label>Copper Sand</label><input type="number" id="signet-copper" min="0" placeholder="0"></div>
-          <div class="field"><label>Silver Sand</label><input type="number" id="signet-silver" min="0" placeholder="0"></div>
-          <div class="field"><label>Fine Gold</label><input type="number" id="signet-gold" min="0" placeholder="0"></div>
-          <div class="field"><label>Meteor Steel</label><input type="number" id="signet-steel" min="0" placeholder="0"></div>
+          <div class="field"><label>Copper Sand</label><select id="signet-copper" data-min="0" data-max="500" data-step="10" data-default="0"></select></div>
+          <div class="field"><label>Silver Sand</label><select id="signet-silver" data-min="0" data-max="500" data-step="10" data-default="0"></select></div>
+          <div class="field"><label>Fine Gold</label><select id="signet-gold" data-min="0" data-max="500" data-step="10" data-default="0"></select></div>
+          <div class="field"><label>Meteor Steel</label><select id="signet-steel" data-min="0" data-max="500" data-step="10" data-default="0"></select></div>
         </div>
       </div>
     </div>
 
-    <div class="input-row">
+    <div class="input-row" id="sec-finecraft">
       <div class="tier" style="flex: 1 1 100%;">
         <div class="tier-header"><span>Fine Craft</span></div>
         <div class="level-body" style="grid-template-columns: 1fr;">
-          <div class="field"><label>Craft Count</label><input type="number" id="fine-craft-qty" min="0" placeholder="0"></div>
+          <div class="field"><label>Craft Count</label><select id="fine-craft-qty" data-min="0" data-max="200" data-default="0"></select></div>
         </div>
       </div>
     </div>
@@ -417,40 +421,45 @@
     <div class="tier" data-tier="speedups">
       <div class="tier-header"><span>Training Speedups</span></div>
       <div class="speedup-body">
-        <div class="field"><label>Days</label><input type="number" min="0" placeholder="0"></div>
-        <div class="field"><label>Hours</label><input type="number" min="0" max="23" placeholder="0" oninput="limitTime(this, 23)"></div>
-        <div class="field"><label>Minutes</label><input type="number" min="0" max="59" placeholder="0" oninput="limitTime(this, 59)"></div>
+        <div class="field"><label>Days</label><select id="sp-train-d" data-min="0" data-max="100" data-default="0"></select></div>
+        <div class="field"><label>Hours</label><select id="sp-train-h" data-min="0" data-max="23" data-default="0"></select></div>
+        <div class="field"><label>Minutes</label><select id="sp-train-m" data-min="0" data-max="59" data-default="0"></select></div>
       </div>
     </div>
   </div>
 
   <footer>
     <div class="credit">
-      BABYMETAL ERA #008 | <span class="uid">UID: 5012140737488439073</span>
+      <span>CREATED BY BABYMETAL ERA #008</span>
+      <span class="uid-box" onclick="copyUid(this)">UID: 5012140737488439073</span>
     </div>
   </footer>
 </div>
 
 <nav class="bottom-nav">
-  <button class="nav-item" onclick="switchTab('stamina', 'Stamina Overview', this)">
+  <button class="nav-item" onclick="switchTab('stamina', this)">
     <span>⚡</span>
     <span>Stamina</span>
   </button>
-  <button class="nav-item active" onclick="switchTab('forge', 'Forge Calculator', this)">
+  <button class="nav-item active" onclick="switchTab('forge', this)">
     <span>⚒️</span>
     <span>Forge</span>
   </button>
-  <button class="nav-item" onclick="switchTab('speedup-day', 'Speedup Day', this)">
+  <button class="nav-item" onclick="switchTab('speedup-day', this)">
     <span>🏗️</span>
     <span>Speedup Day</span>
   </button>
-  <button class="nav-item" onclick="switchTab('training', 'Training Speedups', this)">
+  <button class="nav-item" onclick="switchTab('training', this)">
     <span>⚔️</span>
     <span>Training</span>
   </button>
 </nav>
 
 <script>
+if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.register('sw.js').catch(() => {});
+}
+
 const BLACKSMITH_PCT = {
   1:2, 2:4, 3:6, 4:8, 5:10, 6:12, 7:14, 8:16, 9:2, 10:21,
   11:24, 12:27, 13:30, 14:33, 15:36, 16:39, 17:42, 18:45, 19:48, 20:52,
@@ -462,18 +471,12 @@ const RENOVATION_PCT = { 0:0, 1:8, 2:16, 3:24, 4:32, 5:40 };
 
 let globalPointsMode = 'tme';
 
-function switchTab(tabId, title, btn) {
+function switchTab(tabId, btn) {
   document.querySelectorAll('.tab-content').forEach(tc => tc.classList.remove('active'));
   document.querySelectorAll('.nav-item').forEach(ni => ni.classList.remove('active'));
 
   document.getElementById('tab-' + tabId).classList.add('active');
   btn.classList.add('active');
-  document.getElementById('pageTitle').textContent = title;
-}
-
-function limitTime(el, max) {
-  if (parseInt(el.value) > max) el.value = max;
-  if (parseInt(el.value) < 0) el.value = 0;
 }
 
 function workshopPct(level){ return level * 2; }
@@ -496,10 +499,12 @@ function formatPoints(n){
 
 function populateSelects(){
   document.querySelectorAll('select[data-max]').forEach(sel => {
+    sel.innerHTML = '';
     const min = parseInt(sel.dataset.min || '0', 10);
     const max = parseInt(sel.dataset.max, 10);
+    const step = parseInt(sel.dataset.step || '1', 10);
     const def = parseInt(sel.dataset.default || String(min), 10);
-    for (let i = min; i <= max; i++){
+    for (let i = min; i <= max; i += step){
       const opt = document.createElement('option');
       opt.value = i;
       opt.textContent = i;
@@ -507,6 +512,20 @@ function populateSelects(){
       sel.appendChild(opt);
     }
   });
+}
+
+function copyUid(el) {
+  const uidText = "5012140737488439073";
+  navigator.clipboard.writeText(uidText);
+  const origText = el.textContent;
+  el.textContent = "COPIED!";
+  setTimeout(() => { el.textContent = origText; }, 1200);
+}
+
+function updateVisibility() {
+  const isTmg = globalPointsMode === 'tmg';
+  document.getElementById('sec-signets').style.display = isTmg ? 'flex' : 'none';
+  document.getElementById('sec-finecraft').style.display = isTmg ? 'flex' : 'none';
 }
 
 function recalcStamina(){
@@ -582,19 +601,27 @@ function recalcSpeedupDay(){
   const resM = parseFloat(document.getElementById('sp-res-m').value) || 0;
   const resTotalMins = resD * 1440 + resH * 60 + resM;
 
-  const fineCraft = parseFloat(document.getElementById('fine-craft-qty').value) || 0;
-  const copperSand = parseFloat(document.getElementById('signet-copper').value) || 0;
-  const silverSand = parseFloat(document.getElementById('signet-silver').value) || 0;
-  const fineGold = parseFloat(document.getElementById('signet-gold').value) || 0;
-  const meteorSteel = parseFloat(document.getElementById('signet-steel').value) || 0;
+  let fineCraft = 0;
+  let copperSand = 0;
+  let silverSand = 0;
+  let fineGold = 0;
+  let meteorSteel = 0;
+
+  if (globalPointsMode === 'tmg') {
+    fineCraft = parseFloat(document.getElementById('fine-craft-qty').value) || 0;
+    copperSand = parseFloat(document.getElementById('signet-copper').value) || 0;
+    silverSand = parseFloat(document.getElementById('signet-silver').value) || 0;
+    fineGold = parseFloat(document.getElementById('signet-gold').value) || 0;
+    meteorSteel = parseFloat(document.getElementById('signet-steel').value) || 0;
+  }
 
   let ptsBldgMin = globalPointsMode === 'tmg' ? 30 : 240;
   let ptsResMin = globalPointsMode === 'tmg' ? 30 : 240;
-  let ptsCraft = globalPointsMode === 'tmg' ? 2000 : 16000;
-  let ptsCopper = globalPointsMode === 'tmg' ? 400 : 3200;
-  let ptsSilver = globalPointsMode === 'tmg' ? 1000 : 8000;
-  let ptsGold = globalPointsMode === 'tmg' ? 3000 : 24000;
-  let ptsSteel = globalPointsMode === 'tmg' ? 20000 : 160000;
+  let ptsCraft = 2000;
+  let ptsCopper = 400;
+  let ptsSilver = 1000;
+  let ptsGold = 3000;
+  let ptsSteel = 20000;
 
   const totalPoints = (bldgTotalMins * ptsBldgMin) +
                       (resTotalMins * ptsResMin) +
@@ -608,6 +635,7 @@ function recalcSpeedupDay(){
 }
 
 function recalcAll(){
+  updateVisibility();
   recalcForge();
   recalcStamina();
   recalcSpeedupDay();
@@ -615,16 +643,7 @@ function recalcAll(){
 
 populateSelects();
 
-['lvl-blacksmith', 'lvl-workshop', 'lvl-renovation', 'sp-forge-d', 'sp-forge-h', 'sp-forge-m'].forEach(id => {
-  document.getElementById(id).addEventListener('input', recalcForge);
-});
-
-['sp-bldg-d', 'sp-bldg-h', 'sp-bldg-m', 'sp-res-d', 'sp-res-h', 'sp-res-m', 'fine-craft-qty', 'signet-copper', 'signet-silver', 'signet-gold', 'signet-steel'].forEach(id => {
-  document.getElementById(id).addEventListener('input', recalcSpeedupDay);
-});
-
-document.getElementById('staminaInput').addEventListener('input', recalcStamina);
-document.querySelectorAll('select').forEach(sel => sel.addEventListener('change', recalcForge));
+document.querySelectorAll('select').forEach(sel => sel.addEventListener('change', recalcAll));
 
 document.querySelectorAll('.global-toggle-btn').forEach(btn => {
   btn.addEventListener('click', () => {
@@ -636,12 +655,6 @@ document.querySelectorAll('.global-toggle-btn').forEach(btn => {
 });
 
 recalcAll();
-
-if ('serviceWorker' in navigator) {
-  navigator.serviceWorker.register('sw.js').then(function() {
-    console.log('Service Worker Registered');
-  });
-}
 </script>
 </body>
 </html>
