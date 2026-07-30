@@ -1,15 +1,17 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="sv">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <meta name="theme-color" content="#10151c">
 
+<!-- PWA & Mobile UI Tags -->
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="apple-mobile-web-app-title" content="AOEM Calc">
 
+<!-- Web App Manifest via Data URI för PWA-installation -->
 <link rel="manifest" href='data:application/manifest+json,{"name":"AOE Mobile Calculator","short_name":"AOEM Calc","start_url":".","display":"standalone","background_color":"#10151c","theme_color":"#10151c","icons":[{"src":"data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>⚒️</text></svg>","sizes":"192x192 512x512","type":"image/svg+xml"}]}'>
 
 <title>AOEM Calculator V3</title>
@@ -52,7 +54,6 @@
     gap: 10px;
   }
 
-  /* TOP BAR / BANNER */
   .aoe-banner {
     background: linear-gradient(180deg, #1b2432 0%, #10151c 100%);
     border: 1px solid var(--panel-border);
@@ -126,7 +127,6 @@
   .tab-content { display: none; flex-direction: column; gap: 10px; }
   .tab-content.active { display: flex; }
 
-  /* CARDS & STATS */
   .totals {
     display: grid;
     grid-template-columns: repeat(3, minmax(0, 1fr));
@@ -197,6 +197,8 @@
     gap: 8px;
   }
 
+  .gear-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; }
+
   .field { display: flex; flex-direction: column; gap: 4px; }
   .field label { font-size: 8px; text-transform: uppercase; color: var(--text-sub); text-align: center; }
 
@@ -212,6 +214,7 @@
     padding: 0;
     font-size: 12px;
     height: 34px;
+    user-select: text;
   }
 
   select:focus, input:focus {
@@ -219,7 +222,6 @@
     outline: none;
   }
 
-  /* BOTTOM NAVIGATION BAR (AOE UI STYLE) */
   .bottom-nav {
     position: fixed;
     bottom: 0;
@@ -229,7 +231,7 @@
     background: #0d1117;
     border-top: 1px solid var(--panel-border);
     display: flex;
-    justify-content: space-around;
+    justify-space: space-around;
     align-items: center;
     z-index: 1000;
     padding-bottom: env(safe-area-inset-bottom);
@@ -342,7 +344,7 @@
     <div class="input-row">
       <div class="tier" style="flex: 1 1 100%;">
         <div class="tier-header"><span>Gear Crafting</span></div>
-        <div class="level-body gear-grid" style="grid-template-columns: repeat(4, 1fr);">
+        <div class="level-body gear-grid">
           <div class="field gear-item" data-base="7200" data-points-tme="10000" data-points-tmg="1000">
             <label>Rare</label>
             <select class="qty" data-min="0" data-max="999" data-default="0"></select>
@@ -427,7 +429,8 @@
 
   <footer>
     <div class="credit">
-      BABYMETAL ERA #008 | <span class="uid">UID: 5012140737488439073</span>
+      Created by BABYMETAL ERA #008<br>
+      <span class="uid">UID for Apex donations: 5012140737488439073</span>
     </div>
   </footer>
 </div>
@@ -452,14 +455,16 @@
 </nav>
 
 <script>
+// Inline Service Worker för att PWA-kraven på installation ska uppfyllas
 if ('serviceWorker' in navigator) {
   const swCode = `
-    self.addEventListener('install', e => self.skipWaiting());
-    self.addEventListener('activate', e => self.clients.claim());
-    self.addEventListener('fetch', e => e.respondWith(fetch(e.request).catch(() => new Response('Offline'))));
+    self.addEventListener('install', e => e.waitUntil(self.skipWaiting()));
+    self.addEventListener('activate', e => e.waitUntil(self.clients.claim()));
+    self.addEventListener('fetch', e => e.respondWith(fetch(e.request)));
   `;
   const blob = new Blob([swCode], { type: 'application/javascript' });
-  navigator.serviceWorker.register(URL.createObjectURL(blob)).catch(() => {});
+  const swUrl = URL.createObjectURL(blob);
+  navigator.serviceWorker.register(swUrl).catch(() => {});
 }
 
 const BLACKSMITH_PCT = {
