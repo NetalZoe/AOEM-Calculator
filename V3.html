@@ -1,0 +1,652 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="theme-color" content="#10151c">
+
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="AOEM Calc">
+
+<link rel="manifest" href='data:application/manifest+json,{"name":"AOE Mobile Calculator","short_name":"AOEM Calc","start_url":".","display":"standalone","background_color":"#10151c","theme_color":"#10151c","icons":[{"src":"data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>⚒️</text></svg>","sizes":"192x192 512x512","type":"image/svg+xml"}]}'>
+
+<title>AOEM Calculator V3</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;900&display=swap');
+
+  :root {
+    --bg-main: #10151c;
+    --panel-bg: #18202b;
+    --panel-header: #1f2a38;
+    --panel-border: #283547;
+    --gold-primary: #d4a748;
+    --gold-bright: #f7d678;
+    --gold-dark: #8c6a21;
+    --text-main: #e2e8f0;
+    --text-sub: #8a99ad;
+
+    --md-shape-corner-m: 4px;
+    --md-shape-corner-l: 6px;
+    --md-shape-corner-full: 9999px;
+  }
+
+  * { box-sizing: border-box; user-select: none; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Cinzel', serif;
+    color: var(--text-main);
+    background-color: var(--bg-main);
+    background-image: radial-gradient(circle at top, #19222f 0%, var(--bg-main) 85%);
+    margin: 0;
+    padding: 10px 10px 70px 10px;
+    min-height: 100vh;
+  }
+
+  .wrap {
+    max-width: 800px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  /* TOP BAR / BANNER */
+  .aoe-banner {
+    background: linear-gradient(180deg, #1b2432 0%, #10151c 100%);
+    border: 1px solid var(--panel-border);
+    border-bottom: 2px solid var(--gold-primary);
+    border-radius: var(--md-shape-corner-l);
+    padding: 10px;
+    text-align: center;
+  }
+
+  .aoe-title-row {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+  }
+
+  .aoe-title-single {
+    font-weight: 900;
+    font-size: 16px;
+    letter-spacing: 1px;
+    background: linear-gradient(180deg, #ffffff 0%, #ffe699 40%, var(--gold-primary) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    line-height: 1;
+  }
+
+  .aoe-badge {
+    background: linear-gradient(180deg, #fcebb6 0%, var(--gold-primary) 100%);
+    color: #080d14;
+    font-weight: 900;
+    font-size: 9px;
+    letter-spacing: 1px;
+    padding: 2px 6px;
+    border-radius: 2px;
+  }
+
+  .subtitle {
+    font-size: 11px;
+    color: var(--gold-bright);
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    margin-top: 4px;
+  }
+
+  .points-toggle {
+    display: inline-flex;
+    background: #0a0d12;
+    border: 1px solid var(--panel-border);
+    border-radius: var(--md-shape-corner-full);
+    padding: 2px;
+    margin-top: 6px;
+  }
+
+  .points-toggle button {
+    font-family: 'Cinzel', serif;
+    font-size: 10px;
+    font-weight: 700;
+    padding: 4px 14px;
+    border-radius: var(--md-shape-corner-full);
+    border: none;
+    background: transparent;
+    color: var(--text-sub);
+    cursor: pointer;
+  }
+
+  .points-toggle button.active {
+    background: linear-gradient(180deg, #fce08b 0%, var(--gold-primary) 100%);
+    color: #0a0d12;
+  }
+
+  .tab-content { display: none; flex-direction: column; gap: 10px; }
+  .tab-content.active { display: flex; }
+
+  /* CARDS & STATS */
+  .totals {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 8px;
+  }
+
+  .m3-card {
+    background: var(--panel-bg);
+    border: 1px solid var(--panel-border);
+    border-radius: var(--md-shape-corner-l);
+    padding: 8px 4px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  .total-label {
+    font-size: 9px;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    color: var(--gold-primary);
+    margin-bottom: 3px;
+  }
+
+  .total-value {
+    font-size: 15px;
+    font-weight: 900;
+    color: var(--gold-bright);
+    line-height: 1;
+  }
+  .total-value.points, .total-value.balance-ahead { color: #81c784; }
+  .total-value.balance-behind { color: #e57373; }
+
+  .input-row { display: flex; gap: 8px; flex-wrap: wrap; }
+  
+  .tier {
+    flex: 1;
+    min-width: 0;
+    background: var(--panel-bg);
+    border: 1px solid var(--panel-border);
+    border-radius: var(--md-shape-corner-l);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .input-row .tier {
+    min-width: 240px;
+  }
+
+  .tier-header {
+    padding: 6px;
+    font-family: 'Cinzel', serif;
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--gold-bright);
+    background: var(--panel-header);
+    border-bottom: 1px solid var(--panel-border);
+    text-align: center;
+    letter-spacing: 0.5px;
+  }
+
+  .level-body, .speedup-body {
+    padding: 10px;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
+  }
+
+  .field { display: flex; flex-direction: column; gap: 4px; }
+  .field label { font-size: 8px; text-transform: uppercase; color: var(--text-sub); text-align: center; }
+
+  select, input[type="number"] {
+    width: 100%;
+    background: #0a0d12;
+    border: 1px solid var(--panel-border);
+    border-radius: var(--md-shape-corner-m);
+    color: #ffffff;
+    font-family: 'Cinzel', serif;
+    font-weight: 700;
+    text-align: center;
+    padding: 0;
+    font-size: 12px;
+    height: 34px;
+  }
+
+  select:focus, input:focus {
+    border-color: var(--gold-primary);
+    outline: none;
+  }
+
+  /* BOTTOM NAVIGATION BAR (AOE UI STYLE) */
+  .bottom-nav {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 52px;
+    background: #0d1117;
+    border-top: 1px solid var(--panel-border);
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    z-index: 1000;
+    padding-bottom: env(safe-area-inset-bottom);
+  }
+
+  .nav-item {
+    flex: 1;
+    height: 100%;
+    background: transparent;
+    border: none;
+    color: var(--text-sub);
+    font-family: 'Cinzel', serif;
+    font-size: 9px;
+    font-weight: 700;
+    text-transform: uppercase;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 2px;
+    cursor: pointer;
+    border-top: 2px solid transparent;
+  }
+
+  .nav-item.active {
+    color: var(--gold-bright);
+    background: linear-gradient(180deg, rgba(212, 167, 72, 0.1) 0%, transparent 100%);
+    border-top: 2px solid var(--gold-primary);
+  }
+
+  footer { text-align: center; font-size: 8px; color: var(--text-sub); margin-top: 6px; }
+  footer .credit { color: var(--gold-bright); font-size: 9px; font-weight: 700; }
+  footer .credit .uid { color: var(--gold-primary); font-size: 8px; font-weight: 500; }
+
+  @media (max-width: 600px) {
+    .gear-grid, .signet-grid { grid-template-columns: repeat(2, 1fr) !important; }
+  }
+</style>
+</head>
+<body>
+
+<div class="wrap">
+  <div class="aoe-banner">
+    <div class="aoe-title-row">
+      <span class="aoe-title-single">AGE OF EMPIRES</span>
+      <span class="aoe-badge">MOBILE</span>
+    </div>
+    
+    <div class="subtitle" id="pageTitle">Forge Calculator</div>
+    <div class="points-toggle">
+      <button type="button" class="global-toggle-btn active" data-mode="tme">TME</button>
+      <button type="button" class="global-toggle-btn" data-mode="tmg">TMG</button>
+    </div>
+  </div>
+
+  <!-- TAB 1: STAMINA -->
+  <div id="tab-stamina" class="tab-content">
+    <div class="m3-card">
+      <div class="total-label" id="staminaLabel">Points for 0 Tribes(level 30)</div>
+      <div class="total-value points" id="staminaPointsDisplay">0</div>
+    </div>
+    <div class="tier">
+      <div class="tier-header"><span>Stamina Input</span></div>
+      <div class="level-body" style="grid-template-columns: 1fr;">
+        <div class="field">
+          <label>Stamina Amount</label>
+          <input type="number" id="staminaInput" min="0" placeholder="0">
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- TAB 2: FORGE -->
+  <div id="tab-forge" class="tab-content active">
+    <div class="totals">
+      <div class="m3-card">
+        <div class="total-label">Forge Time</div>
+        <div class="total-value" id="totalTime">0</div>
+      </div>
+      <div class="m3-card">
+        <div class="total-label">Balance</div>
+        <div class="total-value" id="balanceValue">0</div>
+      </div>
+      <div class="m3-card">
+        <div class="total-label">Points</div>
+        <div class="total-value points" id="totalPoints">0</div>
+      </div>
+    </div>
+
+    <div class="input-row">
+      <div class="tier" data-tier="level">
+        <div class="tier-header"><span>Level</span></div>
+        <div class="level-body">
+          <div class="field"><label>Blacksmith</label><select id="lvl-blacksmith" data-min="1" data-max="40" data-default="1"></select></div>
+          <div class="field"><label>Renovation</label><select id="lvl-renovation" data-min="0" data-max="5" data-default="0"></select></div>
+          <div class="field"><label>Workshop</label><select id="lvl-workshop" data-min="0" data-max="10" data-default="0"></select></div>
+        </div>
+      </div>
+
+      <div class="tier" data-tier="speedups">
+        <div class="tier-header"><span>Forge Speedups</span></div>
+        <div class="speedup-body">
+          <div class="field"><label>Days</label><input type="number" id="sp-forge-d" min="0" placeholder="0"></div>
+          <div class="field"><label>Hours</label><input type="number" id="sp-forge-h" min="0" max="23" placeholder="0" oninput="limitTime(this, 23)"></div>
+          <div class="field"><label>Minutes</label><input type="number" id="sp-forge-m" min="0" max="59" placeholder="0" oninput="limitTime(this, 59)"></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="input-row">
+      <div class="tier" style="flex: 1 1 100%;">
+        <div class="tier-header"><span>Gear Crafting</span></div>
+        <div class="level-body gear-grid" style="grid-template-columns: repeat(4, 1fr);">
+          <div class="field gear-item" data-base="7200" data-points-tme="10000" data-points-tmg="1000">
+            <label>Rare</label>
+            <select class="qty" data-min="0" data-max="999" data-default="0"></select>
+          </div>
+          <div class="field gear-item" data-base="21600" data-points-tme="30000" data-points-tmg="5000">
+            <label>Epic</label>
+            <select class="qty" data-min="0" data-max="999" data-default="0"></select>
+          </div>
+          <div class="field gear-item" data-base="144000" data-points-tme="200000" data-points-tmg="30000">
+            <label>Legendary</label>
+            <select class="qty" data-min="0" data-max="999" data-default="0"></select>
+          </div>
+          <div class="field gear-item" data-base="36000" data-points-tme="37188" data-points-tmg="5433">
+            <label>Random</label>
+            <select class="qty" data-min="0" data-max="999" data-default="0"></select>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- TAB 3: SPEEDUP DAY -->
+  <div id="tab-speedup-day" class="tab-content">
+    <div class="m3-card">
+      <div class="total-label">Total Points</div>
+      <div class="total-value points" id="speedupDayPointsDisplay">0</div>
+    </div>
+
+    <div class="input-row">
+      <div class="tier" data-tier="speedups">
+        <div class="tier-header"><span>Building Speedups</span></div>
+        <div class="speedup-body">
+          <div class="field"><label>Days</label><input type="number" id="sp-bldg-d" min="0" placeholder="0"></div>
+          <div class="field"><label>Hours</label><input type="number" id="sp-bldg-h" min="0" max="23" placeholder="0" oninput="limitTime(this, 23)"></div>
+          <div class="field"><label>Minutes</label><input type="number" id="sp-bldg-m" min="0" max="59" placeholder="0" oninput="limitTime(this, 59)"></div>
+        </div>
+      </div>
+
+      <div class="tier" data-tier="speedups">
+        <div class="tier-header"><span>Research Speedups</span></div>
+        <div class="speedup-body">
+          <div class="field"><label>Days</label><input type="number" id="sp-res-d" min="0" placeholder="0"></div>
+          <div class="field"><label>Hours</label><input type="number" id="sp-res-h" min="0" max="23" placeholder="0" oninput="limitTime(this, 23)"></div>
+          <div class="field"><label>Minutes</label><input type="number" id="sp-res-m" min="0" max="59" placeholder="0" oninput="limitTime(this, 59)"></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="input-row">
+      <div class="tier" style="flex: 1 1 100%;">
+        <div class="tier-header"><span>Signet Rings</span></div>
+        <div class="level-body signet-grid" style="grid-template-columns: repeat(4, 1fr);">
+          <div class="field"><label>Copper Sand</label><input type="number" id="signet-copper" min="0" placeholder="0"></div>
+          <div class="field"><label>Silver Sand</label><input type="number" id="signet-silver" min="0" placeholder="0"></div>
+          <div class="field"><label>Fine Gold</label><input type="number" id="signet-gold" min="0" placeholder="0"></div>
+          <div class="field"><label>Meteor Steel</label><input type="number" id="signet-steel" min="0" placeholder="0"></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="input-row">
+      <div class="tier" style="flex: 1 1 100%;">
+        <div class="tier-header"><span>Fine Craft</span></div>
+        <div class="level-body" style="grid-template-columns: 1fr;">
+          <div class="field"><label>Craft Count</label><input type="number" id="fine-craft-qty" min="0" placeholder="0"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- TAB 4: TRAINING -->
+  <div id="tab-training" class="tab-content">
+    <div class="tier" data-tier="speedups">
+      <div class="tier-header"><span>Training Speedups</span></div>
+      <div class="speedup-body">
+        <div class="field"><label>Days</label><input type="number" min="0" placeholder="0"></div>
+        <div class="field"><label>Hours</label><input type="number" min="0" max="23" placeholder="0" oninput="limitTime(this, 23)"></div>
+        <div class="field"><label>Minutes</label><input type="number" min="0" max="59" placeholder="0" oninput="limitTime(this, 59)"></div>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    <div class="credit">
+      BABYMETAL ERA #008 | <span class="uid">UID: 5012140737488439073</span>
+    </div>
+  </footer>
+</div>
+
+<nav class="bottom-nav">
+  <button class="nav-item" onclick="switchTab('stamina', 'Stamina Overview', this)">
+    <span>⚡</span>
+    <span>Stamina</span>
+  </button>
+  <button class="nav-item active" onclick="switchTab('forge', 'Forge Calculator', this)">
+    <span>⚒️</span>
+    <span>Forge</span>
+  </button>
+  <button class="nav-item" onclick="switchTab('speedup-day', 'Speedup Day', this)">
+    <span>🏗️</span>
+    <span>Speedup Day</span>
+  </button>
+  <button class="nav-item" onclick="switchTab('training', 'Training Speedups', this)">
+    <span>⚔️</span>
+    <span>Training</span>
+  </button>
+</nav>
+
+<script>
+if ('serviceWorker' in navigator) {
+  const swCode = `
+    self.addEventListener('install', e => self.skipWaiting());
+    self.addEventListener('activate', e => self.clients.claim());
+    self.addEventListener('fetch', e => e.respondWith(fetch(e.request).catch(() => new Response('Offline'))));
+  `;
+  const blob = new Blob([swCode], { type: 'application/javascript' });
+  navigator.serviceWorker.register(URL.createObjectURL(blob)).catch(() => {});
+}
+
+const BLACKSMITH_PCT = {
+  1:2, 2:4, 3:6, 4:8, 5:10, 6:12, 7:14, 8:16, 9:2, 10:21,
+  11:24, 12:27, 13:30, 14:33, 15:36, 16:39, 17:42, 18:45, 19:48, 20:52,
+  21:56, 22:60, 23:64, 24:68, 25:73, 26:78, 27:83, 28:88, 29:94, 30:101,
+  31:107, 32:115, 33:123, 34:131, 35:141, 36:151, 37:162, 38:174, 39:187, 40:201
+};
+
+const RENOVATION_PCT = { 0:0, 1:8, 2:16, 3:24, 4:32, 5:40 };
+
+let globalPointsMode = 'tme';
+
+function switchTab(tabId, title, btn) {
+  document.querySelectorAll('.tab-content').forEach(tc => tc.classList.remove('active'));
+  document.querySelectorAll('.nav-item').forEach(ni => ni.classList.remove('active'));
+
+  document.getElementById('tab-' + tabId).classList.add('active');
+  btn.classList.add('active');
+  document.getElementById('pageTitle').textContent = title;
+}
+
+function limitTime(el, max) {
+  if (parseInt(el.value) > max) el.value = max;
+  if (parseInt(el.value) < 0) el.value = 0;
+}
+
+function workshopPct(level){ return level * 2; }
+
+function formatTime(totalSeconds){
+  let totalMins = Math.round(totalSeconds / 60);
+  if (totalMins === 0) return "0";
+  const days = Math.floor(totalMins / 1440);
+  totalMins %= 1440;
+  const hours = Math.floor(totalMins / 60);
+  const mins = totalMins % 60;
+  return `${days}d ${hours}h ${mins}m`;
+}
+
+function formatPoints(n){
+  if (n >= 1000000) return (n/1000000).toFixed(n % 1000000 === 0 ? 0 : 1).replace(/\.0$/,'') + 'm';
+  if (n >= 1000) return (n/1000).toFixed(n % 1000 === 0 ? 0 : 1).replace(/\.0$/,'') + 'k';
+  return String(n);
+}
+
+function populateSelects(){
+  document.querySelectorAll('select[data-max]').forEach(sel => {
+    const min = parseInt(sel.dataset.min || '0', 10);
+    const max = parseInt(sel.dataset.max, 10);
+    const def = parseInt(sel.dataset.default || String(min), 10);
+    for (let i = min; i <= max; i++){
+      const opt = document.createElement('option');
+      opt.value = i;
+      opt.textContent = i;
+      if (i === def) opt.selected = true;
+      sel.appendChild(opt);
+    }
+  });
+}
+
+function recalcStamina(){
+  const staminaAmount = parseFloat(document.getElementById('staminaInput').value) || 0;
+  const tribes = Math.floor(staminaAmount / 5);
+  const ptsPerTribe = globalPointsMode === 'tmg' ? 300 : 24000;
+  const totalPoints = tribes * ptsPerTribe;
+
+  document.getElementById('staminaLabel').textContent = `Points for ${tribes} Tribes(level 30)`;
+  document.getElementById('staminaPointsDisplay').textContent = formatPoints(totalPoints);
+}
+
+function recalcForge(){
+  const blacksmithLevel = parseInt(document.getElementById('lvl-blacksmith').value, 10) || 1;
+  const workshopLevel = parseInt(document.getElementById('lvl-workshop').value, 10) || 0;
+  const renovationLevel = parseInt(document.getElementById('lvl-renovation').value, 10) || 0;
+
+  const blacksmithPct = BLACKSMITH_PCT[blacksmithLevel] || 0;
+  const workPct = workshopPct(workshopLevel);
+  const renoPct = RENOVATION_PCT[renovationLevel] || 0;
+
+  const totalSpeedupPct = blacksmithPct + workPct + renoPct;
+  const speedFactor = 1 + (totalSpeedupPct / 100);
+
+  let grandSeconds = 0;
+  let grandPoints = 0;
+
+  document.querySelectorAll('.gear-item').forEach(item => {
+    const qty = parseFloat(item.querySelector('.qty').value) || 0;
+    const baseSeconds = parseFloat(item.dataset.base) || 0;
+    const pointsPerItem = parseFloat(globalPointsMode === 'tmg' ? item.dataset.pointsTmg : item.dataset.pointsTme) || 0;
+
+    const subtotalSeconds = (baseSeconds / speedFactor) * qty;
+    grandSeconds += subtotalSeconds;
+    grandPoints += pointsPerItem * qty;
+  });
+
+  const totalTimeEl = document.getElementById('totalTime');
+  totalTimeEl.textContent = grandSeconds > 0 ? formatTime(grandSeconds) : '0';
+  document.getElementById('totalPoints').textContent = formatPoints(grandPoints);
+
+  const spD = parseFloat(document.getElementById('sp-forge-d').value) || 0;
+  const spH = parseFloat(document.getElementById('sp-forge-h').value) || 0;
+  const spM = parseFloat(document.getElementById('sp-forge-m').value) || 0;
+  const bankedSeconds = spD*86400 + spH*3600 + spM*60;
+
+  const diff = bankedSeconds - grandSeconds;
+  const balanceEl = document.getElementById('balanceValue');
+
+  if (bankedSeconds === 0 && grandSeconds === 0) {
+    balanceEl.textContent = '0';
+    balanceEl.className = 'total-value';
+  } else {
+    const formattedDiff = formatTime(Math.abs(diff));
+    if (formattedDiff === '0') {
+      balanceEl.textContent = '0';
+      balanceEl.className = 'total-value balance-ahead';
+    } else {
+      balanceEl.textContent = (diff >= 0 ? '+' : '-') + formattedDiff;
+      balanceEl.className = 'total-value ' + (diff >= 0 ? 'balance-ahead' : 'balance-behind');
+    }
+  }
+}
+
+function recalcSpeedupDay(){
+  const bldgD = parseFloat(document.getElementById('sp-bldg-d').value) || 0;
+  const bldgH = parseFloat(document.getElementById('sp-bldg-h').value) || 0;
+  const bldgM = parseFloat(document.getElementById('sp-bldg-m').value) || 0;
+  const bldgTotalMins = bldgD * 1440 + bldgH * 60 + bldgM;
+
+  const resD = parseFloat(document.getElementById('sp-res-d').value) || 0;
+  const resH = parseFloat(document.getElementById('sp-res-h').value) || 0;
+  const resM = parseFloat(document.getElementById('sp-res-m').value) || 0;
+  const resTotalMins = resD * 1440 + resH * 60 + resM;
+
+  const fineCraft = parseFloat(document.getElementById('fine-craft-qty').value) || 0;
+  const copperSand = parseFloat(document.getElementById('signet-copper').value) || 0;
+  const silverSand = parseFloat(document.getElementById('signet-silver').value) || 0;
+  const fineGold = parseFloat(document.getElementById('signet-gold').value) || 0;
+  const meteorSteel = parseFloat(document.getElementById('signet-steel').value) || 0;
+
+  let ptsBldgMin = globalPointsMode === 'tmg' ? 30 : 240;
+  let ptsResMin = globalPointsMode === 'tmg' ? 30 : 240;
+  let ptsCraft = globalPointsMode === 'tmg' ? 2000 : 16000;
+  let ptsCopper = globalPointsMode === 'tmg' ? 400 : 3200;
+  let ptsSilver = globalPointsMode === 'tmg' ? 1000 : 8000;
+  let ptsGold = globalPointsMode === 'tmg' ? 3000 : 24000;
+  let ptsSteel = globalPointsMode === 'tmg' ? 20000 : 160000;
+
+  const totalPoints = (bldgTotalMins * ptsBldgMin) +
+                      (resTotalMins * ptsResMin) +
+                      (fineCraft * ptsCraft) +
+                      (copperSand * ptsCopper) +
+                      (silverSand * ptsSilver) +
+                      (fineGold * ptsGold) +
+                      (meteorSteel * ptsSteel);
+
+  document.getElementById('speedupDayPointsDisplay').textContent = formatPoints(totalPoints);
+}
+
+function recalcAll(){
+  recalcForge();
+  recalcStamina();
+  recalcSpeedupDay();
+}
+
+populateSelects();
+
+['lvl-blacksmith', 'lvl-workshop', 'lvl-renovation', 'sp-forge-d', 'sp-forge-h', 'sp-forge-m'].forEach(id => {
+  document.getElementById(id).addEventListener('input', recalcForge);
+});
+
+['sp-bldg-d', 'sp-bldg-h', 'sp-bldg-m', 'sp-res-d', 'sp-res-h', 'sp-res-m', 'fine-craft-qty', 'signet-copper', 'signet-silver', 'signet-gold', 'signet-steel'].forEach(id => {
+  document.getElementById(id).addEventListener('input', recalcSpeedupDay);
+});
+
+document.getElementById('staminaInput').addEventListener('input', recalcStamina);
+document.querySelectorAll('select').forEach(sel => sel.addEventListener('change', recalcForge));
+
+document.querySelectorAll('.global-toggle-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    globalPointsMode = btn.dataset.mode;
+    document.querySelectorAll('.global-toggle-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    recalcAll();
+  });
+});
+
+recalcAll();
+</script>
+</body>
+</html>
