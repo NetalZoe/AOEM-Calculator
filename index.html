@@ -207,15 +207,24 @@
   }
 
   .tier-header {
-    padding: 8px;
+    padding: 8px 12px;
     font-family: 'Cinzel', serif;
     font-size: 13px;
     font-weight: 700;
     color: var(--gold-bright);
     background: var(--panel-header);
     border-bottom: 1px solid var(--panel-border);
-    text-align: center;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
     letter-spacing: 0.5px;
+  }
+
+  .tier-header-right {
+    font-size: 10px;
+    font-weight: 600;
+    color: var(--text-sub);
+    text-transform: none;
   }
 
   .level-body, .speedup-body {
@@ -675,7 +684,10 @@
     <!-- Train and Promote on the same row -->
     <div class="input-row">
       <div class="tier" style="flex: 1;">
-        <div class="tier-header"><span>Train</span></div>
+        <div class="tier-header">
+          <span>Train</span>
+          <span class="tier-header-right" id="train-balance-header" style="display: none;">Balance: 0 units</span>
+        </div>
         <div class="level-body" style="grid-template-columns: repeat(2, 1fr);">
           <div class="field">
             <label>Tier</label>
@@ -689,7 +701,10 @@
       </div>
 
       <div class="tier" style="flex: 1.5;">
-        <div class="tier-header"><span>Promote</span></div>
+        <div class="tier-header">
+          <span>Promote</span>
+          <span class="tier-header-right" id="promote-balance-header" style="display: none;">Balance: 0 units</span>
+        </div>
         <div class="level-body" style="grid-template-columns: repeat(3, 1fr);">
           <div class="field">
             <label>From</label>
@@ -1103,6 +1118,31 @@ function getTrainingData() {
 
   const grandSeconds = trainSeconds + promoteSeconds;
   const grandPoints = trainPts + promotePts;
+
+  const spD = getVal('sp-train-d');
+  const spH = getVal('sp-train-h');
+  const spM = getVal('sp-train-m');
+  const bankedSeconds = spD * 86400 + spH * 3600 + spM * 60;
+
+  const trainHeader = document.getElementById('train-balance-header');
+  const promoteHeader = document.getElementById('promote-balance-header');
+
+  if (bankedSeconds === 0) {
+    trainHeader.style.display = 'none';
+    promoteHeader.style.display = 'none';
+  } else {
+    trainHeader.style.display = '';
+    promoteHeader.style.display = '';
+
+    const trainSecPerUnit = trainBaseSec / speedFactor;
+    const trainUnitBalance = trainSecPerUnit > 0 ? Math.floor(bankedSeconds / trainSecPerUnit) : 0;
+
+    const promSecPerUnit = promDiffSec / speedFactor;
+    const promUnitBalance = promSecPerUnit > 0 ? Math.floor(bankedSeconds / promSecPerUnit) : 0;
+
+    trainHeader.textContent = `Balance: ${trainUnitBalance.toLocaleString('en-US')} units`;
+    promoteHeader.textContent = `Balance: ${promUnitBalance.toLocaleString('en-US')} units`;
+  }
 
   return { grandSeconds, grandPoints };
 }
