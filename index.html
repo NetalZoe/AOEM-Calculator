@@ -428,12 +428,16 @@
         <button type="button" class="global-toggle-btn" data-mode="tmg">TMG</button>
       </div>
     </div>
+    <div class="m3-card" style="margin-top: 8px; background: #181716; border-color: var(--panel-border);">
+      <div class="total-label">Total Points</div>
+      <div class="total-value points" id="grandTotalPointsDisplay">0</div>
+    </div>
   </div>
 
   <!-- TAB 1: TRIBES -->
   <div id="tab-tribes" class="tab-content">
     <div class="m3-card">
-      <div class="total-label" id="tribesLabel">Points for 0 Tribes (0 Stamina)</div>
+      <div class="total-label" id="tribesLabel">Points for 0 Tribes</div>
       <div class="total-value points" id="tribesPointsDisplay">0</div>
     </div>
     <div class="input-row">
@@ -458,8 +462,8 @@
     </div>
   </div>
 
-  <!-- TAB 2: FORGE -->
-  <div id="tab-forge" class="tab-content active">
+  <!-- TAB 2: HERO GROWTH -->
+  <div id="tab-hero-growth" class="tab-content active">
     <div class="totals">
       <div class="m3-card">
         <div class="total-label">Forge Time</div>
@@ -518,12 +522,29 @@
         </div>
       </div>
     </div>
+
+    <div class="input-row" id="sec-hero-items" style="display: none;">
+      <div class="tier" style="flex: 1;">
+        <div class="tier-header"><span>Medals</span></div>
+        <div class="level-body" style="grid-template-columns: repeat(2, 1fr);">
+          <div class="field"><label>Epic</label><div class="num-box numpad-trigger" id="medal-epic" data-min="0" data-max="9999" data-default="0">0</div></div>
+          <div class="field"><label>Legendary</label><div class="num-box numpad-trigger" id="medal-legendary" data-min="0" data-max="9999" data-default="0">0</div></div>
+        </div>
+      </div>
+      <div class="tier" style="flex: 1;">
+        <div class="tier-header"><span>Scrolls</span></div>
+        <div class="level-body" style="grid-template-columns: repeat(2, 1fr);">
+          <div class="field"><label>Epic</label><div class="num-box numpad-trigger" id="scroll-epic" data-min="0" data-max="9999" data-default="0">0</div></div>
+          <div class="field"><label>Legendary</label><div class="num-box numpad-trigger" id="scroll-legendary" data-min="0" data-max="9999" data-default="0">0</div></div>
+        </div>
+      </div>
+    </div>
   </div>
 
   <!-- TAB 3: SPEEDUP DAY -->
   <div id="tab-speedup-day" class="tab-content">
     <div class="m3-card">
-      <div class="total-label">Total Points</div>
+      <div class="total-label">Speedup Points</div>
       <div class="total-value points" id="speedupDayPointsDisplay">0</div>
     </div>
 
@@ -571,6 +592,10 @@
 
   <!-- TAB 4: TRAINING -->
   <div id="tab-training" class="tab-content">
+    <div class="m3-card">
+      <div class="total-label">Training Points</div>
+      <div class="total-value points" id="trainingPointsDisplay">0</div>
+    </div>
     <div class="tier" data-tier="speedups">
       <div class="tier-header"><span>Training Speedups</span></div>
       <div class="speedup-body">
@@ -625,9 +650,9 @@
     <span>⚡</span>
     <span>Tribes</span>
   </button>
-  <button class="nav-item active" onclick="switchTab('forge', this)">
+  <button class="nav-item active" onclick="switchTab('hero-growth', this)">
     <span>⚒️</span>
-    <span>Forge</span>
+    <span>Hero Growth</span>
   </button>
   <button class="nav-item" onclick="switchTab('speedup-day', this)">
     <span>🏗️</span>
@@ -704,6 +729,7 @@ function updateVisibility() {
   const isTmg = globalPointsMode === 'tmg';
   document.getElementById('sec-signets').style.display = isTmg ? 'flex' : 'none';
   document.getElementById('sec-finecraft').style.display = isTmg ? 'flex' : 'none';
+  document.getElementById('sec-hero-items').style.display = isTmg ? 'flex' : 'none';
 }
 
 function getVal(id) {
@@ -768,7 +794,7 @@ function closeNumpad(commit) {
   activeNumpadTarget = null;
 }
 
-function recalcTribes(){
+function getTribesPoints() {
   const stamina = getVal('staminaInput');
   const tribeLevel = getVal('tribeLevel');
   const tribesCount = Math.floor(stamina / 5);
@@ -784,14 +810,19 @@ function recalcTribes(){
     else if (tribeLevel <= 28) ptsPerTribe = 260;
     else ptsPerTribe = 300;
   }
+  return tribesCount * ptsPerTribe;
+}
 
-  const totalPoints = tribesCount * ptsPerTribe;
+function recalcTribes(){
+  const stamina = getVal('staminaInput');
+  const tribesCount = Math.floor(stamina / 5);
+  const totalPoints = getTribesPoints();
 
-  document.getElementById('tribesLabel').textContent = `Points for ${tribesCount} Tribes (${stamina} Stamina, Level ${tribeLevel})`;
+  document.getElementById('tribesLabel').textContent = `Points for ${tribesCount} Tribes`;
   document.getElementById('tribesPointsDisplay').textContent = formatPoints(totalPoints);
 }
 
-function recalcForge(){
+function getHeroGrowthPoints() {
   const blacksmithLevel = getVal('lvl-blacksmith');
   const workshopLevel = getVal('lvl-workshop');
   const renovationLevel = getVal('lvl-renovation');
@@ -816,6 +847,21 @@ function recalcForge(){
     grandSeconds += subtotalSeconds;
     grandPoints += pointsPerItem * qty;
   });
+
+  if (globalPointsMode === 'tmg') {
+    const medalEpic = getVal('medal-epic');
+    const medalLegendary = getVal('medal-legendary');
+    const scrollEpic = getVal('scroll-epic');
+    const scrollLegendary = getVal('scroll-legendary');
+
+    grandPoints += (medalEpic * 500) + (medalLegendary * 2500) + (scrollEpic * 350) + (scrollLegendary * 2000);
+  }
+
+  return { grandSeconds, grandPoints };
+}
+
+function recalcHeroGrowth(){
+  const { grandSeconds, grandPoints } = getHeroGrowthPoints();
 
   const totalTimeEl = document.getElementById('totalTime');
   totalTimeEl.textContent = grandSeconds > 0 ? formatTime(grandSeconds) : '0';
@@ -844,7 +890,7 @@ function recalcForge(){
   }
 }
 
-function recalcSpeedupDay(){
+function getSpeedupDayPoints() {
   const bldgD = getVal('sp-bldg-d');
   const bldgH = getVal('sp-bldg-h');
   const bldgM = getVal('sp-bldg-m');
@@ -877,22 +923,43 @@ function recalcSpeedupDay(){
   let ptsGold = 3000;
   let ptsSteel = 20000;
 
-  const totalPoints = (bldgTotalMins * ptsBldgMin) +
-                      (resTotalMins * ptsResMin) +
-                      (fineCraft * ptsCraft) +
-                      (copperSand * ptsCopper) +
-                      (silverSand * ptsSilver) +
-                      (fineGold * ptsGold) +
-                      (meteorSteel * ptsSteel);
+  return (bldgTotalMins * ptsBldgMin) +
+         (resTotalMins * ptsResMin) +
+         (fineCraft * ptsCraft) +
+         (copperSand * ptsCopper) +
+         (silverSand * ptsSilver) +
+         (fineGold * ptsGold) +
+         (meteorSteel * ptsSteel);
+}
 
+function recalcSpeedupDay(){
+  const totalPoints = getSpeedupDayPoints();
   document.getElementById('speedupDayPointsDisplay').textContent = formatPoints(totalPoints);
+}
+
+function getTrainingPoints() {
+  const trainD = getVal('sp-train-d');
+  const trainH = getVal('sp-train-h');
+  const trainM = getVal('sp-train-m');
+  const trainTotalMins = trainD * 1440 + trainH * 60 + trainM;
+  let ptsTrainMin = globalPointsMode === 'tmg' ? 30 : 240;
+  return trainTotalMins * ptsTrainMin;
+}
+
+function recalcTraining() {
+  const totalPoints = getTrainingPoints();
+  document.getElementById('trainingPointsDisplay').textContent = formatPoints(totalPoints);
 }
 
 function recalcAll(){
   updateVisibility();
-  recalcForge();
+  recalcHeroGrowth();
   recalcTribes();
   recalcSpeedupDay();
+  recalcTraining();
+
+  const grandTotal = getTribesPoints() + getHeroGrowthPoints().grandPoints + getSpeedupDayPoints() + getTrainingPoints();
+  document.getElementById('grandTotalPointsDisplay').textContent = formatPoints(grandTotal);
 }
 
 initInputs();
