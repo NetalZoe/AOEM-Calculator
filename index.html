@@ -299,7 +299,7 @@
       <div class="level-body" style="grid-template-columns: 1fr;">
         <div class="field">
           <label>Stamina Amount</label>
-          <select id="staminaInput" data-min="0" data-max="5000" data-step="10" data-default="0"></select>
+          <select id="staminaInput" data-min="0" data-max="5000" data-step="100" data-default="0"></select>
         </div>
       </div>
     </div>
@@ -457,7 +457,9 @@
 
 <script>
 if ('serviceWorker' in navigator) {
-  navigator.serviceWorker.register('sw.js').catch(() => {});
+  navigator.serviceWorker.getRegistrations().then(registrations => {
+    for (let r of registrations) r.unregister();
+  });
 }
 
 const BLACKSMITH_PCT = {
