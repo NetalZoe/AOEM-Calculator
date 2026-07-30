@@ -201,7 +201,7 @@
   .field { display: flex; flex-direction: column; gap: 5px; }
   .field label { font-size: 11px; text-transform: uppercase; color: var(--text-sub); text-align: center; font-weight: 600; }
 
-  select {
+  .num-box {
     width: 100%;
     background: #0a0d12;
     border: 1px solid var(--panel-border);
@@ -210,14 +210,118 @@
     font-family: 'Cinzel', serif;
     font-weight: 700;
     text-align: center;
-    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     font-size: 14px;
     height: 40px;
+    cursor: pointer;
   }
 
-  select:focus {
+  .num-box:active {
     border-color: var(--gold-primary);
-    outline: none;
+    background: #141b24;
+  }
+
+  /* NUMPAD MODAL */
+  .numpad-overlay {
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: rgba(0,0,0,0.7);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999;
+    padding: 15px;
+  }
+
+  .numpad-container {
+    background: var(--panel-bg);
+    border: 1px solid var(--gold-primary);
+    border-radius: var(--md-shape-corner-l);
+    width: 100%;
+    max-width: 320px;
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.8);
+  }
+
+  .numpad-header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+    border-bottom: 1px solid var(--panel-border);
+    padding-bottom: 10px;
+  }
+
+  #numpad-title {
+    font-size: 11px;
+    color: var(--text-sub);
+    text-transform: uppercase;
+    font-weight: 700;
+  }
+
+  #numpad-current {
+    font-size: 26px;
+    font-weight: 900;
+    color: var(--gold-bright);
+    height: 36px;
+    display: flex;
+    align-items: center;
+  }
+
+  .numpad-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
+  }
+
+  .numpad-grid button {
+    background: #0d121b;
+    border: 1px solid var(--panel-border);
+    border-radius: var(--md-shape-corner-m);
+    color: var(--text-main);
+    font-family: 'Cinzel', serif;
+    font-size: 18px;
+    font-weight: 700;
+    height: 48px;
+    cursor: pointer;
+  }
+
+  .numpad-grid button:active {
+    background: var(--gold-primary);
+    color: #080d14;
+    border-color: var(--gold-bright);
+  }
+
+  .numpad-actions {
+    display: flex;
+    gap: 8px;
+  }
+
+  .numpad-actions button {
+    flex: 1;
+    font-family: 'Cinzel', serif;
+    font-weight: 700;
+    font-size: 13px;
+    height: 44px;
+    border-radius: var(--md-shape-corner-m);
+    cursor: pointer;
+    border: 1px solid var(--panel-border);
+  }
+
+  .numpad-btn-cancel {
+    background: #1f2a38;
+    color: var(--text-sub);
+  }
+
+  .numpad-btn-ok {
+    background: linear-gradient(180deg, #fce08b 0%, var(--gold-primary) 100%);
+    color: #080d14;
+    border-color: var(--gold-bright);
   }
 
   .bottom-nav {
@@ -315,7 +419,7 @@
       <div class="level-body" style="grid-template-columns: 1fr;">
         <div class="field">
           <label>Stamina Amount</label>
-          <select id="staminaInput" data-min="0" data-max="5000" data-step="100" data-default="0"></select>
+          <div class="num-box numpad-trigger" id="staminaInput" data-min="0" data-max="5000" data-default="0">0</div>
         </div>
       </div>
     </div>
@@ -342,18 +446,18 @@
       <div class="tier" data-tier="level">
         <div class="tier-header"><span>Level</span></div>
         <div class="level-body">
-          <div class="field"><label>Blacksmith</label><select id="lvl-blacksmith" data-min="1" data-max="40" data-default="1"></select></div>
-          <div class="field"><label>Renovation</label><select id="lvl-renovation" data-min="0" data-max="5" data-default="0"></select></div>
-          <div class="field"><label>Workshop</label><select id="lvl-workshop" data-min="0" data-max="10" data-default="0"></select></div>
+          <div class="field"><label>Blacksmith</label><div class="num-box numpad-trigger" id="lvl-blacksmith" data-min="1" data-max="40" data-default="1">1</div></div>
+          <div class="field"><label>Renovation</label><div class="num-box numpad-trigger" id="lvl-renovation" data-min="0" data-max="5" data-default="0">0</div></div>
+          <div class="field"><label>Workshop</label><div class="num-box numpad-trigger" id="lvl-workshop" data-min="0" data-max="10" data-default="0">0</div></div>
         </div>
       </div>
 
       <div class="tier" data-tier="speedups">
         <div class="tier-header"><span>Forge Speedups</span></div>
         <div class="speedup-body">
-          <div class="field"><label>Days</label><select id="sp-forge-d" data-min="0" data-max="700" data-default="0"></select></div>
-          <div class="field"><label>Hours</label><select id="sp-forge-h" data-min="0" data-max="23" data-default="0"></select></div>
-          <div class="field"><label>Minutes</label><select id="sp-forge-m" data-min="0" data-max="59" data-default="0"></select></div>
+          <div class="field"><label>Days</label><div class="num-box numpad-trigger" id="sp-forge-d" data-min="0" data-max="700" data-default="0">0</div></div>
+          <div class="field"><label>Hours</label><div class="num-box numpad-trigger" id="sp-forge-h" data-min="0" data-max="23" data-default="0">0</div></div>
+          <div class="field"><label>Minutes</label><div class="num-box numpad-trigger" id="sp-forge-m" data-min="0" data-max="59" data-default="0">0</div></div>
         </div>
       </div>
     </div>
@@ -364,19 +468,19 @@
         <div class="level-body gear-grid" style="grid-template-columns: repeat(4, 1fr);">
           <div class="field gear-item" data-base="7200" data-points-tme="10000" data-points-tmg="1000">
             <label>Rare</label>
-            <select class="qty" data-min="0" data-max="999" data-default="0"></select>
+            <div class="num-box numpad-trigger qty" id="gear-rare" data-min="0" data-max="999" data-default="0">0</div>
           </div>
           <div class="field gear-item" data-base="21600" data-points-tme="30000" data-points-tmg="5000">
             <label>Epic</label>
-            <select class="qty" data-min="0" data-max="999" data-default="0"></select>
+            <div class="num-box numpad-trigger qty" id="gear-epic" data-min="0" data-max="999" data-default="0">0</div>
           </div>
           <div class="field gear-item" data-base="144000" data-points-tme="200000" data-points-tmg="30000">
             <label>Legendary</label>
-            <select class="qty" data-min="0" data-max="999" data-default="0"></select>
+            <div class="num-box numpad-trigger qty" id="gear-legendary" data-min="0" data-max="999" data-default="0">0</div>
           </div>
           <div class="field gear-item" data-base="36000" data-points-tme="37188" data-points-tmg="5433">
             <label>Random</label>
-            <select class="qty" data-min="0" data-max="999" data-default="0"></select>
+            <div class="num-box numpad-trigger qty" id="gear-random" data-min="0" data-max="999" data-default="0">0</div>
           </div>
         </div>
       </div>
@@ -394,18 +498,18 @@
       <div class="tier" data-tier="speedups">
         <div class="tier-header"><span>Building Speedups</span></div>
         <div class="speedup-body">
-          <div class="field"><label>Days</label><select id="sp-bldg-d" data-min="0" data-max="700" data-default="0"></select></div>
-          <div class="field"><label>Hours</label><select id="sp-bldg-h" data-min="0" data-max="23" data-default="0"></select></div>
-          <div class="field"><label>Minutes</label><select id="sp-bldg-m" data-min="0" data-max="59" data-default="0"></select></div>
+          <div class="field"><label>Days</label><div class="num-box numpad-trigger" id="sp-bldg-d" data-min="0" data-max="700" data-default="0">0</div></div>
+          <div class="field"><label>Hours</label><div class="num-box numpad-trigger" id="sp-bldg-h" data-min="0" data-max="23" data-default="0">0</div></div>
+          <div class="field"><label>Minutes</label><div class="num-box numpad-trigger" id="sp-bldg-m" data-min="0" data-max="59" data-default="0">0</div></div>
         </div>
       </div>
 
       <div class="tier" data-tier="speedups">
         <div class="tier-header"><span>Research Speedups</span></div>
         <div class="speedup-body">
-          <div class="field"><label>Days</label><select id="sp-res-d" data-min="0" data-max="700" data-default="0"></select></div>
-          <div class="field"><label>Hours</label><select id="sp-res-h" data-min="0" data-max="23" data-default="0"></select></div>
-          <div class="field"><label>Minutes</label><select id="sp-res-m" data-min="0" data-max="59" data-default="0"></select></div>
+          <div class="field"><label>Days</label><div class="num-box numpad-trigger" id="sp-res-d" data-min="0" data-max="700" data-default="0">0</div></div>
+          <div class="field"><label>Hours</label><div class="num-box numpad-trigger" id="sp-res-h" data-min="0" data-max="23" data-default="0">0</div></div>
+          <div class="field"><label>Minutes</label><div class="num-box numpad-trigger" id="sp-res-m" data-min="0" data-max="59" data-default="0">0</div></div>
         </div>
       </div>
     </div>
@@ -414,10 +518,10 @@
       <div class="tier" style="flex: 1 1 100%;">
         <div class="tier-header"><span>Signet Rings</span></div>
         <div class="level-body signet-grid" style="grid-template-columns: repeat(4, 1fr);">
-          <div class="field"><label>Copper Sand</label><select id="signet-copper" data-min="0" data-max="500" data-step="10" data-default="0"></select></div>
-          <div class="field"><label>Silver Sand</label><select id="signet-silver" data-min="0" data-max="500" data-step="10" data-default="0"></select></div>
-          <div class="field"><label>Fine Gold</label><select id="signet-gold" data-min="0" data-max="500" data-step="10" data-default="0"></select></div>
-          <div class="field"><label>Meteor Steel</label><select id="signet-steel" data-min="0" data-max="500" data-step="10" data-default="0"></select></div>
+          <div class="field"><label>Copper Sand</label><div class="num-box numpad-trigger" id="signet-copper" data-min="0" data-max="500" data-default="0">0</div></div>
+          <div class="field"><label>Silver Sand</label><div class="num-box numpad-trigger" id="signet-silver" data-min="0" data-max="500" data-default="0">0</div></div>
+          <div class="field"><label>Fine Gold</label><div class="num-box numpad-trigger" id="signet-gold" data-min="0" data-max="500" data-default="0">0</div></div>
+          <div class="field"><label>Meteor Steel</label><div class="num-box numpad-trigger" id="signet-steel" data-min="0" data-max="500" data-default="0">0</div></div>
         </div>
       </div>
     </div>
@@ -426,7 +530,7 @@
       <div class="tier" style="flex: 1 1 100%;">
         <div class="tier-header"><span>Fine Craft</span></div>
         <div class="level-body" style="grid-template-columns: 1fr;">
-          <div class="field"><label>Craft Count</label><select id="fine-craft-qty" data-min="0" data-max="700" data-default="0"></select></div>
+          <div class="field"><label>Craft Count</label><div class="num-box numpad-trigger" id="fine-craft-qty" data-min="0" data-max="700" data-default="0">0</div></div>
         </div>
       </div>
     </div>
@@ -437,9 +541,9 @@
     <div class="tier" data-tier="speedups">
       <div class="tier-header"><span>Training Speedups</span></div>
       <div class="speedup-body">
-        <div class="field"><label>Days</label><select id="sp-train-d" data-min="0" data-max="700" data-default="0"></select></div>
-        <div class="field"><label>Hours</label><select id="sp-train-h" data-min="0" data-max="23" data-default="0"></select></div>
-        <div class="field"><label>Minutes</label><select id="sp-train-m" data-min="0" data-max="59" data-default="0"></select></div>
+        <div class="field"><label>Days</label><div class="num-box numpad-trigger" id="sp-train-d" data-min="0" data-max="700" data-default="0">0</div></div>
+        <div class="field"><label>Hours</label><div class="num-box numpad-trigger" id="sp-train-h" data-min="0" data-max="23" data-default="0">0</div></div>
+        <div class="field"><label>Minutes</label><div class="num-box numpad-trigger" id="sp-train-m" data-min="0" data-max="59" data-default="0">0</div></div>
       </div>
     </div>
   </div>
@@ -450,6 +554,34 @@
       <span class="uid-box" onclick="copyUid(this)">UID: 5012140737488439073</span>
     </div>
   </footer>
+</div>
+
+<!-- NUMPAD MODAL -->
+<div id="numpad-modal" class="numpad-overlay" style="display: none;">
+  <div class="numpad-container">
+    <div class="numpad-header">
+      <span id="numpad-title">VALUE</span>
+      <span id="numpad-current">0</span>
+    </div>
+    <div class="numpad-grid">
+      <button type="button" onclick="numpadPress('1')">1</button>
+      <button type="button" onclick="numpadPress('2')">2</button>
+      <button type="button" onclick="numpadPress('3')">3</button>
+      <button type="button" onclick="numpadPress('4')">4</button>
+      <button type="button" onclick="numpadPress('5')">5</button>
+      <button type="button" onclick="numpadPress('6')">6</button>
+      <button type="button" onclick="numpadPress('7')">7</button>
+      <button type="button" onclick="numpadPress('8')">8</button>
+      <button type="button" onclick="numpadPress('9')">9</button>
+      <button type="button" onclick="numpadPress('C')">C</button>
+      <button type="button" onclick="numpadPress('0')">0</button>
+      <button type="button" onclick="numpadPress('DEL')">⌫</button>
+    </div>
+    <div class="numpad-actions">
+      <button type="button" class="numpad-btn-cancel" onclick="closeNumpad(false)">Avbryt</button>
+      <button type="button" class="numpad-btn-ok" onclick="closeNumpad(true)">OK</button>
+    </div>
+  </div>
 </div>
 
 <nav class="bottom-nav">
@@ -488,6 +620,8 @@ const BLACKSMITH_PCT = {
 const RENOVATION_PCT = { 0:0, 1:8, 2:16, 3:24, 4:32, 5:40 };
 
 let globalPointsMode = 'tme';
+let activeNumpadTarget = null;
+let numpadTempValue = '0';
 
 function switchTab(tabId, btn) {
   document.querySelectorAll('.tab-content').forEach(tc => tc.classList.remove('active'));
@@ -515,20 +649,10 @@ function formatPoints(n){
   return String(n);
 }
 
-function populateSelects(){
-  document.querySelectorAll('select[data-max]').forEach(sel => {
-    sel.innerHTML = '';
-    const min = parseInt(sel.dataset.min || '0', 10);
-    const max = parseInt(sel.dataset.max, 10);
-    const step = parseInt(sel.dataset.step || '1', 10);
-    const def = parseInt(sel.dataset.default || String(min), 10);
-    for (let i = min; i <= max; i += step){
-      const opt = document.createElement('option');
-      opt.value = i;
-      opt.textContent = i;
-      if (i === def) opt.selected = true;
-      sel.appendChild(opt);
-    }
+function initInputs(){
+  document.querySelectorAll('.numpad-trigger').forEach(el => {
+    const def = el.dataset.default || '0';
+    el.textContent = def;
   });
 }
 
@@ -546,8 +670,63 @@ function updateVisibility() {
   document.getElementById('sec-finecraft').style.display = isTmg ? 'flex' : 'none';
 }
 
+function getVal(id) {
+  const el = document.getElementById(id);
+  if (!el) return 0;
+  return parseInt(el.textContent, 10) || 0;
+}
+
+// Numpad Logic
+document.querySelectorAll('.numpad-trigger').forEach(el => {
+  el.addEventListener('click', () => {
+    activeNumpadTarget = el;
+    numpadTempValue = el.textContent || '0';
+    const label = el.previousElementSibling ? el.previousElementSibling.textContent : 'VÄRDE';
+    document.getElementById('numpad-title').textContent = label;
+    document.getElementById('numpad-current').textContent = numpadTempValue;
+    document.getElementById('numpad-modal').style.display = 'flex';
+  });
+});
+
+function numpadPress(char) {
+  if (char === 'C') {
+    numpadTempValue = '0';
+  } else if (char === 'DEL') {
+    numpadTempValue = numpadTempValue.length > 1 ? numpadTempValue.slice(0, -1) : '0';
+  } else {
+    if (numpadTempValue === '0') {
+      numpadTempValue = char;
+    } else {
+      numpadTempValue += char;
+    }
+  }
+
+  const max = parseInt(activeNumpadTarget.dataset.max, 10);
+  if (!isNaN(max) && parseInt(numpadTempValue, 10) > max) {
+    numpadTempValue = String(max);
+  }
+
+  document.getElementById('numpad-current').textContent = numpadTempValue;
+}
+
+function closeNumpad(commit) {
+  if (commit && activeNumpadTarget) {
+    const min = parseInt(activeNumpadTarget.dataset.min || '0', 10);
+    const max = parseInt(activeNumpadTarget.dataset.max, 10);
+    let val = parseInt(numpadTempValue, 10);
+    if (isNaN(val)) val = min;
+    if (val < min) val = min;
+    if (!isNaN(max) && val > max) val = max;
+
+    activeNumpadTarget.textContent = val;
+    recalcAll();
+  }
+  document.getElementById('numpad-modal').style.display = 'none';
+  activeNumpadTarget = null;
+}
+
 function recalcStamina(){
-  const staminaAmount = parseFloat(document.getElementById('staminaInput').value) || 0;
+  const staminaAmount = getVal('staminaInput');
   const tribes = Math.floor(staminaAmount / 5);
   const ptsPerTribe = globalPointsMode === 'tmg' ? 300 : 24000;
   const totalPoints = tribes * ptsPerTribe;
@@ -557,9 +736,9 @@ function recalcStamina(){
 }
 
 function recalcForge(){
-  const blacksmithLevel = parseInt(document.getElementById('lvl-blacksmith').value, 10) || 1;
-  const workshopLevel = parseInt(document.getElementById('lvl-workshop').value, 10) || 0;
-  const renovationLevel = parseInt(document.getElementById('lvl-renovation').value, 10) || 0;
+  const blacksmithLevel = getVal('lvl-blacksmith');
+  const workshopLevel = getVal('lvl-workshop');
+  const renovationLevel = getVal('lvl-renovation');
 
   const blacksmithPct = BLACKSMITH_PCT[blacksmithLevel] || 0;
   const workPct = workshopPct(workshopLevel);
@@ -572,7 +751,8 @@ function recalcForge(){
   let grandPoints = 0;
 
   document.querySelectorAll('.gear-item').forEach(item => {
-    const qty = parseFloat(item.querySelector('.qty').value) || 0;
+    const qtyEl = item.querySelector('.num-box');
+    const qty = qtyEl ? (parseInt(qtyEl.textContent, 10) || 0) : 0;
     const baseSeconds = parseFloat(item.dataset.base) || 0;
     const pointsPerItem = parseFloat(globalPointsMode === 'tmg' ? item.dataset.pointsTmg : item.dataset.pointsTme) || 0;
 
@@ -585,9 +765,9 @@ function recalcForge(){
   totalTimeEl.textContent = grandSeconds > 0 ? formatTime(grandSeconds) : '0';
   document.getElementById('totalPoints').textContent = formatPoints(grandPoints);
 
-  const spD = parseFloat(document.getElementById('sp-forge-d').value) || 0;
-  const spH = parseFloat(document.getElementById('sp-forge-h').value) || 0;
-  const spM = parseFloat(document.getElementById('sp-forge-m').value) || 0;
+  const spD = getVal('sp-forge-d');
+  const spH = getVal('sp-forge-h');
+  const spM = getVal('sp-forge-m');
   const bankedSeconds = spD*86400 + spH*3600 + spM*60;
 
   const diff = bankedSeconds - grandSeconds;
@@ -609,14 +789,14 @@ function recalcForge(){
 }
 
 function recalcSpeedupDay(){
-  const bldgD = parseFloat(document.getElementById('sp-bldg-d').value) || 0;
-  const bldgH = parseFloat(document.getElementById('sp-bldg-h').value) || 0;
-  const bldgM = parseFloat(document.getElementById('sp-bldg-m').value) || 0;
+  const bldgD = getVal('sp-bldg-d');
+  const bldgH = getVal('sp-bldg-h');
+  const bldgM = getVal('sp-bldg-m');
   const bldgTotalMins = bldgD * 1440 + bldgH * 60 + bldgM;
 
-  const resD = parseFloat(document.getElementById('sp-res-d').value) || 0;
-  const resH = parseFloat(document.getElementById('sp-res-h').value) || 0;
-  const resM = parseFloat(document.getElementById('sp-res-m').value) || 0;
+  const resD = getVal('sp-res-d');
+  const resH = getVal('sp-res-h');
+  const resM = getVal('sp-res-m');
   const resTotalMins = resD * 1440 + resH * 60 + resM;
 
   let fineCraft = 0;
@@ -626,11 +806,11 @@ function recalcSpeedupDay(){
   let meteorSteel = 0;
 
   if (globalPointsMode === 'tmg') {
-    fineCraft = parseFloat(document.getElementById('fine-craft-qty').value) || 0;
-    copperSand = parseFloat(document.getElementById('signet-copper').value) || 0;
-    silverSand = parseFloat(document.getElementById('signet-silver').value) || 0;
-    fineGold = parseFloat(document.getElementById('signet-gold').value) || 0;
-    meteorSteel = parseFloat(document.getElementById('signet-steel').value) || 0;
+    fineCraft = getVal('fine-craft-qty');
+    copperSand = getVal('signet-copper');
+    silverSand = getVal('signet-silver');
+    fineGold = getVal('signet-gold');
+    meteorSteel = getVal('signet-steel');
   }
 
   let ptsBldgMin = globalPointsMode === 'tmg' ? 30 : 240;
@@ -659,9 +839,7 @@ function recalcAll(){
   recalcSpeedupDay();
 }
 
-populateSelects();
-
-document.querySelectorAll('select').forEach(sel => sel.addEventListener('change', recalcAll));
+initInputs();
 
 document.querySelectorAll('.global-toggle-btn').forEach(btn => {
   btn.addEventListener('click', () => {
