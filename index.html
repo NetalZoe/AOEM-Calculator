@@ -433,16 +433,16 @@
   <!-- TAB 1: TRIBES -->
   <div id="tab-tribes" class="tab-content">
     <div class="m3-card">
-      <div class="total-label" id="tribesLabel">Points for 0 Tribes (level 30)</div>
+      <div class="total-label" id="tribesLabel">Points for 0 Tribes (0 Stamina)</div>
       <div class="total-value points" id="tribesPointsDisplay">0</div>
     </div>
     <div class="input-row">
       <div class="tier" style="flex: 1;">
-        <div class="tier-header"><span>STAMINA</span></div>
+        <div class="tier-header"><span>Stamina</span></div>
         <div class="level-body" style="grid-template-columns: 1fr;">
           <div class="field">
             <label>Amount</label>
-            <div class="num-box numpad-trigger" id="tribesInput" data-min="0" data-max="9999" data-default="0">0</div>
+            <div class="num-box numpad-trigger" id="staminaInput" data-min="0" data-max="99999" data-default="0">0</div>
           </div>
         </div>
       </div>
@@ -769,8 +769,9 @@ function closeNumpad(commit) {
 }
 
 function recalcTribes(){
-  const tribesCount = getVal('tribesInput');
+  const stamina = getVal('staminaInput');
   const tribeLevel = getVal('tribeLevel');
+  const tribesCount = Math.floor(stamina / 5);
   
   let ptsPerTribe = 24000;
   if (globalPointsMode === 'tmg') {
@@ -786,7 +787,7 @@ function recalcTribes(){
 
   const totalPoints = tribesCount * ptsPerTribe;
 
-  document.getElementById('tribesLabel').textContent = `Points for ${tribesCount} Tribes (level ${tribeLevel})`;
+  document.getElementById('tribesLabel').textContent = `Points for ${tribesCount} Tribes (${stamina} Stamina, Level ${tribeLevel})`;
   document.getElementById('tribesPointsDisplay').textContent = formatPoints(totalPoints);
 }
 
