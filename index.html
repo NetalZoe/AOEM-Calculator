@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<meta name="theme-color" content="#10151c">
+<meta name="theme-color" content="#181716">
 
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-capable" content="yes">
@@ -17,15 +17,15 @@
   @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;900&display=swap');
 
   :root {
-    --bg-main: #10151c;
-    --panel-bg: #18202b;
-    --panel-header: #1f2a38;
-    --panel-border: #283547;
-    --gold-primary: #d4a748;
+    --bg-main: #141312;
+    --panel-bg: #2a2826;
+    --panel-header: #3a3835;
+    --panel-border: #4f4c47;
+    --gold-primary: #d89f3e;
     --gold-bright: #f7d678;
     --gold-dark: #8c6a21;
     --text-main: #e2e8f0;
-    --text-sub: #8a99ad;
+    --text-sub: #a8a299;
 
     --md-shape-corner-m: 4px;
     --md-shape-corner-l: 6px;
@@ -46,7 +46,7 @@
     font-family: 'Cinzel', serif;
     color: var(--text-main);
     background-color: var(--bg-main);
-    background-image: radial-gradient(circle at top, #19222f 0%, var(--bg-main) 85%);
+    background-image: radial-gradient(circle at top, #2d2b28 0%, var(--bg-main) 85%);
   }
 
   .wrap {
@@ -63,7 +63,7 @@
   }
 
   .aoe-banner {
-    background: linear-gradient(180deg, #1b2432 0%, #10151c 100%);
+    background: linear-gradient(180deg, #363432 0%, #1d1c1a 100%);
     border: 1px solid var(--panel-border);
     border-bottom: 2px solid var(--gold-primary);
     border-radius: var(--md-shape-corner-l);
@@ -92,7 +92,7 @@
 
   .aoe-badge {
     background: linear-gradient(180deg, #fcebb6 0%, var(--gold-primary) 100%);
-    color: #080d14;
+    color: #111;
     font-weight: 900;
     font-size: 11px;
     letter-spacing: 1px;
@@ -102,7 +102,7 @@
 
   .points-toggle {
     display: inline-flex;
-    background: #0a0d12;
+    background: #181716;
     border: 1px solid var(--panel-border);
     border-radius: var(--md-shape-corner-full);
     padding: 2px;
@@ -122,7 +122,7 @@
 
   .points-toggle button.active {
     background: linear-gradient(180deg, #fce08b 0%, var(--gold-primary) 100%);
-    color: #0a0d12;
+    color: #111;
   }
 
   .tab-content { display: none; flex-direction: column; gap: 12px; flex: 1; }
@@ -203,7 +203,7 @@
 
   .num-box {
     width: 100%;
-    background: #0a0d12;
+    background: #1d1c1b;
     border: 1px solid var(--panel-border);
     border-radius: var(--md-shape-corner-m);
     color: #ffffff;
@@ -220,14 +220,14 @@
 
   .num-box:active {
     border-color: var(--gold-primary);
-    background: #141b24;
+    background: #363432;
   }
 
   /* NUMPAD MODAL */
   .numpad-overlay {
     position: fixed;
     top: 0; left: 0; right: 0; bottom: 0;
-    background: rgba(0,0,0,0.7);
+    background: rgba(0,0,0,0.8);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -236,92 +236,113 @@
   }
 
   .numpad-container {
-    background: var(--panel-bg);
-    border: 1px solid var(--gold-primary);
-    border-radius: var(--md-shape-corner-l);
+    background: #474543;
+    border: 1px solid #706a5f;
+    border-radius: 2px;
     width: 100%;
-    max-width: 320px;
-    padding: 16px;
+    max-width: 280px;
+    padding: 8px;
     display: flex;
     flex-direction: column;
-    gap: 14px;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.8);
+    gap: 6px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.9);
   }
 
-  .numpad-header {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 4px;
-    border-bottom: 1px solid var(--panel-border);
-    padding-bottom: 10px;
-  }
-
-  #numpad-title {
-    font-size: 11px;
-    color: var(--text-sub);
-    text-transform: uppercase;
-    font-weight: 700;
+  .numpad-display-box {
+    background: #6a6661;
+    padding: 8px;
+    text-align: center;
+    border-radius: 2px;
   }
 
   #numpad-current {
-    font-size: 26px;
-    font-weight: 900;
-    color: var(--gold-bright);
-    height: 36px;
+    font-size: 22px;
+    font-weight: 700;
+    color: #f7d678;
+    letter-spacing: 1px;
+    line-height: 1;
+  }
+
+  .numpad-subrow {
     display: flex;
+    justify-content: space-between;
     align-items: center;
+    background: #363432;
+    padding: 2px 4px 2px 8px;
+    border-radius: 2px;
+  }
+
+  #numpad-range {
+    font-size: 12px;
+    color: #d1cdb8;
+    font-weight: 600;
+  }
+
+  .btn-max {
+    background: #232325;
+    color: #e2e8f0;
+    border: 1px solid #4a4845;
+    padding: 4px 14px;
+    font-size: 11px;
+    font-weight: 700;
+    cursor: pointer;
+    border-radius: 2px;
+    font-family: inherit;
+  }
+
+  .btn-max:active {
+    background: #4a4845;
   }
 
   .numpad-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    gap: 8px;
+    gap: 4px;
   }
 
   .numpad-grid button {
-    background: #0d121b;
-    border: 1px solid var(--panel-border);
-    border-radius: var(--md-shape-corner-m);
-    color: var(--text-main);
-    font-family: 'Cinzel', serif;
-    font-size: 18px;
+    background: #252527;
+    border: 1px solid #3d3b38;
+    color: #e2e8f0;
+    font-family: inherit;
+    font-size: 16px;
     font-weight: 700;
-    height: 48px;
+    height: 40px;
     cursor: pointer;
+    border-radius: 2px;
   }
 
   .numpad-grid button:active {
-    background: var(--gold-primary);
-    color: #080d14;
-    border-color: var(--gold-bright);
+    background: #e0b353;
+    color: #111;
   }
 
   .numpad-actions {
     display: flex;
-    gap: 8px;
+    gap: 6px;
+    margin-top: 2px;
   }
 
   .numpad-actions button {
     flex: 1;
-    font-family: 'Cinzel', serif;
+    font-family: inherit;
     font-weight: 700;
-    font-size: 13px;
-    height: 44px;
-    border-radius: var(--md-shape-corner-m);
+    font-size: 12px;
+    height: 36px;
+    border-radius: 2px;
     cursor: pointer;
-    border: 1px solid var(--panel-border);
   }
 
   .numpad-btn-cancel {
-    background: #1f2a38;
-    color: var(--text-sub);
+    background: #333235;
+    color: #e2e8f0;
+    border: 1px solid #484643;
   }
 
   .numpad-btn-ok {
-    background: linear-gradient(180deg, #fce08b 0%, var(--gold-primary) 100%);
-    color: #080d14;
-    border-color: var(--gold-bright);
+    background: linear-gradient(180deg, #f0c96c 0%, #d89f3e 100%);
+    color: #17120a;
+    border: 1px solid #fce08b;
   }
 
   .bottom-nav {
@@ -330,7 +351,7 @@
     left: 0;
     right: 0;
     height: 60px;
-    background: #0d1117;
+    background: #181716;
     border-top: 1px solid var(--panel-border);
     display: flex;
     justify-content: space-around;
@@ -360,7 +381,7 @@
 
   .nav-item.active {
     color: var(--gold-bright);
-    background: linear-gradient(180deg, rgba(212, 167, 72, 0.1) 0%, transparent 100%);
+    background: linear-gradient(180deg, rgba(216, 159, 62, 0.15) 0%, transparent 100%);
     border-top: 2px solid var(--gold-primary);
   }
 
@@ -384,7 +405,7 @@
     color: var(--gold-primary); 
     font-size: 12px; 
     font-weight: 600;
-    background: #0a0d12;
+    background: #1d1c1b;
     border: 1px solid var(--panel-border);
     padding: 6px 10px;
     border-radius: var(--md-shape-corner-m);
@@ -419,7 +440,7 @@
       <div class="level-body" style="grid-template-columns: 1fr;">
         <div class="field">
           <label>Stamina Amount</label>
-          <div class="num-box numpad-trigger" id="staminaInput" data-min="0" data-max="5000" data-default="0">0</div>
+          <div class="num-box numpad-trigger" id="staminaInput" data-min="0" data-max="9999" data-default="0">0</div>
         </div>
       </div>
     </div>
@@ -455,7 +476,7 @@
       <div class="tier" data-tier="speedups">
         <div class="tier-header"><span>Forge Speedups</span></div>
         <div class="speedup-body">
-          <div class="field"><label>Days</label><div class="num-box numpad-trigger" id="sp-forge-d" data-min="0" data-max="700" data-default="0">0</div></div>
+          <div class="field"><label>Days</label><div class="num-box numpad-trigger" id="sp-forge-d" data-min="0" data-max="9999" data-default="0">0</div></div>
           <div class="field"><label>Hours</label><div class="num-box numpad-trigger" id="sp-forge-h" data-min="0" data-max="23" data-default="0">0</div></div>
           <div class="field"><label>Minutes</label><div class="num-box numpad-trigger" id="sp-forge-m" data-min="0" data-max="59" data-default="0">0</div></div>
         </div>
@@ -498,7 +519,7 @@
       <div class="tier" data-tier="speedups">
         <div class="tier-header"><span>Building Speedups</span></div>
         <div class="speedup-body">
-          <div class="field"><label>Days</label><div class="num-box numpad-trigger" id="sp-bldg-d" data-min="0" data-max="700" data-default="0">0</div></div>
+          <div class="field"><label>Days</label><div class="num-box numpad-trigger" id="sp-bldg-d" data-min="0" data-max="9999" data-default="0">0</div></div>
           <div class="field"><label>Hours</label><div class="num-box numpad-trigger" id="sp-bldg-h" data-min="0" data-max="23" data-default="0">0</div></div>
           <div class="field"><label>Minutes</label><div class="num-box numpad-trigger" id="sp-bldg-m" data-min="0" data-max="59" data-default="0">0</div></div>
         </div>
@@ -507,7 +528,7 @@
       <div class="tier" data-tier="speedups">
         <div class="tier-header"><span>Research Speedups</span></div>
         <div class="speedup-body">
-          <div class="field"><label>Days</label><div class="num-box numpad-trigger" id="sp-res-d" data-min="0" data-max="700" data-default="0">0</div></div>
+          <div class="field"><label>Days</label><div class="num-box numpad-trigger" id="sp-res-d" data-min="0" data-max="9999" data-default="0">0</div></div>
           <div class="field"><label>Hours</label><div class="num-box numpad-trigger" id="sp-res-h" data-min="0" data-max="23" data-default="0">0</div></div>
           <div class="field"><label>Minutes</label><div class="num-box numpad-trigger" id="sp-res-m" data-min="0" data-max="59" data-default="0">0</div></div>
         </div>
@@ -541,7 +562,7 @@
     <div class="tier" data-tier="speedups">
       <div class="tier-header"><span>Training Speedups</span></div>
       <div class="speedup-body">
-        <div class="field"><label>Days</label><div class="num-box numpad-trigger" id="sp-train-d" data-min="0" data-max="700" data-default="0">0</div></div>
+        <div class="field"><label>Days</label><div class="num-box numpad-trigger" id="sp-train-d" data-min="0" data-max="9999" data-default="0">0</div></div>
         <div class="field"><label>Hours</label><div class="num-box numpad-trigger" id="sp-train-h" data-min="0" data-max="23" data-default="0">0</div></div>
         <div class="field"><label>Minutes</label><div class="num-box numpad-trigger" id="sp-train-m" data-min="0" data-max="59" data-default="0">0</div></div>
       </div>
@@ -559,27 +580,30 @@
 <!-- NUMPAD MODAL -->
 <div id="numpad-modal" class="numpad-overlay" style="display: none;">
   <div class="numpad-container">
-    <div class="numpad-header">
-      <span id="numpad-title">VALUE</span>
+    <div class="numpad-display-box">
       <span id="numpad-current">0</span>
     </div>
+    <div class="numpad-subrow">
+      <span id="numpad-range">0-9999</span>
+      <button type="button" class="btn-max" onclick="numpadPress('MAX')">Max</button>
+    </div>
     <div class="numpad-grid">
-      <button type="button" onclick="numpadPress('1')">1</button>
-      <button type="button" onclick="numpadPress('2')">2</button>
-      <button type="button" onclick="numpadPress('3')">3</button>
-      <button type="button" onclick="numpadPress('4')">4</button>
-      <button type="button" onclick="numpadPress('5')">5</button>
-      <button type="button" onclick="numpadPress('6')">6</button>
       <button type="button" onclick="numpadPress('7')">7</button>
       <button type="button" onclick="numpadPress('8')">8</button>
       <button type="button" onclick="numpadPress('9')">9</button>
-      <button type="button" onclick="numpadPress('C')">C</button>
+      <button type="button" onclick="numpadPress('4')">4</button>
+      <button type="button" onclick="numpadPress('5')">5</button>
+      <button type="button" onclick="numpadPress('6')">6</button>
+      <button type="button" onclick="numpadPress('1')">1</button>
+      <button type="button" onclick="numpadPress('2')">2</button>
+      <button type="button" onclick="numpadPress('3')">3</button>
       <button type="button" onclick="numpadPress('0')">0</button>
-      <button type="button" onclick="numpadPress('DEL')">⌫</button>
+      <button type="button" onclick="numpadPress('00')">00</button>
+      <button type="button" onclick="numpadPress('CLEAR')">Clear</button>
     </div>
     <div class="numpad-actions">
-      <button type="button" class="numpad-btn-cancel" onclick="closeNumpad(false)">Avbryt</button>
-      <button type="button" class="numpad-btn-ok" onclick="closeNumpad(true)">OK</button>
+      <button type="button" class="numpad-btn-cancel" onclick="closeNumpad(false)">Cancel</button>
+      <button type="button" class="numpad-btn-ok" onclick="closeNumpad(true)">Confirm</button>
     </div>
   </div>
 </div>
@@ -673,26 +697,34 @@ function updateVisibility() {
 function getVal(id) {
   const el = document.getElementById(id);
   if (!el) return 0;
-  return parseInt(el.textContent, 10) || 0;
+  return parseInt(el.textContent.replace(/,/g, ''), 10) || 0;
 }
 
 // Numpad Logic
 document.querySelectorAll('.numpad-trigger').forEach(el => {
   el.addEventListener('click', () => {
     activeNumpadTarget = el;
-    numpadTempValue = el.textContent || '0';
-    const label = el.previousElementSibling ? el.previousElementSibling.textContent : 'VÄRDE';
-    document.getElementById('numpad-title').textContent = label;
-    document.getElementById('numpad-current').textContent = numpadTempValue;
+    numpadTempValue = el.textContent.replace(/,/g, '') || '0';
+    const min = el.dataset.min || '0';
+    const max = el.dataset.max || '9999';
+    
+    document.getElementById('numpad-range').textContent = `${min}-${max}`;
+    document.getElementById('numpad-current').textContent = Number(numpadTempValue).toLocaleString('en-US');
     document.getElementById('numpad-modal').style.display = 'flex';
   });
 });
 
 function numpadPress(char) {
-  if (char === 'C') {
+  const max = parseInt(activeNumpadTarget.dataset.max, 10);
+
+  if (char === 'CLEAR') {
     numpadTempValue = '0';
-  } else if (char === 'DEL') {
-    numpadTempValue = numpadTempValue.length > 1 ? numpadTempValue.slice(0, -1) : '0';
+  } else if (char === 'MAX') {
+    numpadTempValue = String(isNaN(max) ? 9999 : max);
+  } else if (char === '00') {
+    if (numpadTempValue !== '0') {
+      numpadTempValue += '00';
+    }
   } else {
     if (numpadTempValue === '0') {
       numpadTempValue = char;
@@ -701,12 +733,11 @@ function numpadPress(char) {
     }
   }
 
-  const max = parseInt(activeNumpadTarget.dataset.max, 10);
   if (!isNaN(max) && parseInt(numpadTempValue, 10) > max) {
     numpadTempValue = String(max);
   }
 
-  document.getElementById('numpad-current').textContent = numpadTempValue;
+  document.getElementById('numpad-current').textContent = Number(numpadTempValue).toLocaleString('en-US');
 }
 
 function closeNumpad(commit) {
@@ -752,7 +783,7 @@ function recalcForge(){
 
   document.querySelectorAll('.gear-item').forEach(item => {
     const qtyEl = item.querySelector('.num-box');
-    const qty = qtyEl ? (parseInt(qtyEl.textContent, 10) || 0) : 0;
+    const qty = qtyEl ? (parseInt(qtyEl.textContent.replace(/,/g, ''), 10) || 0) : 0;
     const baseSeconds = parseFloat(item.dataset.base) || 0;
     const pointsPerItem = parseFloat(globalPointsMode === 'tmg' ? item.dataset.pointsTmg : item.dataset.pointsTme) || 0;
 
