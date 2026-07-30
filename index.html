@@ -76,14 +76,36 @@
   .aoe-title-row {
     display: flex;
     align-items: center;
-    justify-content: center;
-    gap: 12px;
+    justify-content: space-between;
+    gap: 8px;
     flex-wrap: wrap;
+  }
+
+  .btn-reset {
+    background: #333235;
+    color: var(--text-main);
+    border: 1px solid var(--panel-border);
+    padding: 6px 10px;
+    font-family: 'Cinzel', serif;
+    font-size: 11px;
+    font-weight: 700;
+    border-radius: var(--md-shape-corner-m);
+    cursor: pointer;
+  }
+
+  .btn-reset:active {
+    background: #4a4845;
+  }
+
+  .aoe-title-group {
+    display: flex;
+    align-items: center;
+    gap: 8px;
   }
 
   .aoe-title-single {
     font-weight: 900;
-    font-size: 20px;
+    font-size: 18px;
     letter-spacing: 1px;
     background: linear-gradient(180deg, #ffffff 0%, #ffe699 40%, var(--gold-primary) 100%);
     -webkit-background-clip: text;
@@ -95,9 +117,9 @@
     background: linear-gradient(180deg, #fcebb6 0%, var(--gold-primary) 100%);
     color: #111;
     font-weight: 900;
-    font-size: 11px;
+    font-size: 10px;
     letter-spacing: 1px;
-    padding: 3px 8px;
+    padding: 3px 6px;
     border-radius: 2px;
   }
 
@@ -111,9 +133,9 @@
 
   .points-toggle button {
     font-family: 'Cinzel', serif;
-    font-size: 12px;
+    font-size: 11px;
     font-weight: 700;
-    padding: 6px 16px;
+    padding: 5px 12px;
     border-radius: var(--md-shape-corner-full);
     border: none;
     background: transparent;
@@ -421,11 +443,14 @@
 <div class="wrap">
   <div class="aoe-banner">
     <div class="aoe-title-row">
-      <span class="aoe-title-single">AOEM</span>
-      <span class="aoe-badge">CALCULATOR</span>
+      <button type="button" class="btn-reset" onclick="resetAll()">Reset</button>
+      <div class="aoe-title-group">
+        <span class="aoe-title-single">AOEM</span>
+        <span class="aoe-badge">CALCULATOR</span>
+      </div>
       <div class="points-toggle">
-        <button type="button" class="global-toggle-btn active" data-mode="tme">TME</button>
-        <button type="button" class="global-toggle-btn" data-mode="tmg">TMG</button>
+        <button type="button" class="global-toggle-btn active" data-mode="tmg">TMG</button>
+        <button type="button" class="global-toggle-btn" data-mode="tme">TME</button>
       </div>
     </div>
     <div class="m3-card" style="margin-top: 8px; background: #181716; border-color: var(--panel-border);">
@@ -592,16 +617,89 @@
 
   <!-- TAB 4: TRAINING -->
   <div id="tab-training" class="tab-content">
-    <div class="m3-card">
-      <div class="total-label">Training Points</div>
-      <div class="total-value points" id="trainingPointsDisplay">0</div>
+    <div class="totals">
+      <div class="m3-card">
+        <div class="total-label">Training Time</div>
+        <div class="total-value" id="trainingTime">0</div>
+      </div>
+      <div class="m3-card">
+        <div class="total-label">Balance</div>
+        <div class="total-value" id="trainingBalance">0</div>
+      </div>
+      <div class="m3-card">
+        <div class="total-label">Points</div>
+        <div class="total-value points" id="trainingPointsDisplay">0</div>
+      </div>
     </div>
-    <div class="tier" data-tier="speedups">
-      <div class="tier-header"><span>Training Speedups</span></div>
-      <div class="speedup-body">
-        <div class="field"><label>Days</label><div class="num-box numpad-trigger" id="sp-train-d" data-min="0" data-max="9999" data-default="0">0</div></div>
-        <div class="field"><label>Hours</label><div class="num-box numpad-trigger" id="sp-train-h" data-min="0" data-max="23" data-default="0">0</div></div>
-        <div class="field"><label>Minutes</label><div class="num-box numpad-trigger" id="sp-train-m" data-min="0" data-max="59" data-default="0">0</div></div>
+
+    <!-- Training Speed & Buffs combined -->
+    <div class="input-row">
+      <div class="tier" style="flex: 1 1 100%;">
+        <div class="tier-header"><span>Training Speed & Buffs</span></div>
+        <div class="level-body" style="grid-template-columns: 1.5fr 1fr 1fr 1fr; align-items: center; justify-items: center;">
+          <div class="field" style="width: 100%;">
+            <label>Speed (%)</label>
+            <div class="num-box numpad-trigger" id="train-speed-pct" data-min="0" data-max="999" data-default="191">191</div>
+          </div>
+          <div class="field" style="align-items: center;">
+            <label style="font-size: 9px;">Knights Rights</label>
+            <input type="checkbox" id="buff-knights" onchange="recalcAll()" style="width: 20px; height: 20px; accent-color: var(--gold-primary); cursor: pointer; margin-top: 6px;">
+          </div>
+          <div class="field" style="align-items: center;">
+            <label style="font-size: 9px;">Tactical Master</label>
+            <input type="checkbox" id="buff-tactical" onchange="recalcAll()" style="width: 20px; height: 20px; accent-color: var(--gold-primary); cursor: pointer; margin-top: 6px;">
+          </div>
+          <div class="field" style="align-items: center;">
+            <label style="font-size: 9px;">Instructor</label>
+            <input type="checkbox" id="buff-instructor" onchange="recalcAll()" style="width: 20px; height: 20px; accent-color: var(--gold-primary); cursor: pointer; margin-top: 6px;">
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="input-row">
+      <div class="tier" data-tier="speedups">
+        <div class="tier-header"><span>Training Speedups</span></div>
+        <div class="speedup-body">
+          <div class="field"><label>Days</label><div class="num-box numpad-trigger" id="sp-train-d" data-min="0" data-max="9999" data-default="0">0</div></div>
+          <div class="field"><label>Hours</label><div class="num-box numpad-trigger" id="sp-train-h" data-min="0" data-max="23" data-default="0">0</div></div>
+          <div class="field"><label>Minutes</label><div class="num-box numpad-trigger" id="sp-train-m" data-min="0" data-max="59" data-default="0">0</div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Train and Promote on the same row -->
+    <div class="input-row">
+      <div class="tier" style="flex: 1;">
+        <div class="tier-header"><span>Train</span></div>
+        <div class="level-body" style="grid-template-columns: repeat(2, 1fr);">
+          <div class="field">
+            <label>Tier</label>
+            <div class="num-box numpad-trigger" id="train-tier" data-min="1" data-max="9" data-default="8">8</div>
+          </div>
+          <div class="field">
+            <label>Units</label>
+            <div class="num-box numpad-trigger" id="train-qty" data-min="0" data-max="9999999" data-default="0">0</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="tier" style="flex: 1.5;">
+        <div class="tier-header"><span>Promote</span></div>
+        <div class="level-body" style="grid-template-columns: repeat(3, 1fr);">
+          <div class="field">
+            <label>From</label>
+            <div class="num-box numpad-trigger" id="promote-from" data-min="1" data-max="8" data-default="7">7</div>
+          </div>
+          <div class="field">
+            <label>To</label>
+            <div class="num-box numpad-trigger" id="promote-to" data-min="2" data-max="9" data-default="8">8</div>
+          </div>
+          <div class="field">
+            <label>Units</label>
+            <div class="num-box numpad-trigger" id="promote-qty" data-min="0" data-max="9999999" data-default="0">0</div>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -680,7 +778,31 @@ const BLACKSMITH_PCT = {
 
 const RENOVATION_PCT = { 0:0, 1:8, 2:16, 3:24, 4:32, 5:40 };
 
-let globalPointsMode = 'tme';
+const TIER_BASE_SECONDS = {
+  1: 10,
+  2: 14,
+  3: 19,
+  4: 28,
+  5: 42,
+  6: 75,
+  7: 130,
+  8: 195,
+  9: 360
+};
+
+const TIER_POINTS = {
+  1: 2,
+  2: 3,
+  3: 5,
+  4: 10,
+  5: 20,
+  6: 50,
+  7: 100,
+  8: 150,
+  9: 200
+};
+
+let globalPointsMode = 'tmg';
 let activeNumpadTarget = null;
 let numpadTempValue = '0';
 
@@ -717,6 +839,17 @@ function initInputs(){
   });
 }
 
+function resetAll() {
+  document.querySelectorAll('.numpad-trigger').forEach(el => {
+    const def = el.dataset.default || '0';
+    el.textContent = def;
+  });
+  document.querySelectorAll('input[type="checkbox"]').forEach(cb => {
+    cb.checked = false;
+  });
+  recalcAll();
+}
+
 function copyUid(el) {
   const uidText = "5012140737488439073";
   navigator.clipboard.writeText(uidText);
@@ -742,7 +875,7 @@ function getVal(id) {
 document.querySelectorAll('.numpad-trigger').forEach(el => {
   el.addEventListener('click', () => {
     activeNumpadTarget = el;
-    numpadTempValue = el.textContent.replace(/,/g, '') || '0';
+    numpadTempValue = '0';
     const min = el.dataset.min || '0';
     const max = el.dataset.max || '9999';
     
@@ -937,18 +1070,66 @@ function recalcSpeedupDay(){
   document.getElementById('speedupDayPointsDisplay').textContent = formatPoints(totalPoints);
 }
 
-function getTrainingPoints() {
-  const trainD = getVal('sp-train-d');
-  const trainH = getVal('sp-train-h');
-  const trainM = getVal('sp-train-m');
-  const trainTotalMins = trainD * 1440 + trainH * 60 + trainM;
-  let ptsTrainMin = globalPointsMode === 'tmg' ? 30 : 240;
-  return trainTotalMins * ptsTrainMin;
+function getTrainingData() {
+  let baseSpd = getVal('train-speed-pct');
+  if (document.getElementById('buff-knights').checked) baseSpd += 10;
+  if (document.getElementById('buff-tactical').checked) baseSpd += 10;
+  if (document.getElementById('buff-instructor').checked) baseSpd += 5;
+
+  const speedFactor = 1 + (baseSpd / 100);
+
+  const trainTier = getVal('train-tier');
+  const trainQty = getVal('train-qty');
+  const trainBaseSec = TIER_BASE_SECONDS[trainTier] || 0;
+  const trainSeconds = (trainBaseSec / speedFactor) * trainQty;
+  const trainPts = (TIER_POINTS[trainTier] || 0) * trainQty;
+
+  let promFrom = getVal('promote-from');
+  let promTo = getVal('promote-to');
+  if (promFrom >= promTo) promTo = promFrom + 1;
+  const promQty = getVal('promote-qty');
+  const promBaseFrom = TIER_BASE_SECONDS[promFrom] || 0;
+  const promBaseTo = TIER_BASE_SECONDS[promTo] || 0;
+  const promDiffSec = Math.max(0, promBaseTo - promBaseFrom);
+  const promoteSeconds = (promDiffSec / speedFactor) * promQty;
+
+  const ptsFrom = TIER_POINTS[promFrom] || 0;
+  const ptsTo = TIER_POINTS[promTo] || 0;
+  const promotePts = Math.max(0, ptsTo - ptsFrom) * promQty;
+
+  const grandSeconds = trainSeconds + promoteSeconds;
+  const grandPoints = trainPts + promotePts;
+
+  return { grandSeconds, grandPoints };
 }
 
 function recalcTraining() {
-  const totalPoints = getTrainingPoints();
-  document.getElementById('trainingPointsDisplay').textContent = formatPoints(totalPoints);
+  const { grandSeconds, grandPoints } = getTrainingData();
+
+  document.getElementById('trainingTime').textContent = grandSeconds > 0 ? formatTime(grandSeconds) : '0';
+  document.getElementById('trainingPointsDisplay').textContent = formatPoints(grandPoints);
+
+  const spD = getVal('sp-train-d');
+  const spH = getVal('sp-train-h');
+  const spM = getVal('sp-train-m');
+  const bankedSeconds = spD*86400 + spH*3600 + spM*60;
+
+  const diff = bankedSeconds - grandSeconds;
+  const balanceEl = document.getElementById('trainingBalance');
+
+  if (bankedSeconds === 0 && grandSeconds === 0) {
+    balanceEl.textContent = '0';
+    balanceEl.className = 'total-value';
+  } else {
+    const formattedDiff = formatTime(Math.abs(diff));
+    if (formattedDiff === '0') {
+      balanceEl.textContent = '0';
+      balanceEl.className = 'total-value balance-ahead';
+    } else {
+      balanceEl.textContent = (diff >= 0 ? '+' : '-') + formattedDiff;
+      balanceEl.className = 'total-value ' + (diff >= 0 ? 'balance-ahead' : 'balance-behind');
+    }
+  }
 }
 
 function recalcAll(){
@@ -958,7 +1139,7 @@ function recalcAll(){
   recalcSpeedupDay();
   recalcTraining();
 
-  const grandTotal = getTribesPoints() + getHeroGrowthPoints().grandPoints + getSpeedupDayPoints() + getTrainingPoints();
+  const grandTotal = getTribesPoints() + getHeroGrowthPoints().grandPoints + getSpeedupDayPoints() + getTrainingData().grandPoints;
   document.getElementById('grandTotalPointsDisplay').textContent = formatPoints(grandTotal);
 }
 
