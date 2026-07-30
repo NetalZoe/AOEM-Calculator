@@ -430,18 +430,29 @@
     </div>
   </div>
 
-  <!-- TAB 1: STAMINA -->
-  <div id="tab-stamina" class="tab-content">
+  <!-- TAB 1: TRIBES -->
+  <div id="tab-tribes" class="tab-content">
     <div class="m3-card">
-      <div class="total-label" id="staminaLabel">Points for 0 Tribes(level 30)</div>
-      <div class="total-value points" id="staminaPointsDisplay">0</div>
+      <div class="total-label" id="tribesLabel">Points for 0 Tribes (level 30)</div>
+      <div class="total-value points" id="tribesPointsDisplay">0</div>
     </div>
-    <div class="tier">
-      <div class="tier-header"><span>Stamina Input</span></div>
-      <div class="level-body" style="grid-template-columns: 1fr;">
-        <div class="field">
-          <label>Stamina Amount</label>
-          <div class="num-box numpad-trigger" id="staminaInput" data-min="0" data-max="9999" data-default="0">0</div>
+    <div class="input-row">
+      <div class="tier" style="flex: 1;">
+        <div class="tier-header"><span>STAMINA</span></div>
+        <div class="level-body" style="grid-template-columns: 1fr;">
+          <div class="field">
+            <label>Amount</label>
+            <div class="num-box numpad-trigger" id="tribesInput" data-min="0" data-max="9999" data-default="0">0</div>
+          </div>
+        </div>
+      </div>
+      <div class="tier" style="flex: 1;">
+        <div class="tier-header"><span>Tribe Level</span></div>
+        <div class="level-body" style="grid-template-columns: 1fr;">
+          <div class="field">
+            <label>Level (1-35)</label>
+            <div class="num-box numpad-trigger" id="tribeLevel" data-min="1" data-max="35" data-default="30">30</div>
+          </div>
         </div>
       </div>
     </div>
@@ -610,9 +621,9 @@
 </div>
 
 <nav class="bottom-nav">
-  <button class="nav-item" onclick="switchTab('stamina', this)">
+  <button class="nav-item" onclick="switchTab('tribes', this)">
     <span>⚡</span>
-    <span>Stamina</span>
+    <span>Tribes</span>
   </button>
   <button class="nav-item active" onclick="switchTab('forge', this)">
     <span>⚒️</span>
@@ -757,14 +768,26 @@ function closeNumpad(commit) {
   activeNumpadTarget = null;
 }
 
-function recalcStamina(){
-  const staminaAmount = getVal('staminaInput');
-  const tribes = Math.floor(staminaAmount / 5);
-  const ptsPerTribe = globalPointsMode === 'tmg' ? 300 : 24000;
-  const totalPoints = tribes * ptsPerTribe;
+function recalcTribes(){
+  const tribesCount = getVal('tribesInput');
+  const tribeLevel = getVal('tribeLevel');
+  
+  let ptsPerTribe = 24000;
+  if (globalPointsMode === 'tmg') {
+    if (tribeLevel <= 4) ptsPerTribe = 50;
+    else if (tribeLevel <= 8) ptsPerTribe = 80;
+    else if (tribeLevel <= 12) ptsPerTribe = 100;
+    else if (tribeLevel <= 16) ptsPerTribe = 150;
+    else if (tribeLevel <= 20) ptsPerTribe = 180;
+    else if (tribeLevel <= 24) ptsPerTribe = 220;
+    else if (tribeLevel <= 28) ptsPerTribe = 260;
+    else ptsPerTribe = 300;
+  }
 
-  document.getElementById('staminaLabel').textContent = `Points for ${tribes} Tribes(level 30)`;
-  document.getElementById('staminaPointsDisplay').textContent = formatPoints(totalPoints);
+  const totalPoints = tribesCount * ptsPerTribe;
+
+  document.getElementById('tribesLabel').textContent = `Points for ${tribesCount} Tribes (level ${tribeLevel})`;
+  document.getElementById('tribesPointsDisplay').textContent = formatPoints(totalPoints);
 }
 
 function recalcForge(){
@@ -867,7 +890,7 @@ function recalcSpeedupDay(){
 function recalcAll(){
   updateVisibility();
   recalcForge();
-  recalcStamina();
+  recalcTribes();
   recalcSpeedupDay();
 }
 
