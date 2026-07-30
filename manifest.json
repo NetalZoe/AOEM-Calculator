@@ -1,0 +1,16 @@
+{
+  "name": "Age of Empires Mobile Calculator",
+  "short_name": "AOEM Calc",
+  "start_url": "./",
+  "display": "standalone",
+  "background_color": "#121417",
+  "theme_color": "#121417",
+  "icons": [
+    {
+      "src": "icon.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}
