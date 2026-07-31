@@ -1,0 +1,1204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="theme-color" content="#181716">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>⚒️</text></svg>">
+
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="AOEM Calc">
+
+<link rel="manifest" href="manifest.json">
+
+<title>AOEM Calculator</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;900&display=swap');
+
+  :root {
+    --bg-main: #141312;
+    --panel-bg: #2a2826;
+    --panel-header: #3a3835;
+    --panel-border: #4f4c47;
+    --gold-primary: #d89f3e;
+    --gold-bright: #f7d678;
+    --gold-dark: #8c6a21;
+    --text-main: #e2e8f0;
+    --text-sub: #a8a299;
+
+    --md-shape-corner-m: 4px;
+    --md-shape-corner-l: 6px;
+    --md-shape-corner-full: 9999px;
+  }
+
+  * { box-sizing: border-box; user-select: none; margin: 0; padding: 0; }
+
+  html, body {
+    height: 100dvh;
+    max-height: 100dvh;
+    overflow: hidden;
+    margin: 0;
+    padding: 0;
+  }
+
+  body {
+    font-family: 'Cinzel', serif;
+    color: var(--text-main);
+    background-color: var(--bg-main);
+    background-image: radial-gradient(circle at top, #2d2b28 0%, var(--bg-main) 85%);
+  }
+
+  .wrap {
+    max-width: 800px;
+    width: 100%;
+    height: calc(100dvh - 60px - env(safe-area-inset-bottom));
+    margin: 0 auto;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .aoe-banner {
+    background: linear-gradient(180deg, #363432 0%, #1d1c1a 100%);
+    border: 1px solid var(--panel-border);
+    border-bottom: 2px solid var(--gold-primary);
+    border-radius: var(--md-shape-corner-l);
+    padding: 12px;
+    text-align: center;
+    flex-shrink: 0;
+  }
+
+  .aoe-title-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 6px;
+    flex-wrap: nowrap;
+  }
+
+  .btn-reset {
+    background: #333235;
+    color: var(--text-main);
+    border: 1px solid var(--panel-border);
+    padding: 6px 8px;
+    font-family: 'Cinzel', serif;
+    font-size: 11px;
+    font-weight: 700;
+    border-radius: var(--md-shape-corner-m);
+    cursor: pointer;
+    flex-shrink: 0;
+  }
+
+  .btn-reset:active {
+    background: #4a4845;
+  }
+
+  .aoe-title-group {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    min-width: 0;
+    flex-shrink: 1;
+  }
+
+  .aoe-title-single {
+    font-weight: 900;
+    font-size: 16px;
+    letter-spacing: 1px;
+    background: linear-gradient(180deg, #ffffff 0%, #ffe699 40%, var(--gold-primary) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    line-height: 1;
+  }
+
+  .aoe-badge {
+    background: linear-gradient(180deg, #fcebb6 0%, var(--gold-primary) 100%);
+    color: #111;
+    font-weight: 900;
+    font-size: 9px;
+    letter-spacing: 0.5px;
+    padding: 2px 4px;
+    border-radius: 2px;
+  }
+
+  .points-toggle {
+    display: inline-flex;
+    background: #181716;
+    border: 1px solid var(--panel-border);
+    border-radius: var(--md-shape-corner-full);
+    padding: 2px;
+    flex-shrink: 0;
+  }
+
+  .points-toggle button {
+    font-family: 'Cinzel', serif;
+    font-size: 10px;
+    font-weight: 700;
+    padding: 4px 8px;
+    border-radius: var(--md-shape-corner-full);
+    border: none;
+    background: transparent;
+    color: var(--text-sub);
+    cursor: pointer;
+  }
+
+  .points-toggle button.active {
+    background: linear-gradient(180deg, #fce08b 0%, var(--gold-primary) 100%);
+    color: #111;
+  }
+
+  .tab-content { display: none; flex-direction: column; gap: 12px; flex: 1; }
+  .tab-content.active { display: flex; }
+
+  .totals {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 10px;
+  }
+
+  .m3-card {
+    background: var(--panel-bg);
+    border: 1px solid var(--panel-border);
+    border-radius: var(--md-shape-corner-l);
+    padding: 10px 6px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  .total-label {
+    font-size: 11px;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    color: var(--gold-primary);
+    margin-bottom: 4px;
+  }
+
+  .total-value {
+    font-size: 18px;
+    font-weight: 900;
+    color: var(--gold-bright);
+    line-height: 1;
+  }
+  .total-value.points, .total-value.balance-ahead { color: #81c784; }
+  .total-value.balance-behind { color: #e57373; }
+
+  .input-row { display: flex; gap: 10px; flex-wrap: wrap; }
+  
+  .tier {
+    flex: 1;
+    min-width: 0;
+    background: var(--panel-bg);
+    border: 1px solid var(--panel-border);
+    border-radius: var(--md-shape-corner-l);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .input-row .tier {
+    min-width: 240px;
+  }
+
+  .tier-header {
+    padding: 8px 12px;
+    font-family: 'Cinzel', serif;
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--gold-bright);
+    background: var(--panel-header);
+    border-bottom: 1px solid var(--panel-border);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    letter-spacing: 0.5px;
+  }
+
+  .tier-header-right {
+    font-size: 10px;
+    font-weight: 600;
+    color: var(--text-sub);
+    text-transform: none;
+  }
+
+  .level-body, .speedup-body {
+    padding: 12px;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+  }
+
+  .field { display: flex; flex-direction: column; gap: 5px; }
+  .field label { font-size: 11px; text-transform: uppercase; color: var(--text-sub); text-align: center; font-weight: 600; }
+
+  .num-box {
+    width: 100%;
+    background: #1d1c1b;
+    border: 1px solid var(--panel-border);
+    border-radius: var(--md-shape-corner-m);
+    color: #ffffff;
+    font-family: 'Cinzel', serif;
+    font-weight: 700;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    height: 40px;
+    cursor: pointer;
+  }
+
+  .num-box:active {
+    border-color: var(--gold-primary);
+    background: #363432;
+  }
+
+  /* NUMPAD MODAL */
+  .numpad-overlay {
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: rgba(0,0,0,0.8);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999;
+    padding: 15px;
+  }
+
+  .numpad-container {
+    background: #474543;
+    border: 1px solid #706a5f;
+    border-radius: 2px;
+    width: 100%;
+    max-width: 280px;
+    padding: 8px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.9);
+  }
+
+  .numpad-display-box {
+    background: #6a6661;
+    padding: 8px;
+    text-align: center;
+    border-radius: 2px;
+  }
+
+  #numpad-current {
+    font-size: 22px;
+    font-weight: 700;
+    color: #f7d678;
+    letter-spacing: 1px;
+    line-height: 1;
+  }
+
+  .numpad-subrow {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: #363432;
+    padding: 2px 4px 2px 8px;
+    border-radius: 2px;
+  }
+
+  #numpad-range {
+    font-size: 12px;
+    color: #d1cdb8;
+    font-weight: 600;
+  }
+
+  .btn-max {
+    background: #232325;
+    color: #e2e8f0;
+    border: 1px solid #4a4845;
+    padding: 4px 14px;
+    font-size: 11px;
+    font-weight: 700;
+    cursor: pointer;
+    border-radius: 2px;
+    font-family: inherit;
+  }
+
+  .btn-max:active {
+    background: #4a4845;
+  }
+
+  .numpad-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 4px;
+  }
+
+  .numpad-grid button {
+    background: #252527;
+    border: 1px solid #3d3b38;
+    color: #e2e8f0;
+    font-family: inherit;
+    font-size: 16px;
+    font-weight: 700;
+    height: 40px;
+    cursor: pointer;
+    border-radius: 2px;
+  }
+
+  .numpad-grid button:active {
+    background: #e0b353;
+    color: #111;
+  }
+
+  .numpad-actions {
+    display: flex;
+    gap: 6px;
+    margin-top: 2px;
+  }
+
+  .numpad-actions button {
+    flex: 1;
+    font-family: inherit;
+    font-weight: 700;
+    font-size: 12px;
+    height: 36px;
+    border-radius: 2px;
+    cursor: pointer;
+  }
+
+  .numpad-btn-cancel {
+    background: #333235;
+    color: #e2e8f0;
+    border: 1px solid #484643;
+  }
+
+  .numpad-btn-ok {
+    background: linear-gradient(180deg, #f0c96c 0%, #d89f3e 100%);
+    color: #17120a;
+    border: 1px solid #fce08b;
+  }
+
+  .bottom-nav {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 60px;
+    background: #181716;
+    border-top: 1px solid var(--panel-border);
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    z-index: 1000;
+    padding-bottom: env(safe-area-inset-bottom);
+  }
+
+  .nav-item {
+    flex: 1;
+    height: 100%;
+    background: transparent;
+    border: none;
+    color: var(--text-sub);
+    font-family: 'Cinzel', serif;
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 3px;
+    cursor: pointer;
+    border-top: 2px solid transparent;
+  }
+
+  .nav-item.active {
+    color: var(--gold-bright);
+    background: linear-gradient(180deg, rgba(216, 159, 62, 0.15) 0%, transparent 100%);
+    border-top: 2px solid var(--gold-primary);
+  }
+
+  footer { 
+    text-align: center; 
+    margin-top: auto; 
+    padding-top: 12px;
+    padding-bottom: 8px;
+    flex-shrink: 0;
+  }
+  footer .credit { 
+    color: var(--gold-bright); 
+    font-size: 13px; 
+    font-weight: 700; 
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+  }
+  footer .credit .uid-box { 
+    color: var(--gold-primary); 
+    font-size: 12px; 
+    font-weight: 600;
+    background: #1d1c1b;
+    border: 1px solid var(--panel-border);
+    padding: 6px 10px;
+    border-radius: var(--md-shape-corner-m);
+    user-select: all;
+    -webkit-user-select: all;
+    cursor: pointer;
+  }
+</style>
+</head>
+<body>
+
+<div class="wrap">
+  <div class="aoe-banner">
+    <div class="aoe-title-row">
+      <button type="button" class="btn-reset" onclick="resetAll()">Reset</button>
+      <div class="aoe-title-group">
+        <span class="aoe-title-single">AOEM</span>
+        <span class="aoe-badge">CALCULATOR</span>
+      </div>
+      <div class="points-toggle">
+        <button type="button" class="global-toggle-btn active" data-mode="tmg">TMG</button>
+        <button type="button" class="global-toggle-btn" data-mode="tme">TME</button>
+      </div>
+    </div>
+    <div class="m3-card" style="margin-top: 8px; background: #181716; border-color: var(--panel-border);">
+      <div class="total-label">Total Points</div>
+      <div class="total-value points" id="grandTotalPointsDisplay">0</div>
+    </div>
+  </div>
+
+  <!-- TAB 1: TRIBES -->
+  <div id="tab-tribes" class="tab-content">
+    <div class="m3-card">
+      <div class="total-label" id="tribesLabel">Points for 0 Tribes</div>
+      <div class="total-value points" id="tribesPointsDisplay">0</div>
+    </div>
+    <div class="input-row">
+      <div class="tier" style="flex: 1;">
+        <div class="tier-header"><span>Stamina</span></div>
+        <div class="level-body" style="grid-template-columns: 1fr;">
+          <div class="field">
+            <label>Amount</label>
+            <div class="num-box numpad-trigger" id="staminaInput" data-min="0" data-max="99999" data-default="0">0</div>
+          </div>
+        </div>
+      </div>
+      <div class="tier" style="flex: 1;">
+        <div class="tier-header"><span>Tribe Level</span></div>
+        <div class="level-body" style="grid-template-columns: 1fr;">
+          <div class="field">
+            <label>Level (1-35)</label>
+            <div class="num-box numpad-trigger" id="tribeLevel" data-min="1" data-max="35" data-default="30">30</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- TAB 2: HERO GROWTH -->
+  <div id="tab-hero-growth" class="tab-content active">
+    <div class="totals">
+      <div class="m3-card">
+        <div class="total-label">Forge Time</div>
+        <div class="total-value" id="totalTime">0</div>
+      </div>
+      <div class="m3-card">
+        <div class="total-label">Balance</div>
+        <div class="total-value" id="balanceValue">0</div>
+      </div>
+      <div class="m3-card">
+        <div class="total-label">Points</div>
+        <div class="total-value points" id="totalPoints">0</div>
+      </div>
+    </div>
+
+    <div class="input-row">
+      <div class="tier" data-tier="level">
+        <div class="tier-header"><span>Level</span></div>
+        <div class="level-body">
+          <div class="field"><label>Blacksmith</label><div class="num-box numpad-trigger" id="lvl-blacksmith" data-min="1" data-max="40" data-default="1">1</div></div>
+          <div class="field"><label>Renovation</label><div class="num-box numpad-trigger" id="lvl-renovation" data-min="0" data-max="5" data-default="0">0</div></div>
+          <div class="field"><label>Workshop</label><div class="num-box numpad-trigger" id="lvl-workshop" data-min="0" data-max="10" data-default="0">0</div></div>
+        </div>
+      </div>
+
+      <div class="tier" data-tier="speedups">
+        <div class="tier-header"><span>Forge Speedups</span></div>
+        <div class="speedup-body">
+          <div class="field"><label>Days</label><div class="num-box numpad-trigger" id="sp-forge-d" data-min="0" data-max="9999" data-default="0">0</div></div>
+          <div class="field"><label>Hours</label><div class="num-box numpad-trigger" id="sp-forge-h" data-min="0" data-max="23" data-default="0">0</div></div>
+          <div class="field"><label>Minutes</label><div class="num-box numpad-trigger" id="sp-forge-m" data-min="0" data-max="59" data-default="0">0</div></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="input-row">
+      <div class="tier" style="flex: 1 1 100%;">
+        <div class="tier-header"><span>Gear Crafting</span></div>
+        <div class="level-body gear-grid" style="grid-template-columns: repeat(4, 1fr);">
+          <div class="field gear-item" data-base="7200" data-points-tme="10000" data-points-tmg="1000">
+            <label>Rare</label>
+            <div class="num-box numpad-trigger qty" id="gear-rare" data-min="0" data-max="999" data-default="0">0</div>
+          </div>
+          <div class="field gear-item" data-base="21600" data-points-tme="30000" data-points-tmg="5000">
+            <label>Epic</label>
+            <div class="num-box numpad-trigger qty" id="gear-epic" data-min="0" data-max="999" data-default="0">0</div>
+          </div>
+          <div class="field gear-item" data-base="144000" data-points-tme="200000" data-points-tmg="30000">
+            <label>Legendary</label>
+            <div class="num-box numpad-trigger qty" id="gear-legendary" data-min="0" data-max="999" data-default="0">0</div>
+          </div>
+          <div class="field gear-item" data-base="36000" data-points-tme="37188" data-points-tmg="5433">
+            <label>Random</label>
+            <div class="num-box numpad-trigger qty" id="gear-random" data-min="0" data-max="999" data-default="0">0</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="input-row" id="sec-hero-items" style="display: none;">
+      <div class="tier" style="flex: 1;">
+        <div class="tier-header"><span>Medals</span></div>
+        <div class="level-body" style="grid-template-columns: repeat(2, 1fr);">
+          <div class="field"><label>Epic</label><div class="num-box numpad-trigger" id="medal-epic" data-min="0" data-max="9999" data-default="0">0</div></div>
+          <div class="field"><label>Legendary</label><div class="num-box numpad-trigger" id="medal-legendary" data-min="0" data-max="9999" data-default="0">0</div></div>
+        </div>
+      </div>
+      <div class="tier" style="flex: 1;">
+        <div class="tier-header"><span>Scrolls</span></div>
+        <div class="level-body" style="grid-template-columns: repeat(2, 1fr);">
+          <div class="field"><label>Epic</label><div class="num-box numpad-trigger" id="scroll-epic" data-min="0" data-max="9999" data-default="0">0</div></div>
+          <div class="field"><label>Legendary</label><div class="num-box numpad-trigger" id="scroll-legendary" data-min="0" data-max="9999" data-default="0">0</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- TAB 3: SPEEDUP DAY -->
+  <div id="tab-speedup-day" class="tab-content">
+    <div class="m3-card">
+      <div class="total-label">Speedup Points</div>
+      <div class="total-value points" id="speedupDayPointsDisplay">0</div>
+    </div>
+
+    <div class="input-row">
+      <div class="tier" data-tier="speedups">
+        <div class="tier-header"><span>Building Speedups</span></div>
+        <div class="speedup-body">
+          <div class="field"><label>Days</label><div class="num-box numpad-trigger" id="sp-bldg-d" data-min="0" data-max="9999" data-default="0">0</div></div>
+          <div class="field"><label>Hours</label><div class="num-box numpad-trigger" id="sp-bldg-h" data-min="0" data-max="23" data-default="0">0</div></div>
+          <div class="field"><label>Minutes</label><div class="num-box numpad-trigger" id="sp-bldg-m" data-min="0" data-max="59" data-default="0">0</div></div>
+        </div>
+      </div>
+
+      <div class="tier" data-tier="speedups">
+        <div class="tier-header"><span>Research Speedups</span></div>
+        <div class="speedup-body">
+          <div class="field"><label>Days</label><div class="num-box numpad-trigger" id="sp-res-d" data-min="0" data-max="9999" data-default="0">0</div></div>
+          <div class="field"><label>Hours</label><div class="num-box numpad-trigger" id="sp-res-h" data-min="0" data-max="23" data-default="0">0</div></div>
+          <div class="field"><label>Minutes</label><div class="num-box numpad-trigger" id="sp-res-m" data-min="0" data-max="59" data-default="0">0</div></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="input-row" id="sec-signets">
+      <div class="tier" style="flex: 1 1 100%;">
+        <div class="tier-header"><span>Signet Rings</span></div>
+        <div class="level-body signet-grid" style="grid-template-columns: repeat(4, 1fr);">
+          <div class="field"><label>Copper Sand</label><div class="num-box numpad-trigger" id="signet-copper" data-min="0" data-max="500" data-default="0">0</div></div>
+          <div class="field"><label>Silver Sand</label><div class="num-box numpad-trigger" id="signet-silver" data-min="0" data-max="500" data-default="0">0</div></div>
+          <div class="field"><label>Fine Gold</label><div class="num-box numpad-trigger" id="signet-gold" data-min="0" data-max="500" data-default="0">0</div></div>
+          <div class="field"><label>Meteor Steel</label><div class="num-box numpad-trigger" id="signet-steel" data-min="0" data-max="500" data-default="0">0</div></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="input-row" id="sec-finecraft">
+      <div class="tier" style="flex: 1 1 100%;">
+        <div class="tier-header"><span>Fine Craft</span></div>
+        <div class="level-body" style="grid-template-columns: 1fr;">
+          <div class="field"><label>Craft Count</label><div class="num-box numpad-trigger" id="fine-craft-qty" data-min="0" data-max="9999" data-default="0">0</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- TAB 4: TRAINING -->
+  <div id="tab-training" class="tab-content">
+    <div class="totals">
+      <div class="m3-card">
+        <div class="total-label">Training Time</div>
+        <div class="total-value" id="trainingTime">0</div>
+      </div>
+      <div class="m3-card">
+        <div class="total-label">Balance</div>
+        <div class="total-value" id="trainingBalance">0</div>
+      </div>
+      <div class="m3-card">
+        <div class="total-label">Points</div>
+        <div class="total-value points" id="trainingPointsDisplay">0</div>
+      </div>
+    </div>
+
+    <!-- Training Speed & Buffs combined -->
+    <div class="input-row">
+      <div class="tier" style="flex: 1 1 100%;">
+        <div class="tier-header"><span>Training Speed & Buffs</span></div>
+        <div class="level-body" style="grid-template-columns: 1.5fr 1fr 1fr 1fr; align-items: center; justify-items: center;">
+          <div class="field" style="width: 100%;">
+            <label>Speed (%)</label>
+            <div class="num-box numpad-trigger" id="train-speed-pct" data-min="0" data-max="999" data-default="0">0</div>
+          </div>
+          <div class="field" style="align-items: center;">
+            <label style="font-size: 9px;">Knights Rights</label>
+            <input type="checkbox" id="buff-knights" onchange="recalcAll()" style="width: 20px; height: 20px; accent-color: var(--gold-primary); cursor: pointer; margin-top: 6px;">
+          </div>
+          <div class="field" style="align-items: center;">
+            <label style="font-size: 9px;">Tactical Master</label>
+            <input type="checkbox" id="buff-tactical" onchange="recalcAll()" style="width: 20px; height: 20px; accent-color: var(--gold-primary); cursor: pointer; margin-top: 6px;">
+          </div>
+          <div class="field" style="align-items: center;">
+            <label style="font-size: 9px;">Instructor</label>
+            <input type="checkbox" id="buff-instructor" onchange="recalcAll()" style="width: 20px; height: 20px; accent-color: var(--gold-primary); cursor: pointer; margin-top: 6px;">
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="input-row">
+      <div class="tier" data-tier="speedups">
+        <div class="tier-header"><span>Training Speedups</span></div>
+        <div class="speedup-body">
+          <div class="field"><label>Days</label><div class="num-box numpad-trigger" id="sp-train-d" data-min="0" data-max="9999" data-default="0">0</div></div>
+          <div class="field"><label>Hours</label><div class="num-box numpad-trigger" id="sp-train-h" data-min="0" data-max="23" data-default="0">0</div></div>
+          <div class="field"><label>Minutes</label><div class="num-box numpad-trigger" id="sp-train-m" data-min="0" data-max="59" data-default="0">0</div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Train and Promote on the same row -->
+    <div class="input-row">
+      <div class="tier" style="flex: 1;">
+        <div class="tier-header">
+          <span>Train</span>
+          <span class="tier-header-right" id="train-balance-header" style="display: none;">Balance: 0 units</span>
+        </div>
+        <div class="level-body" style="grid-template-columns: repeat(2, 1fr);">
+          <div class="field">
+            <label>Tier</label>
+            <div class="num-box numpad-trigger" id="train-tier" data-min="1" data-max="9" data-default="8">8</div>
+          </div>
+          <div class="field">
+            <label>Units</label>
+            <div class="num-box numpad-trigger" id="train-qty" data-min="0" data-max="9999999" data-default="0">0</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="tier" style="flex: 1.5;">
+        <div class="tier-header">
+          <span>Promote</span>
+          <span class="tier-header-right" id="promote-balance-header" style="display: none;">Balance: 0 units</span>
+        </div>
+        <div class="level-body" style="grid-template-columns: repeat(3, 1fr);">
+          <div class="field">
+            <label>From</label>
+            <div class="num-box numpad-trigger" id="promote-from" data-min="1" data-max="8" data-default="7">7</div>
+          </div>
+          <div class="field">
+            <label>To</label>
+            <div class="num-box numpad-trigger" id="promote-to" data-min="2" data-max="9" data-default="8">8</div>
+          </div>
+          <div class="field">
+            <label>Units</label>
+            <div class="num-box numpad-trigger" id="promote-qty" data-min="0" data-max="9999999" data-default="0">0</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    <div class="credit">
+      <span>CREATED BY BABYMETAL ERA #008</span>
+      <span class="uid-box" onclick="copyUid(this)">UID: 5012140737488439073</span>
+    </div>
+  </footer>
+</div>
+
+<!-- NUMPAD MODAL -->
+<div id="numpad-modal" class="numpad-overlay" style="display: none;">
+  <div class="numpad-container">
+    <div class="numpad-display-box">
+      <span id="numpad-current">0</span>
+    </div>
+    <div class="numpad-subrow">
+      <span id="numpad-range">0-9999</span>
+      <button type="button" class="btn-max" onclick="numpadPress('MAX')">Max</button>
+    </div>
+    <div class="numpad-grid">
+      <button type="button" onclick="numpadPress('7')">7</button>
+      <button type="button" onclick="numpadPress('8')">8</button>
+      <button type="button" onclick="numpadPress('9')">9</button>
+      <button type="button" onclick="numpadPress('4')">4</button>
+      <button type="button" onclick="numpadPress('5')">5</button>
+      <button type="button" onclick="numpadPress('6')">6</button>
+      <button type="button" onclick="numpadPress('1')">1</button>
+      <button type="button" onclick="numpadPress('2')">2</button>
+      <button type="button" onclick="numpadPress('3')">3</button>
+      <button type="button" onclick="numpadPress('0')">0</button>
+      <button type="button" onclick="numpadPress('00')">00</button>
+      <button type="button" onclick="numpadPress('CLEAR')">Clear</button>
+    </div>
+    <div class="numpad-actions">
+      <button type="button" class="numpad-btn-cancel" onclick="closeNumpad(false)">Cancel</button>
+      <button type="button" class="numpad-btn-ok" onclick="closeNumpad(true)">Confirm</button>
+    </div>
+  </div>
+</div>
+
+<nav class="bottom-nav">
+  <button class="nav-item" onclick="switchTab('tribes', this)">
+    <span>⚡</span>
+    <span>Tribes</span>
+  </button>
+  <button class="nav-item active" onclick="switchTab('hero-growth', this)">
+    <span>⚒️</span>
+    <span>Hero Growth</span>
+  </button>
+  <button class="nav-item" onclick="switchTab('speedup-day', this)">
+    <span>🏗️</span>
+    <span>Speedup Day</span>
+  </button>
+  <button class="nav-item" onclick="switchTab('training', this)">
+    <span>⚔️</span>
+    <span>Training</span>
+  </button>
+</nav>
+
+<script>
+if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.getRegistrations().then(registrations => {
+    for (let r of registrations) r.unregister();
+  });
+}
+
+const BLACKSMITH_PCT = {
+  1:2, 2:4, 3:6, 4:8, 5:10, 6:12, 7:14, 8:16, 9:2, 10:21,
+  11:24, 12:27, 13:30, 14:33, 15:36, 16:39, 17:42, 18:45, 19:48, 20:52,
+  21:56, 22:60, 23:64, 24:68, 25:73, 26:78, 27:83, 28:88, 29:94, 30:101,
+  31:107, 32:115, 33:123, 34:131, 35:141, 36:151, 37:162, 38:174, 39:187, 40:201
+};
+
+const RENOVATION_PCT = { 0:0, 1:8, 2:16, 3:24, 4:32, 5:40 };
+
+const TIER_BASE_SECONDS = {
+  1: 10,
+  2: 14,
+  3: 19,
+  4: 28,
+  5: 42,
+  6: 75,
+  7: 130,
+  8: 195,
+  9: 360
+};
+
+const TIER_POINTS = {
+  1: 2,
+  2: 3,
+  3: 5,
+  4: 10,
+  5: 20,
+  6: 50,
+  7: 100,
+  8: 150,
+  9: 200
+};
+
+let globalPointsMode = 'tmg';
+let activeNumpadTarget = null;
+let numpadTempValue = '0';
+
+function switchTab(tabId, btn) {
+  document.querySelectorAll('.tab-content').forEach(tc => tc.classList.remove('active'));
+  document.querySelectorAll('.nav-item').forEach(ni => ni.classList.remove('active'));
+
+  document.getElementById('tab-' + tabId).classList.add('active');
+  btn.classList.add('active');
+}
+
+function workshopPct(level){ return level * 2; }
+
+function formatTime(totalSeconds){
+  let totalMins = Math.round(totalSeconds / 60);
+  if (totalMins === 0) return "0";
+  const days = Math.floor(totalMins / 1440);
+  totalMins %= 1440;
+  const hours = Math.floor(totalMins / 60);
+  const mins = totalMins % 60;
+  return `${days}d ${hours}h ${mins}m`;
+}
+
+function formatPoints(n){
+  if (n >= 1000000) return (n/1000000).toFixed(n % 1000000 === 0 ? 0 : 1).replace(/\.0$/,'') + 'm';
+  if (n >= 1000) return (n/1000).toFixed(n % 1000 === 0 ? 0 : 1).replace(/\.0$/,'') + 'k';
+  return String(n);
+}
+
+function initInputs(){
+  document.querySelectorAll('.numpad-trigger').forEach(el => {
+    const def = el.dataset.default || '0';
+    el.textContent = def;
+  });
+}
+
+function resetAll() {
+  document.querySelectorAll('.numpad-trigger').forEach(el => {
+    const def = el.dataset.default || '0';
+    el.textContent = def;
+  });
+  document.querySelectorAll('input[type="checkbox"]').forEach(cb => {
+    cb.checked = false;
+  });
+  recalcAll();
+}
+
+function copyUid(el) {
+  const uidText = "5012140737488439073";
+  navigator.clipboard.writeText(uidText);
+  const origText = el.textContent;
+  el.textContent = "COPIED!";
+  setTimeout(() => { el.textContent = origText; }, 1200);
+}
+
+function updateVisibility() {
+  const isTmg = globalPointsMode === 'tmg';
+  document.getElementById('sec-signets').style.display = isTmg ? 'flex' : 'none';
+  document.getElementById('sec-finecraft').style.display = isTmg ? 'flex' : 'none';
+  document.getElementById('sec-hero-items').style.display = isTmg ? 'flex' : 'none';
+}
+
+function getVal(id) {
+  const el = document.getElementById(id);
+  if (!el) return 0;
+  return parseInt(el.textContent.replace(/,/g, ''), 10) || 0;
+}
+
+// Numpad Logic
+document.querySelectorAll('.numpad-trigger').forEach(el => {
+  el.addEventListener('click', () => {
+    activeNumpadTarget = el;
+    numpadTempValue = '0';
+    const min = el.dataset.min || '0';
+    const max = el.dataset.max || '9999';
+    
+    document.getElementById('numpad-range').textContent = `${min}-${max}`;
+    document.getElementById('numpad-current').textContent = Number(numpadTempValue).toLocaleString('en-US');
+    document.getElementById('numpad-modal').style.display = 'flex';
+  });
+});
+
+function numpadPress(char) {
+  const max = parseInt(activeNumpadTarget.dataset.max, 10);
+
+  if (char === 'CLEAR') {
+    numpadTempValue = '0';
+  } else if (char === 'MAX') {
+    numpadTempValue = String(isNaN(max) ? 9999 : max);
+  } else if (char === '00') {
+    if (numpadTempValue !== '0') {
+      numpadTempValue += '00';
+    }
+  } else {
+    if (numpadTempValue === '0') {
+      numpadTempValue = char;
+    } else {
+      numpadTempValue += char;
+    }
+  }
+
+  if (!isNaN(max) && parseInt(numpadTempValue, 10) > max) {
+    numpadTempValue = String(max);
+  }
+
+  document.getElementById('numpad-current').textContent = Number(numpadTempValue).toLocaleString('en-US');
+}
+
+function closeNumpad(commit) {
+  if (commit && activeNumpadTarget) {
+    const min = parseInt(activeNumpadTarget.dataset.min || '0', 10);
+    const max = parseInt(activeNumpadTarget.dataset.max, 10);
+    let val = parseInt(numpadTempValue, 10);
+    if (isNaN(val)) val = min;
+    if (val < min) val = min;
+    if (!isNaN(max) && val > max) val = max;
+
+    activeNumpadTarget.textContent = val;
+    recalcAll();
+  }
+  document.getElementById('numpad-modal').style.display = 'none';
+  activeNumpadTarget = null;
+}
+
+function getTribesPoints() {
+  const stamina = getVal('staminaInput');
+  const tribeLevel = getVal('tribeLevel');
+  const tribesCount = Math.floor(stamina / 5);
+  
+  let ptsPerTribe = 24000;
+  if (globalPointsMode === 'tmg') {
+    if (tribeLevel <= 4) ptsPerTribe = 50;
+    else if (tribeLevel <= 8) ptsPerTribe = 80;
+    else if (tribeLevel <= 12) ptsPerTribe = 100;
+    else if (tribeLevel <= 16) ptsPerTribe = 150;
+    else if (tribeLevel <= 20) ptsPerTribe = 180;
+    else if (tribeLevel <= 24) ptsPerTribe = 220;
+    else if (tribeLevel <= 28) ptsPerTribe = 260;
+    else ptsPerTribe = 300;
+  }
+  return tribesCount * ptsPerTribe;
+}
+
+function recalcTribes(){
+  const stamina = getVal('staminaInput');
+  const tribesCount = Math.floor(stamina / 5);
+  const totalPoints = getTribesPoints();
+
+  document.getElementById('tribesLabel').textContent = `Points for ${tribesCount} Tribes`;
+  document.getElementById('tribesPointsDisplay').textContent = formatPoints(totalPoints);
+}
+
+function getHeroGrowthPoints() {
+  const blacksmithLevel = getVal('lvl-blacksmith');
+  const workshopLevel = getVal('lvl-workshop');
+  const renovationLevel = getVal('lvl-renovation');
+
+  const blacksmithPct = BLACKSMITH_PCT[blacksmithLevel] || 0;
+  const workPct = workshopPct(workshopLevel);
+  const renoPct = RENOVATION_PCT[renovationLevel] || 0;
+
+  const totalSpeedupPct = blacksmithPct + workPct + renoPct;
+  const speedFactor = 1 + (totalSpeedupPct / 100);
+
+  let grandSeconds = 0;
+  let grandPoints = 0;
+
+  document.querySelectorAll('.gear-item').forEach(item => {
+    const qtyEl = item.querySelector('.num-box');
+    const qty = qtyEl ? (parseInt(qtyEl.textContent.replace(/,/g, ''), 10) || 0) : 0;
+    const baseSeconds = parseFloat(item.dataset.base) || 0;
+    const pointsPerItem = parseFloat(globalPointsMode === 'tmg' ? item.dataset.pointsTmg : item.dataset.pointsTme) || 0;
+
+    const subtotalSeconds = (baseSeconds / speedFactor) * qty;
+    grandSeconds += subtotalSeconds;
+    grandPoints += pointsPerItem * qty;
+  });
+
+  if (globalPointsMode === 'tmg') {
+    const medalEpic = getVal('medal-epic');
+    const medalLegendary = getVal('medal-legendary');
+    const scrollEpic = getVal('scroll-epic');
+    const scrollLegendary = getVal('scroll-legendary');
+
+    grandPoints += (medalEpic * 500) + (medalLegendary * 2500) + (scrollEpic * 350) + (scrollLegendary * 2000);
+  }
+
+  return { grandSeconds, grandPoints };
+}
+
+function recalcHeroGrowth(){
+  const { grandSeconds, grandPoints } = getHeroGrowthPoints();
+
+  const totalTimeEl = document.getElementById('totalTime');
+  totalTimeEl.textContent = grandSeconds > 0 ? formatTime(grandSeconds) : '0';
+  document.getElementById('totalPoints').textContent = formatPoints(grandPoints);
+
+  const spD = getVal('sp-forge-d');
+  const spH = getVal('sp-forge-h');
+  const spM = getVal('sp-forge-m');
+  const bankedSeconds = spD*86400 + spH*3600 + spM*60;
+
+  const diff = bankedSeconds - grandSeconds;
+  const balanceEl = document.getElementById('balanceValue');
+
+  if (bankedSeconds === 0 && grandSeconds === 0) {
+    balanceEl.textContent = '0';
+    balanceEl.className = 'total-value';
+  } else {
+    const formattedDiff = formatTime(Math.abs(diff));
+    if (formattedDiff === '0') {
+      balanceEl.textContent = '0';
+      balanceEl.className = 'total-value balance-ahead';
+    } else {
+      balanceEl.textContent = (diff >= 0 ? '+' : '-') + formattedDiff;
+      balanceEl.className = 'total-value ' + (diff >= 0 ? 'balance-ahead' : 'balance-behind');
+    }
+  }
+}
+
+function getSpeedupDayPoints() {
+  const bldgD = getVal('sp-bldg-d');
+  const bldgH = getVal('sp-bldg-h');
+  const bldgM = getVal('sp-bldg-m');
+  const bldgTotalMins = bldgD * 1440 + bldgH * 60 + bldgM;
+
+  const resD = getVal('sp-res-d');
+  const resH = getVal('sp-res-h');
+  const resM = getVal('sp-res-m');
+  const resTotalMins = resD * 1440 + resH * 60 + resM;
+
+  let fineCraft = 0;
+  let copperSand = 0;
+  let silverSand = 0;
+  let fineGold = 0;
+  let meteorSteel = 0;
+
+  if (globalPointsMode === 'tmg') {
+    fineCraft = getVal('fine-craft-qty');
+    copperSand = getVal('signet-copper');
+    silverSand = getVal('signet-silver');
+    fineGold = getVal('signet-gold');
+    meteorSteel = getVal('signet-steel');
+  }
+
+  let ptsBldgMin = globalPointsMode === 'tmg' ? 30 : 240;
+  let ptsResMin = globalPointsMode === 'tmg' ? 30 : 240;
+  let ptsCraft = 2000;
+  let ptsCopper = 400;
+  let ptsSilver = 1000;
+  let ptsGold = 3000;
+  let ptsSteel = 20000;
+
+  return (bldgTotalMins * ptsBldgMin) +
+         (resTotalMins * ptsResMin) +
+         (fineCraft * ptsCraft) +
+         (copperSand * ptsCopper) +
+         (silverSand * ptsSilver) +
+         (fineGold * ptsGold) +
+         (meteorSteel * ptsSteel);
+}
+
+function recalcSpeedupDay(){
+  const totalPoints = getSpeedupDayPoints();
+  document.getElementById('speedupDayPointsDisplay').textContent = formatPoints(totalPoints);
+}
+
+function getTrainingData() {
+  let baseSpd = getVal('train-speed-pct');
+  if (document.getElementById('buff-knights').checked) baseSpd += 10;
+  if (document.getElementById('buff-tactical').checked) baseSpd += 10;
+  if (document.getElementById('buff-instructor').checked) baseSpd += 5;
+
+  const speedFactor = 1 + (baseSpd / 100);
+
+  const trainTier = getVal('train-tier');
+  const trainQty = getVal('train-qty');
+  const trainBaseSec = TIER_BASE_SECONDS[trainTier] || 0;
+  const trainSeconds = (trainBaseSec / speedFactor) * trainQty;
+  const trainPts = (TIER_POINTS[trainTier] || 0) * trainQty;
+
+  let promFrom = getVal('promote-from');
+  let promTo = getVal('promote-to');
+  if (promFrom >= promTo) promTo = promFrom + 1;
+  const promQty = getVal('promote-qty');
+  const promBaseFrom = TIER_BASE_SECONDS[promFrom] || 0;
+  const promBaseTo = TIER_BASE_SECONDS[promTo] || 0;
+  const promDiffSec = Math.max(0, promBaseTo - promBaseFrom);
+  const promoteSeconds = (promDiffSec / speedFactor) * promQty;
+
+  const ptsFrom = TIER_POINTS[promFrom] || 0;
+  const ptsTo = TIER_POINTS[promTo] || 0;
+  const promotePts = Math.max(0, ptsTo - ptsFrom) * promQty;
+
+  const grandSeconds = trainSeconds + promoteSeconds;
+  const grandPoints = trainPts + promotePts;
+
+  const spD = getVal('sp-train-d');
+  const spH = getVal('sp-train-h');
+  const spM = getVal('sp-train-m');
+  const bankedSeconds = spD * 86400 + spH * 3600 + spM * 60;
+
+  const trainHeader = document.getElementById('train-balance-header');
+  const promoteHeader = document.getElementById('promote-balance-header');
+
+  if (bankedSeconds === 0) {
+    trainHeader.style.display = 'none';
+    promoteHeader.style.display = 'none';
+  } else {
+    trainHeader.style.display = '';
+    promoteHeader.style.display = '';
+
+    const trainSecPerUnit = trainBaseSec / speedFactor;
+    const trainUnitBalance = trainSecPerUnit > 0 ? Math.floor(bankedSeconds / trainSecPerUnit) : 0;
+
+    const promSecPerUnit = promDiffSec / speedFactor;
+    const promUnitBalance = promSecPerUnit > 0 ? Math.floor(bankedSeconds / promSecPerUnit) : 0;
+
+    trainHeader.textContent = `Balance: ${trainUnitBalance.toLocaleString('en-US')} units`;
+    promoteHeader.textContent = `Balance: ${promUnitBalance.toLocaleString('en-US')} units`;
+  }
+
+  return { grandSeconds, grandPoints };
+}
+
+function recalcTraining() {
+  const { grandSeconds, grandPoints } = getTrainingData();
+
+  document.getElementById('trainingTime').textContent = grandSeconds > 0 ? formatTime(grandSeconds) : '0';
+  document.getElementById('trainingPointsDisplay').textContent = formatPoints(grandPoints);
+
+  const spD = getVal('sp-train-d');
+  const spH = getVal('sp-train-h');
+  const spM = getVal('sp-train-m');
+  const bankedSeconds = spD*86400 + spH*3600 + spM*60;
+
+  const diff = bankedSeconds - grandSeconds;
+  const balanceEl = document.getElementById('trainingBalance');
+
+  if (bankedSeconds === 0 && grandSeconds === 0) {
+    balanceEl.textContent = '0';
+    balanceEl.className = 'total-value';
+  } else {
+    const formattedDiff = formatTime(Math.abs(diff));
+    if (formattedDiff === '0') {
+      balanceEl.textContent = '0';
+      balanceEl.className = 'total-value balance-ahead';
+    } else {
+      balanceEl.textContent = (diff >= 0 ? '+' : '-') + formattedDiff;
+      balanceEl.className = 'total-value ' + (diff >= 0 ? 'balance-ahead' : 'balance-behind');
+    }
+  }
+}
+
+function recalcAll(){
+  updateVisibility();
+  recalcHeroGrowth();
+  recalcTribes();
+  recalcSpeedupDay();
+  recalcTraining();
+
+  const grandTotal = getTribesPoints() + getHeroGrowthPoints().grandPoints + getSpeedupDayPoints() + getTrainingData().grandPoints;
+  document.getElementById('grandTotalPointsDisplay').textContent = formatPoints(grandTotal);
+}
+
+initInputs();
+
+document.querySelectorAll('.global-toggle-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    globalPointsMode = btn.dataset.mode;
+    document.querySelectorAll('.global-toggle-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    recalcAll();
+  });
+});
+
+recalcAll();
+</script>
+</body>
+</html>
