@@ -81,7 +81,7 @@
     flex-wrap: nowrap;
   }
 
-  .btn-reset {
+  .btn-reset, .btn-lang {
     background: #333235;
     color: var(--text-main);
     border: 1px solid var(--panel-border);
@@ -94,7 +94,7 @@
     flex-shrink: 0;
   }
 
-  .btn-reset:active {
+  .btn-reset:active, .btn-lang:active {
     background: #4a4845;
   }
 
@@ -124,6 +124,13 @@
     letter-spacing: 0.5px;
     padding: 2px 4px;
     border-radius: 2px;
+  }
+
+  .header-controls {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    flex-shrink: 0;
   }
 
   .points-toggle {
@@ -259,7 +266,7 @@
     background: #363432;
   }
 
-  /* NUMPAD MODAL */
+  /* MODALS */
   .numpad-overlay {
     position: fixed;
     top: 0; left: 0; right: 0; bottom: 0;
@@ -456,18 +463,23 @@
 <div class="wrap">
   <div class="aoe-banner">
     <div class="aoe-title-row">
-      <button type="button" class="btn-reset" onclick="resetAll()">Reset</button>
+      <div style="display: flex; gap: 6px; align-items: center;">
+        <button type="button" class="btn-lang" id="lang-toggle" onclick="openLangModal()">SV</button>
+        <button type="button" class="btn-reset" onclick="resetAll()" data-i18n="reset">Reset</button>
+      </div>
       <div class="aoe-title-group">
         <span class="aoe-title-single">AOEM</span>
-        <span class="aoe-badge">CALCULATOR</span>
+        <span class="aoe-badge" data-i18n="calcBadge">CALCULATOR</span>
       </div>
-      <div class="points-toggle">
-        <button type="button" class="global-toggle-btn active" data-mode="tmg">TMG</button>
-        <button type="button" class="global-toggle-btn" data-mode="tme">TME</button>
+      <div class="header-controls">
+        <div class="points-toggle">
+          <button type="button" class="global-toggle-btn active" data-mode="tmg">TMG</button>
+          <button type="button" class="global-toggle-btn" data-mode="tme">TME</button>
+        </div>
       </div>
     </div>
     <div class="m3-card" style="margin-top: 8px; background: #181716; border-color: var(--panel-border);">
-      <div class="total-label">Total Points</div>
+      <div class="total-label" data-i18n="totalPoints">Total Points</div>
       <div class="total-value points" id="grandTotalPointsDisplay">0</div>
     </div>
   </div>
@@ -480,19 +492,19 @@
     </div>
     <div class="input-row">
       <div class="tier" style="flex: 1;">
-        <div class="tier-header"><span>Stamina</span></div>
+        <div class="tier-header"><span data-i18n="stamina">Stamina</span></div>
         <div class="level-body" style="grid-template-columns: 1fr;">
           <div class="field">
-            <label>Amount</label>
+            <label data-i18n="amount">Amount</label>
             <div class="num-box numpad-trigger" id="staminaInput" data-min="0" data-max="99999" data-default="0">0</div>
           </div>
         </div>
       </div>
       <div class="tier" style="flex: 1;">
-        <div class="tier-header"><span>Tribe Level</span></div>
+        <div class="tier-header"><span data-i18n="tribeLevel">Tribe Level</span></div>
         <div class="level-body" style="grid-template-columns: 1fr;">
           <div class="field">
-            <label>Level (1-35)</label>
+            <label data-i18n="level1to35">Level (1-35)</label>
             <div class="num-box numpad-trigger" id="tribeLevel" data-min="1" data-max="35" data-default="30">30</div>
           </div>
         </div>
@@ -504,57 +516,57 @@
   <div id="tab-hero-growth" class="tab-content active">
     <div class="totals">
       <div class="m3-card">
-        <div class="total-label">Forge Time</div>
+        <div class="total-label" data-i18n="forgeTime">Forge Time</div>
         <div class="total-value" id="totalTime">0</div>
       </div>
       <div class="m3-card">
-        <div class="total-label">Balance</div>
+        <div class="total-label" data-i18n="balance">Balance</div>
         <div class="total-value" id="balanceValue">0</div>
       </div>
       <div class="m3-card">
-        <div class="total-label">Points</div>
+        <div class="total-label" data-i18n="points">Points</div>
         <div class="total-value points" id="totalPoints">0</div>
       </div>
     </div>
 
     <div class="input-row">
       <div class="tier" data-tier="level">
-        <div class="tier-header"><span>Level</span></div>
+        <div class="tier-header"><span data-i18n="level">Level</span></div>
         <div class="level-body">
-          <div class="field"><label>Blacksmith</label><div class="num-box numpad-trigger" id="lvl-blacksmith" data-min="1" data-max="40" data-default="1">1</div></div>
-          <div class="field"><label>Renovation</label><div class="num-box numpad-trigger" id="lvl-renovation" data-min="0" data-max="5" data-default="0">0</div></div>
-          <div class="field"><label>Workshop</label><div class="num-box numpad-trigger" id="lvl-workshop" data-min="0" data-max="10" data-default="0">0</div></div>
+          <div class="field"><label data-i18n="blacksmith">Blacksmith</label><div class="num-box numpad-trigger" id="lvl-blacksmith" data-min="1" data-max="40" data-default="1">1</div></div>
+          <div class="field"><label data-i18n="renovation">Renovation</label><div class="num-box numpad-trigger" id="lvl-renovation" data-min="0" data-max="5" data-default="0">0</div></div>
+          <div class="field"><label data-i18n="workshop">Workshop</label><div class="num-box numpad-trigger" id="lvl-workshop" data-min="0" data-max="10" data-default="0">0</div></div>
         </div>
       </div>
 
       <div class="tier" data-tier="speedups">
-        <div class="tier-header"><span>Forge Speedups</span></div>
+        <div class="tier-header"><span data-i18n="forgeSpeedups">Forge Speedups</span></div>
         <div class="speedup-body">
-          <div class="field"><label>Days</label><div class="num-box numpad-trigger" id="sp-forge-d" data-min="0" data-max="9999" data-default="0">0</div></div>
-          <div class="field"><label>Hours</label><div class="num-box numpad-trigger" id="sp-forge-h" data-min="0" data-max="23" data-default="0">0</div></div>
-          <div class="field"><label>Minutes</label><div class="num-box numpad-trigger" id="sp-forge-m" data-min="0" data-max="59" data-default="0">0</div></div>
+          <div class="field"><label data-i18n="days">Days</label><div class="num-box numpad-trigger" id="sp-forge-d" data-min="0" data-max="9999" data-default="0">0</div></div>
+          <div class="field"><label data-i18n="hours">Hours</label><div class="num-box numpad-trigger" id="sp-forge-h" data-min="0" data-max="23" data-default="0">0</div></div>
+          <div class="field"><label data-i18n="minutes">Minutes</label><div class="num-box numpad-trigger" id="sp-forge-m" data-min="0" data-max="59" data-default="0">0</div></div>
         </div>
       </div>
     </div>
 
     <div class="input-row">
       <div class="tier" style="flex: 1 1 100%;">
-        <div class="tier-header"><span>Gear Crafting</span></div>
+        <div class="tier-header"><span data-i18n="gearCrafting">Gear Crafting</span></div>
         <div class="level-body gear-grid" style="grid-template-columns: repeat(4, 1fr);">
           <div class="field gear-item" data-base="7200" data-points-tme="10000" data-points-tmg="1000">
-            <label>Rare</label>
+            <label data-i18n="rare">Rare</label>
             <div class="num-box numpad-trigger qty" id="gear-rare" data-min="0" data-max="999" data-default="0">0</div>
           </div>
           <div class="field gear-item" data-base="21600" data-points-tme="30000" data-points-tmg="5000">
-            <label>Epic</label>
+            <label data-i18n="epic">Epic</label>
             <div class="num-box numpad-trigger qty" id="gear-epic" data-min="0" data-max="999" data-default="0">0</div>
           </div>
           <div class="field gear-item" data-base="144000" data-points-tme="200000" data-points-tmg="30000">
-            <label>Legendary</label>
+            <label data-i18n="legendary">Legendary</label>
             <div class="num-box numpad-trigger qty" id="gear-legendary" data-min="0" data-max="999" data-default="0">0</div>
           </div>
           <div class="field gear-item" data-base="36000" data-points-tme="37188" data-points-tmg="5433">
-            <label>Random</label>
+            <label data-i18n="random">Random</label>
             <div class="num-box numpad-trigger qty" id="gear-random" data-min="0" data-max="999" data-default="0">0</div>
           </div>
         </div>
@@ -563,17 +575,17 @@
 
     <div class="input-row" id="sec-hero-items" style="display: none;">
       <div class="tier" style="flex: 1;">
-        <div class="tier-header"><span>Medals</span></div>
+        <div class="tier-header"><span data-i18n="medals">Medals</span></div>
         <div class="level-body" style="grid-template-columns: repeat(2, 1fr);">
-          <div class="field"><label>Epic</label><div class="num-box numpad-trigger" id="medal-epic" data-min="0" data-max="9999" data-default="0">0</div></div>
-          <div class="field"><label>Legendary</label><div class="num-box numpad-trigger" id="medal-legendary" data-min="0" data-max="9999" data-default="0">0</div></div>
+          <div class="field"><label data-i18n="epic">Epic</label><div class="num-box numpad-trigger" id="medal-epic" data-min="0" data-max="9999" data-default="0">0</div></div>
+          <div class="field"><label data-i18n="legendary">Legendary</label><div class="num-box numpad-trigger" id="medal-legendary" data-min="0" data-max="9999" data-default="0">0</div></div>
         </div>
       </div>
       <div class="tier" style="flex: 1;">
-        <div class="tier-header"><span>Scrolls</span></div>
+        <div class="tier-header"><span data-i18n="scrolls">Scrolls</span></div>
         <div class="level-body" style="grid-template-columns: repeat(2, 1fr);">
-          <div class="field"><label>Epic</label><div class="num-box numpad-trigger" id="scroll-epic" data-min="0" data-max="9999" data-default="0">0</div></div>
-          <div class="field"><label>Legendary</label><div class="num-box numpad-trigger" id="scroll-legendary" data-min="0" data-max="9999" data-default="0">0</div></div>
+          <div class="field"><label data-i18n="epic">Epic</label><div class="num-box numpad-trigger" id="scroll-epic" data-min="0" data-max="9999" data-default="0">0</div></div>
+          <div class="field"><label data-i18n="legendary">Legendary</label><div class="num-box numpad-trigger" id="scroll-legendary" data-min="0" data-max="9999" data-default="0">0</div></div>
         </div>
       </div>
     </div>
@@ -582,47 +594,47 @@
   <!-- TAB 3: SPEEDUP DAY -->
   <div id="tab-speedup-day" class="tab-content">
     <div class="m3-card">
-      <div class="total-label">Speedup Points</div>
+      <div class="total-label" data-i18n="speedupPoints">Speedup Points</div>
       <div class="total-value points" id="speedupDayPointsDisplay">0</div>
     </div>
 
     <div class="input-row">
       <div class="tier" data-tier="speedups">
-        <div class="tier-header"><span>Building Speedups</span></div>
+        <div class="tier-header"><span data-i18n="buildingSpeedups">Building Speedups</span></div>
         <div class="speedup-body">
-          <div class="field"><label>Days</label><div class="num-box numpad-trigger" id="sp-bldg-d" data-min="0" data-max="9999" data-default="0">0</div></div>
-          <div class="field"><label>Hours</label><div class="num-box numpad-trigger" id="sp-bldg-h" data-min="0" data-max="23" data-default="0">0</div></div>
-          <div class="field"><label>Minutes</label><div class="num-box numpad-trigger" id="sp-bldg-m" data-min="0" data-max="59" data-default="0">0</div></div>
+          <div class="field"><label data-i18n="days">Days</label><div class="num-box numpad-trigger" id="sp-bldg-d" data-min="0" data-max="9999" data-default="0">0</div></div>
+          <div class="field"><label data-i18n="hours">Hours</label><div class="num-box numpad-trigger" id="sp-bldg-h" data-min="0" data-max="23" data-default="0">0</div></div>
+          <div class="field"><label data-i18n="minutes">Minutes</label><div class="num-box numpad-trigger" id="sp-bldg-m" data-min="0" data-max="59" data-default="0">0</div></div>
         </div>
       </div>
 
       <div class="tier" data-tier="speedups">
-        <div class="tier-header"><span>Research Speedups</span></div>
+        <div class="tier-header"><span data-i18n="researchSpeedups">Research Speedups</span></div>
         <div class="speedup-body">
-          <div class="field"><label>Days</label><div class="num-box numpad-trigger" id="sp-res-d" data-min="0" data-max="9999" data-default="0">0</div></div>
-          <div class="field"><label>Hours</label><div class="num-box numpad-trigger" id="sp-res-h" data-min="0" data-max="23" data-default="0">0</div></div>
-          <div class="field"><label>Minutes</label><div class="num-box numpad-trigger" id="sp-res-m" data-min="0" data-max="59" data-default="0">0</div></div>
+          <div class="field"><label data-i18n="days">Days</label><div class="num-box numpad-trigger" id="sp-res-d" data-min="0" data-max="9999" data-default="0">0</div></div>
+          <div class="field"><label data-i18n="hours">Hours</label><div class="num-box numpad-trigger" id="sp-res-h" data-min="0" data-max="23" data-default="0">0</div></div>
+          <div class="field"><label data-i18n="minutes">Minutes</label><div class="num-box numpad-trigger" id="sp-res-m" data-min="0" data-max="59" data-default="0">0</div></div>
         </div>
       </div>
     </div>
 
     <div class="input-row" id="sec-signets">
       <div class="tier" style="flex: 1 1 100%;">
-        <div class="tier-header"><span>Signet Rings</span></div>
+        <div class="tier-header"><span data-i18n="signetRings">Signet Rings</span></div>
         <div class="level-body signet-grid" style="grid-template-columns: repeat(4, 1fr);">
-          <div class="field"><label>Copper Sand</label><div class="num-box numpad-trigger" id="signet-copper" data-min="0" data-max="500" data-default="0">0</div></div>
-          <div class="field"><label>Silver Sand</label><div class="num-box numpad-trigger" id="signet-silver" data-min="0" data-max="500" data-default="0">0</div></div>
-          <div class="field"><label>Fine Gold</label><div class="num-box numpad-trigger" id="signet-gold" data-min="0" data-max="500" data-default="0">0</div></div>
-          <div class="field"><label>Meteor Steel</label><div class="num-box numpad-trigger" id="signet-steel" data-min="0" data-max="500" data-default="0">0</div></div>
+          <div class="field"><label data-i18n="copperSand">Copper Sand</label><div class="num-box numpad-trigger" id="signet-copper" data-min="0" data-max="500" data-default="0">0</div></div>
+          <div class="field"><label data-i18n="silverSand">Silver Sand</label><div class="num-box numpad-trigger" id="signet-silver" data-min="0" data-max="500" data-default="0">0</div></div>
+          <div class="field"><label data-i18n="fineGold">Fine Gold</label><div class="num-box numpad-trigger" id="signet-gold" data-min="0" data-max="500" data-default="0">0</div></div>
+          <div class="field"><label data-i18n="meteorSteel">Meteor Steel</label><div class="num-box numpad-trigger" id="signet-steel" data-min="0" data-max="500" data-default="0">0</div></div>
         </div>
       </div>
     </div>
 
     <div class="input-row" id="sec-finecraft">
       <div class="tier" style="flex: 1 1 100%;">
-        <div class="tier-header"><span>Fine Craft</span></div>
+        <div class="tier-header"><span data-i18n="fineCraft">Fine Craft</span></div>
         <div class="level-body" style="grid-template-columns: 1fr;">
-          <div class="field"><label>Craft Count</label><div class="num-box numpad-trigger" id="fine-craft-qty" data-min="0" data-max="9999" data-default="0">0</div></div>
+          <div class="field"><label data-i18n="craftCount">Craft Count</label><div class="num-box numpad-trigger" id="fine-craft-qty" data-min="0" data-max="9999" data-default="0">0</div></div>
         </div>
       </div>
     </div>
@@ -632,15 +644,15 @@
   <div id="tab-training" class="tab-content">
     <div class="totals">
       <div class="m3-card">
-        <div class="total-label">Training Time</div>
+        <div class="total-label" data-i18n="trainingTime">Training Time</div>
         <div class="total-value" id="trainingTime">0</div>
       </div>
       <div class="m3-card">
-        <div class="total-label">Balance</div>
+        <div class="total-label" data-i18n="balance">Balance</div>
         <div class="total-value" id="trainingBalance">0</div>
       </div>
       <div class="m3-card">
-        <div class="total-label">Points</div>
+        <div class="total-label" data-i18n="points">Points</div>
         <div class="total-value points" id="trainingPointsDisplay">0</div>
       </div>
     </div>
@@ -648,22 +660,22 @@
     <!-- Training Speed & Buffs combined -->
     <div class="input-row">
       <div class="tier" style="flex: 1 1 100%;">
-        <div class="tier-header"><span>Training Speed & Buffs</span></div>
+        <div class="tier-header"><span data-i18n="trainSpeedBuffs">Training Speed & Buffs</span></div>
         <div class="level-body" style="grid-template-columns: 1.5fr 1fr 1fr 1fr; align-items: center; justify-items: center;">
           <div class="field" style="width: 100%;">
-            <label>Speed (%)</label>
+            <label data-i18n="speedPct">Speed (%)</label>
             <div class="num-box numpad-trigger" id="train-speed-pct" data-min="0" data-max="999" data-default="0">0</div>
           </div>
           <div class="field" style="align-items: center;">
-            <label style="font-size: 9px;">Knights Rights</label>
+            <label style="font-size: 9px;" data-i18n="knightsRights">Knights Rights</label>
             <input type="checkbox" id="buff-knights" onchange="recalcAll()" style="width: 20px; height: 20px; accent-color: var(--gold-primary); cursor: pointer; margin-top: 6px;">
           </div>
           <div class="field" style="align-items: center;">
-            <label style="font-size: 9px;">Tactical Master</label>
+            <label style="font-size: 9px;" data-i18n="tacticalMaster">Tactical Master</label>
             <input type="checkbox" id="buff-tactical" onchange="recalcAll()" style="width: 20px; height: 20px; accent-color: var(--gold-primary); cursor: pointer; margin-top: 6px;">
           </div>
           <div class="field" style="align-items: center;">
-            <label style="font-size: 9px;">Instructor</label>
+            <label style="font-size: 9px;" data-i18n="instructor">Instructor</label>
             <input type="checkbox" id="buff-instructor" onchange="recalcAll()" style="width: 20px; height: 20px; accent-color: var(--gold-primary); cursor: pointer; margin-top: 6px;">
           </div>
         </div>
@@ -672,11 +684,11 @@
 
     <div class="input-row">
       <div class="tier" data-tier="speedups">
-        <div class="tier-header"><span>Training Speedups</span></div>
+        <div class="tier-header"><span data-i18n="trainingSpeedups">Training Speedups</span></div>
         <div class="speedup-body">
-          <div class="field"><label>Days</label><div class="num-box numpad-trigger" id="sp-train-d" data-min="0" data-max="9999" data-default="0">0</div></div>
-          <div class="field"><label>Hours</label><div class="num-box numpad-trigger" id="sp-train-h" data-min="0" data-max="23" data-default="0">0</div></div>
-          <div class="field"><label>Minutes</label><div class="num-box numpad-trigger" id="sp-train-m" data-min="0" data-max="59" data-default="0">0</div></div>
+          <div class="field"><label data-i18n="days">Days</label><div class="num-box numpad-trigger" id="sp-train-d" data-min="0" data-max="9999" data-default="0">0</div></div>
+          <div class="field"><label data-i18n="hours">Hours</label><div class="num-box numpad-trigger" id="sp-train-h" data-min="0" data-max="23" data-default="0">0</div></div>
+          <div class="field"><label data-i18n="minutes">Minutes</label><div class="num-box numpad-trigger" id="sp-train-m" data-min="0" data-max="59" data-default="0">0</div></div>
         </div>
       </div>
     </div>
@@ -685,16 +697,16 @@
     <div class="input-row">
       <div class="tier" style="flex: 1;">
         <div class="tier-header">
-          <span>Train</span>
+          <span data-i18n="train">Train</span>
           <span class="tier-header-right" id="train-balance-header" style="display: none;">Balance: 0 units</span>
         </div>
         <div class="level-body" style="grid-template-columns: repeat(2, 1fr);">
           <div class="field">
-            <label>Tier</label>
+            <label data-i18n="tier">Tier</label>
             <div class="num-box numpad-trigger" id="train-tier" data-min="1" data-max="9" data-default="8">8</div>
           </div>
           <div class="field">
-            <label>Units</label>
+            <label data-i18n="units">Units</label>
             <div class="num-box numpad-trigger" id="train-qty" data-min="0" data-max="9999999" data-default="0">0</div>
           </div>
         </div>
@@ -702,20 +714,20 @@
 
       <div class="tier" style="flex: 1.5;">
         <div class="tier-header">
-          <span>Promote</span>
+          <span data-i18n="promote">Promote</span>
           <span class="tier-header-right" id="promote-balance-header" style="display: none;">Balance: 0 units</span>
         </div>
         <div class="level-body" style="grid-template-columns: repeat(3, 1fr);">
           <div class="field">
-            <label>From</label>
+            <label data-i18n="from">From</label>
             <div class="num-box numpad-trigger" id="promote-from" data-min="1" data-max="8" data-default="7">7</div>
           </div>
           <div class="field">
-            <label>To</label>
+            <label data-i18n="to">To</label>
             <div class="num-box numpad-trigger" id="promote-to" data-min="2" data-max="9" data-default="8">8</div>
           </div>
           <div class="field">
-            <label>Units</label>
+            <label data-i18n="units">Units</label>
             <div class="num-box numpad-trigger" id="promote-qty" data-min="0" data-max="9999999" data-default="0">0</div>
           </div>
         </div>
@@ -739,7 +751,7 @@
     </div>
     <div class="numpad-subrow">
       <span id="numpad-range">0-9999</span>
-      <button type="button" class="btn-max" onclick="numpadPress('MAX')">Max</button>
+      <button type="button" class="btn-max" onclick="numpadPress('MAX')" data-i18n="max">Max</button>
     </div>
     <div class="numpad-grid">
       <button type="button" onclick="numpadPress('7')">7</button>
@@ -753,31 +765,41 @@
       <button type="button" onclick="numpadPress('3')">3</button>
       <button type="button" onclick="numpadPress('0')">0</button>
       <button type="button" onclick="numpadPress('00')">00</button>
-      <button type="button" onclick="numpadPress('CLEAR')">Clear</button>
+      <button type="button" onclick="numpadPress('CLEAR')" data-i18n="clear">Clear</button>
     </div>
     <div class="numpad-actions">
-      <button type="button" class="numpad-btn-cancel" onclick="closeNumpad(false)">Cancel</button>
-      <button type="button" class="numpad-btn-ok" onclick="closeNumpad(true)">Confirm</button>
+      <button type="button" class="numpad-btn-cancel" onclick="closeNumpad(false)" data-i18n="cancel">Cancel</button>
+      <button type="button" class="numpad-btn-ok" onclick="closeNumpad(true)" data-i18n="confirm">Confirm</button>
     </div>
+  </div>
+</div>
+
+<!-- LANGUAGE MODAL -->
+<div id="lang-modal" class="numpad-overlay" style="display: none;">
+  <div class="numpad-container" style="max-width: 240px;">
+    <div class="tier-header" style="text-align: center; justify-content: center; margin-bottom: 4px;" data-i18n="selectLang">Select Language</div>
+    <div id="lang-list" style="display: flex; flex-direction: column; gap: 4px; max-height: 280px; overflow-y: auto;">
+    </div>
+    <button type="button" class="numpad-btn-cancel" onclick="closeLangModal()" style="margin-top: 4px; width: 100%; height: 36px;" data-i18n="cancel">Cancel</button>
   </div>
 </div>
 
 <nav class="bottom-nav">
   <button class="nav-item" onclick="switchTab('tribes', this)">
     <span>⚡</span>
-    <span>Tribes</span>
+    <span data-i18n="navTribes">Tribes</span>
   </button>
   <button class="nav-item active" onclick="switchTab('hero-growth', this)">
     <span>⚒️</span>
-    <span>Hero Growth</span>
+    <span data-i18n="navHeroGrowth">Hero Growth</span>
   </button>
   <button class="nav-item" onclick="switchTab('speedup-day', this)">
     <span>🏗️</span>
-    <span>Speedup Day</span>
+    <span data-i18n="navSpeedupDay">Speedup Day</span>
   </button>
   <button class="nav-item" onclick="switchTab('training', this)">
     <span>⚔️</span>
-    <span>Training</span>
+    <span data-i18n="navTraining">Training</span>
   </button>
 </nav>
 
@@ -788,8 +810,485 @@ if ('serviceWorker' in navigator) {
   });
 }
 
+const translations = {
+  en: {
+    reset: "Reset",
+    calcBadge: "CALCULATOR",
+    totalPoints: "Total Points",
+    stamina: "Stamina",
+    amount: "Amount",
+    tribeLevel: "Tribe Level",
+    level1to35: "Level (1-35)",
+    forgeTime: "Forge Time",
+    balance: "Balance",
+    points: "Points",
+    level: "Level",
+    blacksmith: "Blacksmith",
+    renovation: "Renovation",
+    workshop: "Workshop",
+    forgeSpeedups: "Forge Speedups",
+    days: "Days",
+    hours: "Hours",
+    minutes: "Minutes",
+    gearCrafting: "Gear Crafting",
+    rare: "Rare",
+    epic: "Epic",
+    legendary: "Legendary",
+    random: "Random",
+    medals: "Medals",
+    scrolls: "Scrolls",
+    speedupPoints: "Speedup Points",
+    buildingSpeedups: "Building Speedups",
+    researchSpeedups: "Research Speedups",
+    signetRings: "Signet Rings",
+    copperSand: "Copper Sand",
+    silverSand: "Silver Sand",
+    fineGold: "Fine Gold",
+    meteorSteel: "Meteor Steel",
+    fineCraft: "Fine Craft",
+    craftCount: "Craft Count",
+    trainingTime: "Training Time",
+    trainSpeedBuffs: "Training Speed & Buffs",
+    speedPct: "Speed (%)",
+    knightsRights: "Knights Rights",
+    tacticalMaster: "Tactical Master",
+    instructor: "Instructor",
+    trainingSpeedups: "Training Speedups",
+    train: "Train",
+    tier: "Tier",
+    units: "Units",
+    promote: "Promote",
+    from: "From",
+    to: "To",
+    max: "Max",
+    clear: "Clear",
+    cancel: "Cancel",
+    confirm: "Confirm",
+    navTribes: "Tribes",
+    navHeroGrowth: "Hero Growth",
+    navSpeedupDay: "Speedup Day",
+    navTraining: "Training",
+    selectLang: "Select Language"
+  },
+  sv: {
+    reset: "Återställ",
+    calcBadge: "RÄKNARE",
+    totalPoints: "Totala poäng",
+    stamina: "Stamina",
+    amount: "Mängd",
+    tribeLevel: "Stamnivå",
+    level1to35: "Nivå (1-35)",
+    forgeTime: "Smidetid",
+    balance: "Balans",
+    points: "Poäng",
+    level: "Nivå",
+    blacksmith: "Smedja",
+    renovation: "Renovering",
+    workshop: "Verkstad",
+    forgeSpeedups: "Smidessnabbspel",
+    days: "Dagar",
+    hours: "Timmar",
+    minutes: "Minuter",
+    gearCrafting: "Utrustningstillverkning",
+    rare: "Sällsynt",
+    epic: "Episk",
+    legendary: "Legendarisk",
+    random: "Slumpad",
+    medals: "Medaljer",
+    scrolls: "Rullar",
+    speedupPoints: "Snabbspels-poäng",
+    buildingSpeedups: "Byggnadssnabbspel",
+    researchSpeedups: "Forskningstakt",
+    signetRings: "Sigillringar",
+    copperSand: "Kopparsand",
+    silverSand: "Silversand",
+    fineGold: "Fint guld",
+    meteorSteel: "Meteorstål",
+    fineCraft: "Finfinish",
+    craftCount: "Antal tillverkningar",
+    trainingTime: "Träningstid",
+    trainSpeedBuffs: "Träningshastighet & Buffar",
+    speedPct: "Hastighet (%)",
+    knightsRights: "Riddarrättigheter",
+    tacticalMaster: "Taktisk Mästare",
+    instructor: "Instruktör",
+    trainingSpeedups: "Träningssnabbspel",
+    train: "Träna",
+    tier: "Nivå",
+    units: "Enheter",
+    promote: "Befordra",
+    from: "Från",
+    to: "Till",
+    max: "Max",
+    clear: "Rensa",
+    cancel: "Avbryt",
+    confirm: "Bekräfta",
+    navTribes: "Stammar",
+    navHeroGrowth: "Hjältetillväxt",
+    navSpeedupDay: "Snabbspelsdag",
+    navTraining: "Träning",
+    selectLang: "Välj språk"
+  },
+  zh: {
+    reset: "重置",
+    calcBadge: "计算器",
+    totalPoints: "总积分",
+    stamina: "体力",
+    amount: "数量",
+    tribeLevel: "部落等级",
+    level1to35: "等级 (1-35)",
+    forgeTime: "锻造时间",
+    balance: "结余",
+    points: "积分",
+    level: "等级",
+    blacksmith: "铁匠铺",
+    renovation: "翻新",
+    workshop: "工坊",
+    forgeSpeedups: "锻造加速",
+    days: "天",
+    hours: "小时",
+    minutes: "分钟",
+    gearCrafting: "装备制造",
+    rare: "稀有",
+    epic: "史诗",
+    legendary: "传说",
+    random: "随机",
+    medals: "勋章",
+    scrolls: "卷轴",
+    speedupPoints: "加速积分",
+    buildingSpeedups: "建筑加速",
+    researchSpeedups: "研究加速",
+    signetRings: "徽记戒指",
+    copperSand: "铜砂",
+    silverSand: "银砂",
+    fineGold: "精金",
+    meteorSteel: "陨星钢",
+    fineCraft: "精细制造",
+    craftCount: "制造数量",
+    trainingTime: "训练时间",
+    trainSpeedBuffs: "训练速度与增益",
+    speedPct: "速度 (%)",
+    knightsRights: "骑士权",
+    tacticalMaster: "战术大师",
+    instructor: "教官",
+    trainingSpeedups: "训练加速",
+    train: "训练",
+    tier: "阶数",
+    units: "数量",
+    promote: "晋升",
+    from: "从",
+    to: "到",
+    max: "最大",
+    clear: "清除",
+    cancel: "取消",
+    confirm: "确认",
+    navTribes: "部落",
+    navHeroGrowth: "英雄成长",
+    navSpeedupDay: "加速日",
+    navTraining: "训练",
+    selectLang: "选择语言"
+  },
+  es: {
+    reset: "Restablecer",
+    calcBadge: "CALCULADORA",
+    totalPoints: "Puntos Totales",
+    stamina: "Aguante",
+    amount: "Cantidad",
+    tribeLevel: "Nivel de Tribu",
+    level1to35: "Nivel (1-35)",
+    forgeTime: "Tiempo de Forja",
+    balance: "Balance",
+    points: "Puntos",
+    level: "Nivel",
+    blacksmith: "Herrería",
+    renovation: "Renovación",
+    workshop: "Taller",
+    forgeSpeedups: "Aceleradores de Forja",
+    days: "Días",
+    hours: "Horas",
+    minutes: "Minutos",
+    gearCrafting: "Elaboración de Equipo",
+    rare: "Raro",
+    epic: "Épico",
+    legendary: "Legendario",
+    random: "Aleatorio",
+    medals: "Medallas",
+    scrolls: "Pergaminos",
+    speedupPoints: "Puntos de Aceleración",
+    buildingSpeedups: "Aceleradores de Construcción",
+    researchSpeedups: "Aceleradores de Investigación",
+    signetRings: "Anillos de Sello",
+    copperSand: "Arena de Cobre",
+    silverSand: "Arena de Plata",
+    fineGold: "Oro Fino",
+    meteorSteel: "Acero de Meteoro",
+    fineCraft: "Artesanía Fina",
+    craftCount: "Recuento de Fabricación",
+    trainingTime: "Tiempo de Entrenamiento",
+    trainSpeedBuffs: "Velocidad y Bonus de Entrenamiento",
+    speedPct: "Velocidad (%)",
+    knightsRights: "Derechos de Caballeros",
+    tacticalMaster: "Maestro Táctico",
+    instructor: "Instructor",
+    trainingSpeedups: "Aceleradores de Entrenamiento",
+    train: "Entrenar",
+    tier: "Nivel",
+    units: "Unidades",
+    promote: "Promover",
+    from: "De",
+    to: "A",
+    max: "Máx",
+    clear: "Borrar",
+    cancel: "Cancelar",
+    confirm: "Confirmar",
+    navTribes: "Tribus",
+    navHeroGrowth: "Crecimiento de Héroe",
+    navSpeedupDay: "Día de Aceleración",
+    navTraining: "Entrenamiento",
+    selectLang: "Seleccionar idioma"
+  },
+  de: {
+    reset: "Zurücksetzen",
+    calcBadge: "RECHNER",
+    totalPoints: "Gesamtpunkte",
+    stamina: "Ausdauer",
+    amount: "Menge",
+    tribeLevel: "Stammestufe",
+    level1to35: "Stufe (1-35)",
+    forgeTime: "Schmiedezeit",
+    balance: "Bilanz",
+    points: "Punkte",
+    level: "Stufe",
+    blacksmith: "Schmiede",
+    renovation: "Renovierung",
+    workshop: "Werkstatt",
+    forgeSpeedups: "Schmiedebeschleuniger",
+    days: "Tage",
+    hours: "Stunden",
+    minutes: "Minuten",
+    gearCrafting: "Ausrüstungsherstellung",
+    rare: "Selten",
+    epic: "Episch",
+    legendary: "Legendär",
+    random: "Zufällig",
+    medals: "Medaillen",
+    scrolls: "Schriftrollen",
+    speedupPoints: "Beschleunigungspunkte",
+    buildingSpeedups: "Gebäudebeschleuniger",
+    researchSpeedups: "Forschungsbeschleuniger",
+    signetRings: "Siegelringe",
+    copperSand: "Kupfersand",
+    silverSand: "Silversand",
+    fineGold: "Feingold",
+    meteorSteel: "Meteorstahl",
+    fineCraft: "Feinhandwerk",
+    craftCount: "Herstellungsanzahl",
+    trainingTime: "Trainingszeit",
+    trainSpeedBuffs: "Trainingsgeschwindigkeit & Buffs",
+    speedPct: "Geschwindigkeit (%)",
+    knightsRights: "Ritterrechte",
+    tacticalMaster: "Taktischer Meister",
+    instructor: "Ausbilder",
+    trainingSpeedups: "Trainingsbeschleuniger",
+    train: "Trainieren",
+    tier: "Rang",
+    units: "Einheiten",
+    promote: "Befördern",
+    from: "Von",
+    to: "Zu",
+    max: "Max",
+    clear: "Löschen",
+    cancel: "Abbrechen",
+    confirm: "Bestätigen",
+    navTribes: "Stämme",
+    navHeroGrowth: "Heldenwachstum",
+    navSpeedupDay: "Beschleunigungstag",
+    navTraining: "Training",
+    selectLang: "Sprache auswählen"
+  },
+  fr: {
+    reset: "Réinitialiser",
+    calcBadge: "CALCULATRICE",
+    totalPoints: "Points Totaux",
+    stamina: "Endurance",
+    amount: "Quantité",
+    tribeLevel: "Niveau de Tribu",
+    level1to35: "Niveau (1-35)",
+    forgeTime: "Temps de Forge",
+    balance: "Solde",
+    points: "Points",
+    level: "Niveau",
+    blacksmith: "Forge",
+    renovation: "Rénovation",
+    workshop: "Atelier",
+    forgeSpeedups: "Accélérations de Forge",
+    days: "Jours",
+    hours: "Heures",
+    minutes: "Minutes",
+    gearCrafting: "Fabrication d'Équipement",
+    rare: "Rare",
+    epic: "Épique",
+    legendary: "Légendaire",
+    random: "Aléatoire",
+    medals: "Médailles",
+    scrolls: "Parchemins",
+    speedupPoints: "Points d'Accélération",
+    buildingSpeedups: "Accélérations de Construction",
+    researchSpeedups: "Accélérations de Recherche",
+    signetRings: "Anneaux Signets",
+    copperSand: "Sable de Cuivre",
+    silverSand: "Sable d'Argent",
+    fineGold: "Or Fin",
+    meteorSteel: "Acier Météorique",
+    fineCraft: "Artisanat Fin",
+    craftCount: "Nombre de Fabrications",
+    trainingTime: "Temps d'Entraînement",
+    trainSpeedBuffs: "Vitesse et Bonus d'Entraînement",
+    speedPct: "Vitesse (%)",
+    knightsRights: "Droits des Chevaliers",
+    tacticalMaster: "Maître Tactique",
+    instructor: "Instructeur",
+    trainingSpeedups: "Accélérations d'Entraînement",
+    train: "Entraîner",
+    tier: "Niveau",
+    units: "Unités",
+    promote: "Promouvoir",
+    from: "De",
+    to: "À",
+    max: "Max",
+    clear: "Effacer",
+    cancel: "Annuler",
+    confirm: "Confirmer",
+    navTribes: "Tribus",
+    navHeroGrowth: "Croissance de Héros",
+    navSpeedupDay: "Jour d'Accélération",
+    navTraining: "Entraînement",
+    selectLang: "Sélectionner la langue"
+  },
+  ar: {
+    reset: "إعادة ضبط",
+    calcBadge: "حاسبة",
+    totalPoints: "إجمالي النقاط",
+    stamina: "القدرة على التحمل",
+    amount: "الكمية",
+    tribeLevel: "مستوى القبيلة",
+    level1to35: "المستوى (1-35)",
+    forgeTime: "وقت الحدادة",
+    balance: "الرصيد",
+    points: "النقاط",
+    level: "المستوى",
+    blacksmith: "الحداد",
+    renovation: "التجديد",
+    workshop: "الورشة",
+    forgeSpeedups: "تسريعات الحدادة",
+    days: "أيام",
+    hours: "ساعات",
+    minutes: "دقائق",
+    gearCrafting: "صناعة العتاد",
+    rare: "نادر",
+    epic: "ملحمي",
+    legendary: "أسطوري",
+    random: "عشوائي",
+    medals: "الميداليات",
+    scrolls: "لفائف",
+    speedupPoints: "نقاط التسريع",
+    buildingSpeedups: "تسريعات البناء",
+    researchSpeedups: "تسريعات البحث",
+    signetRings: "خواتم الخاتم",
+    copperSand: "رمل نحاسي",
+    silverSand: "رمل فضي",
+    fineGold: "ذهب نقي",
+    meteorSteel: "فولاذ نيزكي",
+    fineCraft: "صناعة دقيقة",
+    craftCount: "عدد الصناعات",
+    trainingTime: "وقت التدريب",
+    trainSpeedBuffs: "سرعة التدريب والتعزيزات",
+    speedPct: "السرعة (%)",
+    knightsRights: "حقوق الفرسان",
+    tacticalMaster: "سيد التكتيك",
+    instructor: "المدرب",
+    trainingSpeedups: "تسريعات التدريب",
+    train: "تدريب",
+    tier: "المستوى",
+    units: "الوحدات",
+    promote: "ترقية",
+    from: "من",
+    to: "إلى",
+    max: "الحد الأقصى",
+    clear: "مسح",
+    cancel: "إلغاء",
+    confirm: "تأكيد",
+    navTribes: "القبائل",
+    navHeroGrowth: "نمو البطل",
+    navSpeedupDay: "يوم التسريع",
+    navTraining: "التدريب",
+    selectLang: "اختر اللغة"
+  }
+};
+
+function getSystemLanguage() {
+  const stored = localStorage.getItem('aoem_lang');
+  if (stored && translations[stored]) return stored;
+  const navLang = (navigator.language || navigator.userLanguage || 'en').toLowerCase().split('-')[0];
+  return translations[navLang] ? navLang : 'en';
+}
+
+let currentLang = getSystemLanguage();
+let globalPointsMode = 'tmg';
+let activeNumpadTarget = null;
+let numpadTempValue = '0';
+
+function switchTab(tabId, btn) {
+  document.querySelectorAll('.tab-content').forEach(tc => tc.classList.remove('active'));
+  document.querySelectorAll('.nav-item').forEach(ni => ni.classList.remove('active'));
+
+  document.getElementById('tab-' + tabId).classList.add('active');
+  btn.classList.add('active');
+}
+
+function openLangModal() {
+  const list = document.getElementById('lang-list');
+  list.innerHTML = '';
+  const langNames = { sv: 'Svenska', en: 'English', zh: '中文', es: 'Español', de: 'Deutsch', fr: 'Français', ar: 'العربية' };
+  
+  for (let code in translations) {
+    const btn = document.createElement('button');
+    btn.type = 'button';
+    btn.className = 'btn-max';
+    btn.style.width = '100%';
+    btn.style.padding = '8px';
+    btn.style.textAlign = 'center';
+    btn.textContent = langNames[code] || code.toUpperCase();
+    btn.onclick = () => { setLanguage(code); closeLangModal(); };
+    list.appendChild(btn);
+  }
+  document.getElementById('lang-modal').style.display = 'flex';
+}
+
+function closeLangModal() {
+  document.getElementById('lang-modal').style.display = 'none';
+}
+
+function setLanguage(lang) {
+  currentLang = lang;
+  localStorage.setItem('aoem_lang', lang);
+  document.getElementById('lang-toggle').textContent = lang.toUpperCase();
+  document.documentElement.dir = (lang === 'ar') ? 'rtl' : 'ltr';
+  const dict = translations[lang] || translations.en;
+  
+  document.querySelectorAll('[data-i18n]').forEach(el => {
+    const key = el.dataset.i18n;
+    if (dict[key]) {
+      el.textContent = dict[key];
+    }
+  });
+  recalcAll();
+}
+
+function workshopPct(level){ return level * 2; }
+
 const BLACKSMITH_PCT = {
-  1:2, 2:4, 3:6, 4:8, 5:10, 6:12, 7:14, 8:16, 9:2, 10:21,
+  1:2, 2:4, 3:6, 4:8, 5:10, 6:12, 7:14, 8:16, 9:18, 10:21,
   11:24, 12:27, 13:30, 14:33, 15:36, 16:39, 17:42, 18:45, 19:48, 20:52,
   21:56, 22:60, 23:64, 24:68, 25:73, 26:78, 27:83, 28:88, 29:94, 30:101,
   31:107, 32:115, 33:123, 34:131, 35:141, 36:151, 37:162, 38:174, 39:187, 40:201
@@ -821,20 +1320,6 @@ const TIER_POINTS = {
   9: 200
 };
 
-let globalPointsMode = 'tmg';
-let activeNumpadTarget = null;
-let numpadTempValue = '0';
-
-function switchTab(tabId, btn) {
-  document.querySelectorAll('.tab-content').forEach(tc => tc.classList.remove('active'));
-  document.querySelectorAll('.nav-item').forEach(ni => ni.classList.remove('active'));
-
-  document.getElementById('tab-' + tabId).classList.add('active');
-  btn.classList.add('active');
-}
-
-function workshopPct(level){ return level * 2; }
-
 function formatTime(totalSeconds){
   let totalMins = Math.round(totalSeconds / 60);
   if (totalMins === 0) return "0";
@@ -856,6 +1341,7 @@ function initInputs(){
     const def = el.dataset.default || '0';
     el.textContent = def;
   });
+  setLanguage(currentLang);
 }
 
 function resetAll() {
@@ -890,7 +1376,6 @@ function getVal(id) {
   return parseInt(el.textContent.replace(/,/g, ''), 10) || 0;
 }
 
-// Numpad Logic
 document.querySelectorAll('.numpad-trigger').forEach(el => {
   el.addEventListener('click', () => {
     activeNumpadTarget = el;
@@ -1127,6 +1612,15 @@ function getTrainingData() {
   const trainHeader = document.getElementById('train-balance-header');
   const promoteHeader = document.getElementById('promote-balance-header');
 
+  const trainSecPerUnit = trainBaseSec / speedFactor;
+  const promSecPerUnit = promDiffSec / speedFactor;
+
+  const trainTimeUsed = trainSecPerUnit * trainQty;
+  const promTimeUsed = promSecPerUnit * promQty;
+
+  const trainRemainingSec = Math.max(0, bankedSeconds - promTimeUsed);
+  const promRemainingSec = Math.max(0, bankedSeconds - trainTimeUsed);
+
   if (bankedSeconds === 0) {
     trainHeader.style.display = 'none';
     promoteHeader.style.display = 'none';
@@ -1134,11 +1628,8 @@ function getTrainingData() {
     trainHeader.style.display = '';
     promoteHeader.style.display = '';
 
-    const trainSecPerUnit = trainBaseSec / speedFactor;
-    const trainUnitBalance = trainSecPerUnit > 0 ? Math.floor(bankedSeconds / trainSecPerUnit) : 0;
-
-    const promSecPerUnit = promDiffSec / speedFactor;
-    const promUnitBalance = promSecPerUnit > 0 ? Math.floor(bankedSeconds / promSecPerUnit) : 0;
+    const trainUnitBalance = trainSecPerUnit > 0 ? Math.floor(trainRemainingSec / trainSecPerUnit) : 0;
+    const promUnitBalance = promSecPerUnit > 0 ? Math.floor(promRemainingSec / promSecPerUnit) : 0;
 
     trainHeader.textContent = `Balance: ${trainUnitBalance.toLocaleString('en-US')} units`;
     promoteHeader.textContent = `Balance: ${promUnitBalance.toLocaleString('en-US')} units`;
