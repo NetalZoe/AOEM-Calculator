@@ -682,13 +682,13 @@
       </div>
     </div>
 
-    <div class="input-row" id="training-speedups-section">
+    <div class="input-row">
       <div class="tier" data-tier="speedups">
         <div class="tier-header"><span data-i18n="trainingSpeedups">Training Speedups</span></div>
         <div class="speedup-body">
-          <div class="field"><label data-i18n="days">Days</label><div class="num-box numpad-trigger" id="sp-train-d" data-min="0" data-max="9999" data-default="0" oninput="checkTrainingSpeedups()">0</div></div>
-          <div class="field"><label data-i18n="hours">Hours</label><div class="num-box numpad-trigger" id="sp-train-h" data-min="0" data-max="23" data-default="0" oninput="checkTrainingSpeedups()">0</div></div>
-          <div class="field"><label data-i18n="minutes">Minutes</label><div class="num-box numpad-trigger" id="sp-train-m" data-min="0" data-max="59" data-default="0" oninput="checkTrainingSpeedups()">0</div></div>
+          <div class="field"><label data-i18n="days">Days</label><div class="num-box numpad-trigger" id="sp-train-d" data-min="0" data-max="9999" data-default="0">0</div></div>
+          <div class="field"><label data-i18n="hours">Hours</label><div class="num-box numpad-trigger" id="sp-train-h" data-min="0" data-max="23" data-default="0">0</div></div>
+          <div class="field"><label data-i18n="minutes">Minutes</label><div class="num-box numpad-trigger" id="sp-train-m" data-min="0" data-max="59" data-default="0">0</div></div>
         </div>
       </div>
     </div>
@@ -779,7 +779,6 @@
   <div class="numpad-container" style="max-width: 240px;">
     <div class="tier-header" style="text-align: center; justify-content: center; margin-bottom: 4px;" data-i18n="selectLang">Select Language</div>
     <div id="lang-list" style="display: flex; flex-direction: column; gap: 4px; max-height: 280px; overflow-y: auto;">
-      <!-- Dynamically populated -->
     </div>
     <button type="button" class="numpad-btn-cancel" onclick="closeLangModal()" style="margin-top: 4px; width: 100%; height: 36px;" data-i18n="cancel">Cancel</button>
   </div>
@@ -929,6 +928,124 @@ const translations = {
     navSpeedupDay: "Snabbspelsdag",
     navTraining: "Träning",
     selectLang: "Välj språk"
+  },
+  ko: {
+    reset: "초기화",
+    calcBadge: "계산기",
+    totalPoints: "총 포인트",
+    stamina: "체력",
+    amount: "수량",
+    tribeLevel: "부족 레벨",
+    level1to35: "레벨 (1-35)",
+    forgeTime: "제조 시간",
+    balance: "잔액",
+    points: "포인트",
+    level: "레벨",
+    blacksmith: "대장간",
+    renovation: "개조",
+    workshop: "공방",
+    forgeSpeedups: "제조 가속",
+    days: "일",
+    hours: "시간",
+    minutes: "분",
+    gearCrafting: "장비 제작",
+    rare: "희귀",
+    epic: "영웅",
+    legendary: "전설",
+    random: "무작위",
+    medals: "메달",
+    scrolls: "두루마리",
+    speedupPoints: "가속 포인트",
+    buildingSpeedups: "건설 가속",
+    researchSpeedups: "연구 가속",
+    signetRings: "인지 반지",
+    copperSand: "구리 모래",
+    silverSand: "은 모래",
+    fineGold: "순금",
+    meteorSteel: "운석 강철",
+    fineCraft: "정밀 제작",
+    craftCount: "제작 횟수",
+    trainingTime: "훈련 시간",
+    trainSpeedBuffs: "훈련 속도 및 버프",
+    speedPct: "속도 (%)",
+    knightsRights: "기사의 권리",
+    tacticalMaster: "전술 마스터",
+    instructor: "교관",
+    trainingSpeedups: "훈련 가속",
+    train: "훈련",
+    tier: "티어",
+    units: "유닛",
+    promote: "승급",
+    from: "전",
+    to: "후",
+    max: "최대",
+    clear: "지우기",
+    cancel: "취소",
+    confirm: "확인",
+    navTribes: "부족",
+    navHeroGrowth: "영웅 성장",
+    navSpeedupDay: "가속의 날",
+    navTraining: "훈련",
+    selectLang: "언어 선택"
+  },
+  it: {
+    reset: "Ripristina",
+    calcBadge: "CALCOLATRICE",
+    totalPoints: "Punti Totali",
+    stamina: "Energia",
+    amount: "Quantità",
+    tribeLevel: "Livello Tribù",
+    level1to35: "Livello (1-35)",
+    forgeTime: "Tempo di Forgia",
+    balance: "Bilancio",
+    points: "Punti",
+    level: "Livello",
+    blacksmith: "Fucina",
+    renovation: "Rinnovamento",
+    workshop: "Officina",
+    forgeSpeedups: "Acceleratori Forgia",
+    days: "Giorni",
+    hours: "Ore",
+    minutes: "Minuti",
+    gearCrafting: "Creazione Equipaggiamento",
+    rare: "Raro",
+    epic: "Epico",
+    legendary: "Leggendario",
+    random: "Casuale",
+    medals: "Medaglie",
+    scrolls: "Pergamene",
+    speedupPoints: "Punti Accelerazione",
+    buildingSpeedups: "Acceleratori Costruzione",
+    researchSpeedups: "Acceleratori Ricerca",
+    signetRings: "Anelli con Sigillo",
+    copperSand: "Sabbia di Rame",
+    silverSand: "Sabbia d'Argento",
+    fineGold: "Oro Fine",
+    meteorSteel: "Acciaio Meteorico",
+    fineCraft: "Artigianato Fine",
+    craftCount: "Conteggio Creazioni",
+    trainingTime: "Tempo Addestramento",
+    trainSpeedBuffs: "Velocità e Bonus Addestramento",
+    speedPct: "Velocità (%)",
+    knightsRights: "Diritti dei Cavalieri",
+    tacticalMaster: "Maestro Tattico",
+    instructor: "Istruttore",
+    trainingSpeedups: "Acceleratori Addestramento",
+    train: "Addestra",
+    tier: "Livello",
+    units: "Unità",
+    promote: "Promuovi",
+    from: "Da",
+    to: "A",
+    max: "Max",
+    clear: "Cancella",
+    cancel: "Annulla",
+    confirm: "Conferma",
+    navTribes: "Tribù",
+    navHeroGrowth: "Crescita Eroe",
+    navSpeedupDay: "Giorno Accelerazione",
+    navTraining: "Addestramento",
+    selectLang: "Seleziona Lingua"
   },
   zh: {
     reset: "重置",
@@ -1151,7 +1268,7 @@ const translations = {
     instructor: "Instructeur",
     trainingSpeedups: "Accélérations d'Entraînement",
     train: "Entraîner",
-    tier: "Rang",
+    tier: "Niveau",
     units: "Unités",
     promote: "Promouvoir",
     from: "De",
@@ -1161,1394 +1278,108 @@ const translations = {
     cancel: "Annuler",
     confirm: "Confirmer",
     navTribes: "Tribus",
-    navHeroGrowth: "Croissance Héros",
+    navHeroGrowth: "Croissance de Héros",
     navSpeedupDay: "Jour d'Accélération",
     navTraining: "Entraînement",
     selectLang: "Sélectionner la langue"
   },
-  it: {
-    reset: "Ripristina",
-    calcBadge: "CALCOLATRICE",
-    totalPoints: "Punti Totali",
-    stamina: "Stamina",
-    amount: "Quantità",
-    tribeLevel: "Livello Tribù",
-    level1to35: "Livello (1-35)",
-    forgeTime: "Tempo di Fucina",
-    balance: "Bilancio",
-    points: "Punti",
-    level: "Livello",
-    blacksmith: "Fucina",
-    renovation: "Rinnovamento",
-    workshop: "Officina",
-    forgeSpeedups: "Acceleratori Fucina",
-    days: "Giorni",
-    hours: "Ore",
-    minutes: "Minuti",
-    gearCrafting: "Creazione Equipaggiamento",
-    rare: "Raro",
-    epic: "Epico",
-    legendary: "Leggendario",
-    random: "Casuale",
-    medals: "Medaglie",
-    scrolls: "Pergamene",
-    speedupPoints: "Punti Accelerazione",
-    buildingSpeedups: "Acceleratori Costruzione",
-    researchSpeedups: "Acceleratori Ricerca",
-    signetRings: "Anelli con Sigillo",
-    copperSand: "Sabbia di Rame",
-    silverSand: "Sabbia d'Argento",
-    fineGold: "Oro Fine",
-    meteorSteel: "Acciaio Meteorico",
-    fineCraft: "Lavorazione Fine",
-    craftCount: "Conteggio Creazioni",
-    trainingTime: "Tempo di Addestramento",
-    trainSpeedBuffs: "Velocità e Bonus Addestramento",
-    speedPct: "Velocità (%)",
-    knightsRights: "Diritti dei Cavalieri",
-    tacticalMaster: "Maestro Tattico",
-    instructor: "Istruttore",
-    trainingSpeedups: "Acceleratori Addestramento",
-    train: "Addestra",
-    tier: "Livello",
-    units: "Unità",
-    promote: "Promuovi",
-    from: "Da",
-    to: "A",
-    max: "Max",
-    clear: "Cancella",
-    cancel: "Annulla",
-    confirm: "Conferma",
-    navTribes: "Tribù",
-    navHeroGrowth: "Crescita Eroe",
-    navSpeedupDay: "Giorno Accelerazione",
-    navTraining: "Addestramento",
-    selectLang: "Seleziona lingua"
-  },
-  pt: {
-    reset: "Redefinir",
-    calcBadge: "CALCULADORA",
-    totalPoints: "Pontos Totais",
-    stamina: "Stamina",
-    amount: "Quantidade",
-    tribeLevel: "Nível da Tribo",
-    level1to35: "Nível (1-35)",
-    forgeTime: "Tempo de Forja",
-    balance: "Saldo",
-    points: "Pontos",
-    level: "Nível",
-    blacksmith: "Ferreiro",
-    renovation: "Renovação",
-    workshop: "Oficina",
-    forgeSpeedups: "Acelerações de Forja",
-    days: "Dias",
-    hours: "Horas",
-    minutes: "Minutos",
-    gearCrafting: "Fabricação de Equipamentos",
-    rare: "Raro",
-    epic: "Épico",
-    legendary: "Lendário",
-    random: "Aleatório",
-    medals: "Medalhas",
-    scrolls: "Pergaminhos",
-    speedupPoints: "Pontos de Aceleração",
-    buildingSpeedups: "Acelerações de Construção",
-    researchSpeedups: "Acelerações de Pesquisa",
-    signetRings: "Anéis de Sinete",
-    copperSand: "Areia de Cobre",
-    silverSand: "Areia de Prata",
-    fineGold: "Ouro Fino",
-    meteorSteel: "Aço Meteórico",
-    fineCraft: "Artesanato Fino",
-    craftCount: "Contagem de Fabricação",
-    trainingTime: "Tempo de Treinamento",
-    trainSpeedBuffs: "Velocidade e Bônus de Treinamento",
-    speedPct: "Velocidade (%)",
-    knightsRights: "Direitos dos Cavaleiros",
-    tacticalMaster: "Mestre Tático",
-    instructor: "Instrutor",
-    trainingSpeedups: "Acelerações de Treinamento",
-    train: "Treinar",
-    tier: "Nível",
-    units: "Unidades",
-    promote: "Promover",
-    from: "De",
-    to: "Para",
-    max: "Máx",
-    clear: "Limpar",
-    cancel: "Cancelar",
-    confirm: "Confirmar",
-    navTribes: "Tribos",
-    navHeroGrowth: "Crescimento de Herói",
-    navSpeedupDay: "Dia de Aceleração",
-    navTraining: "Treinamento",
-    selectLang: "Selecionar idioma"
-  },
-  ru: {
-    reset: "Сброс",
-    calcBadge: "КАЛЬКУЛЯТОР",
-    totalPoints: "Всего очков",
-    stamina: "Энергия",
-    amount: "Количество",
-    tribeLevel: "Уровень племени",
-    level1to35: "Уровень (1-35)",
-    forgeTime: "Время ковки",
-    balance: "Баланс",
-    points: "Очки",
-    level: "Уровень",
-    blacksmith: "Кузница",
-    renovation: "Ремонт",
-    workshop: "Мастерская",
-    forgeSpeedups: "Ускорения ковки",
-    days: "Дни",
-    hours: "Часы",
-    minutes: "Минуты",
-    gearCrafting: "Создание снаряжения",
-    rare: "Редкий",
-    epic: "Эпический",
-    legendary: "Легендарный",
-    random: "Случайный",
-    medals: "Медали",
-    scrolls: "Свитки",
-    speedupPoints: "Очки ускорений",
-    buildingSpeedups: "Ускорения строительства",
-    researchSpeedups: "Ускорения исследований",
-    signetRings: "Кольца с печатью",
-    copperSand: "Медный песок",
-    silverSand: "Серебряный песок",
-    fineGold: "Чистое золото",
-    meteorSteel: "Метеоритная сталь",
-    fineCraft: "Тонкое ремесло",
-    craftCount: "Количество созданий",
-    trainingTime: "Время обучения",
-    trainSpeedBuffs: "Скорость и баффы тренировки",
-    speedPct: "Скорость (%)",
-    knightsRights: "Права рыцарей",
-    tacticalMaster: "Тактический мастер",
-    instructor: "Инструктор",
-    trainingSpeedups: "Ускорения тренировки",
-    train: "Тренировать",
-    tier: "Уровень",
-    units: "Единицы",
-    promote: "Повысить",
-    from: "От",
-    to: "До",
-    max: "Макс",
-    clear: "Очистить",
-    cancel: "Отмена",
-    confirm: "Подтвердить",
-    navTribes: "Племена",
-    navHeroGrowth: "Рост героя",
-    navSpeedupDay: "День ускорений",
-    navTraining: "Тренировка",
-    selectLang: "Выберите язык"
-  },
-  ja: {
-    reset: "リセット",
-    calcBadge: "電卓",
-    totalPoints: "合計ポイント",
-    stamina: "スタミナ",
-    amount: "数量",
-    tribeLevel: "部族レベル",
-    level1to35: "レベル (1-35)",
-    forgeTime: "鍛造時間",
-    balance: "残高",
-    points: "ポイント",
-    level: "レベル",
-    blacksmith: "鍛冶屋",
-    renovation: "改修",
-    workshop: "工房",
-    forgeSpeedups: "鍛造加速",
-    days: "日",
-    hours: "時間",
-    minutes: "分",
-    gearCrafting: "装備製作",
-    rare: "レア",
-    epic: "エピック",
-    legendary: "レジェンダリー",
-    random: "ランダム",
-    medals: "メダル",
-    scrolls: "巻物",
-    speedupPoints: "加速ポイント",
-    buildingSpeedups: "建設加速",
-    researchSpeedups: "研究加速",
-    signetRings: "シグネットリング",
-    copperSand: "銅の砂",
-    silverSand: "銀の砂",
-    fineGold: "上質金",
-    meteorSteel: "隕鉄",
-    fineCraft: "高級製作",
-    craftCount: "製作回数",
-    trainingTime: "訓練時間",
-    trainSpeedBuffs: "訓練速度＆バフ",
-    speedPct: "速度 (%)",
-    knightsRights: "騎士の権利",
-    tacticalMaster: "タクティカルマスター",
-    instructor: "教官",
-    trainingSpeedups: "訓練加速",
-    train: "訓練",
-    tier: "ティア",
-    units: "部隊数",
-    promote: "昇格",
-    from: "元",
-    to: "先",
-    max: "最大",
-    clear: "クリア",
-    cancel: "キャンセル",
-    confirm: "確認",
-    navTribes: "部族",
-    navHeroGrowth: "英雄成長",
-    navSpeedupDay: "加速日",
-    navTraining: "訓練",
-    selectLang: "言語を選択"
-  },
-  ko: {
-    reset: "초기화",
-    calcBadge: "계산기",
-    totalPoints: "총 포인트",
-    stamina: "활동력",
-    amount: "수량",
-    tribeLevel: "부족 레벨",
-    level1to35: "레벨 (1-35)",
-    forgeTime: "제련 시간",
-    balance: "잔액",
-    points: "포인트",
-    level: "레벨",
-    blacksmith: "대장간",
-    renovation: "개보수",
-    workshop: "공방",
-    forgeSpeedups: "제련 가속",
-    days: "일",
-    hours: "시간",
-    minutes: "분",
-    gearCrafting: "장비 제작",
-    rare: "희귀",
-    epic: "영웅",
-    legendary: "전설",
-    random: "무작위",
-    medals: "메달",
-    scrolls: "스크롤",
-    speedupPoints: "가속 포인트",
-    buildingSpeedups: "건설 가속",
-    researchSpeedups: "연구 가속",
-    signetRings: "시그넷 링",
-    copperSand: "구리 모래",
-    silverSand: "은 모래",
-    fineGold: "정련된 금",
-    meteorSteel: "운석 강철",
-    fineCraft: "정밀 제작",
-    craftCount: "제작 횟수",
-    trainingTime: "훈련 시간",
-    trainSpeedBuffs: "훈련 속도 및 버프",
-    speedPct: "속도 (%)",
-    knightsRights: "기사의 권리",
-    tacticalMaster: "전술 마스터",
-    instructor: "교관",
-    trainingSpeedups: "훈련 가속",
-    train: "훈련",
-    tier: "티어",
-    units: "유닛",
-    promote: "승급",
-    from: "에서",
-    to: "으로",
-    max: "최대",
-    clear: "지우기",
-    cancel: "취소",
-    confirm: "확인",
-    navTribes: "부족",
-    navHeroGrowth: "영웅 성장",
-    navSpeedupDay: "가속의 날",
-    navTraining: "훈련",
-    selectLang: "언어 선택"
-  },
-  bg: {
-    reset: "Нулиране",
-    calcBadge: "КАЛКУЛАТОР",
-    totalPoints: "Общо точки",
-    stamina: "Издръжливост",
-    amount: "Количество",
-    tribeLevel: "Ниво на племето",
-    level1to35: "Ниво (1-35)",
-    forgeTime: "Време за коване",
-    balance: "Баланс",
-    points: "Точки",
-    level: "Ниво",
-    blacksmith: "Ковачница",
-    renovation: "Ремонт",
-    workshop: "Работилница",
-    forgeSpeedups: "Ускорения за коване",
-    days: "Дни",
-    hours: "Часове",
-    minutes: "Минути",
-    gearCrafting: "Изработка на екипировка",
-    rare: "Рядко",
-    epic: "Епично",
-    legendary: "Легендарно",
-    random: "Случайно",
-    medals: "Медали",
-    scrolls: "Свитъци",
-    speedupPoints: "Точки за ускорение",
-    buildingSpeedups: "Ускорения за сгради",
-    researchSpeedups: "Ускорения за изследвания",
-    signetRings: "Пръстени с печат",
-    copperSand: "Меден пясък",
-    silverSand: "Сребърен пясък",
-    fineGold: "Чисто злато",
-    meteorSteel: "Метеоритна стомана",
-    fineCraft: "Фин занаят",
-    craftCount: "Брой изработки",
-    trainingTime: "Време за тренировка",
-    trainSpeedBuffs: "Скорост и бонуси за тренировка",
-    speedPct: "Скорост (%)",
-    knightsRights: "Права на рицарите",
-    tacticalMaster: "Тактически майстор",
-    instructor: "Инструктор",
-    trainingSpeedups: "Ускорения за тренировка",
-    train: "Тренирай",
-    tier: "Ранг",
-    units: "Бройки",
-    promote: "Повиши",
-    from: "От",
-    to: "До",
-    max: "Макс.",
-    clear: "Изчисти",
-    cancel: "Отказ",
-    confirm: "Потвърди",
-    navTribes: "Племена",
-    navHeroGrowth: "Развитие на герой",
-    navSpeedupDay: "Ден за ускорение",
-    navTraining: "Тренировка",
-    selectLang: "Изберете език"
-  },
-  hr: {
-    reset: "Poništi",
-    calcBadge: "KALKULATOR",
-    totalPoints: "Ukupni bodovi",
-    stamina: "Energija",
-    amount: "Količina",
-    tribeLevel: "Razina plemena",
-    level1to35: "Razina (1-35)",
-    forgeTime: "Vrijeme kovanja",
-    balance: "Stanje",
-    points: "Bodovi",
-    level: "Razina",
-    blacksmith: "Kovačnica",
-    renovation: "Renoviranje",
-    workshop: "Radionica",
-    forgeSpeedups: "Ubrzanja kovanja",
-    days: "Dani",
-    hours: "Sati",
-    minutes: "Minute",
-    gearCrafting: "Izrada opreme",
-    rare: "Rijetko",
-    epic: "Epsko",
-    legendary: "Legendarno",
-    random: "Slučajno",
-    medals: "Medalje",
-    scrolls: "Pergamene",
-    speedupPoints: "Bodovi ubrzanja",
-    buildingSpeedups: "Ubrzanja građenja",
-    researchSpeedups: "Ubrzanja istraživanja",
-    signetRings: "Pečatni prsteni",
-    copperSand: "Bakreni pijesak",
-    silverSand: "Srebrni pijesak",
-    fineGold: "Fino zlato",
-    meteorSteel: "Meteorski čelik",
-    fineCraft: "Fina izrada",
-    craftCount: "Broj izrada",
-    trainingTime: "Vrijeme obuke",
-    trainSpeedBuffs: "Brzina i pojačanja obuke",
-    speedPct: "Brzina (%)",
-    knightsRights: "Viteška prava",
-    tacticalMaster: "Taktički majstor",
-    instructor: "Instruktor",
-    trainingSpeedups: "Ubrzanja obuke",
-    train: "Obučavaj",
-    tier: "Rang",
-    units: "Jedinice",
-    promote: "Unaprijedi",
-    from: "Od",
-    to: "Do",
-    max: "Maks",
-    clear: "Očisti",
-    cancel: "Odustani",
-    confirm: "Potvrdi",
-    navTribes: "Plemena",
-    navHeroGrowth: "Razvoj heroja",
-    navSpeedupDay: "Dan ubrzanja",
-    navTraining: "Obuka",
-    selectLang: "Odaberi jezik"
-  },
-  cs: {
-    reset: "Obnovit",
-    calcBadge: "KALKULAČKA",
-    totalPoints: "Celkové body",
-    stamina: "Výdrž",
-    amount: "Množství",
-    tribeLevel: "Úroveň klanu",
-    level1to35: "Úroveň (1-35)",
-    forgeTime: "Doba kování",
-    balance: "Zůstatek",
-    points: "Body",
-    level: "Úroveň",
-    blacksmith: "Kovárna",
-    renovation: "Renovace",
-    workshop: "Dílna",
-    forgeSpeedups: "Zrychlení kování",
-    days: "Dny",
-    hours: "Hodiny",
-    minutes: "Minuty",
-    gearCrafting: "Výroba vybavení",
-    rare: "Vzácné",
-    epic: "Epické",
-    legendary: "Legendární",
-    random: "Náhodné",
-    medals: "Medaile",
-    scrolls: "Svitky",
-    speedupPoints: "Body zrychlení",
-    buildingSpeedups: "Zrychlení stavby",
-    researchSpeedups: "Zrychlení výzkumu",
-    signetRings: "Pečetní prsteny",
-    copperSand: "Měděný písek",
-    silverSand: "Stříbrný písek",
-    fineGold: "Jemné zlato",
-    meteorSteel: "Meteoritová ocel",
-    fineCraft: "Jemná výroba",
-    craftCount: "Počet výrob",
-    trainingTime: "Doba výcviku",
-    trainSpeedBuffs: "Rychlost a bonusy výcviku",
-    speedPct: "Rychlost (%)",
-    knightsRights: "Rytířská práva",
-    tacticalMaster: "Taktický mistr",
-    instructor: "Instruktor",
-    trainingSpeedups: "Zrychlení výcviku",
-    train: "Cvičit",
-    tier: "Úroveň",
-    units: "Jednotky",
-    promote: "Povýšit",
-    from: "Od",
-    to: "Do",
-    max: "Max",
-    clear: "Vymazat",
-    cancel: "Zrušit",
-    confirm: "Potvrdit",
-    navTribes: "Kmeny",
-    navHeroGrowth: "Růst hrdiny",
-    navSpeedupDay: "Den zrychlení",
-    navTraining: "Výcvik",
-    selectLang: "Vybrat jazyk"
-  },
-  da: {
-    reset: "Nulstil",
-    calcBadge: "LOMMEREGNER",
-    totalPoints: "Samlede point",
-    stamina: "Stamina",
-    amount: "Antal",
-    tribeLevel: "Stammeniveau",
-    level1to35: "Niveau (1-35)",
-    forgeTime: "Smedetid",
-    balance: "Balance",
-    points: "Point",
-    level: "Niveau",
-    blacksmith: "Smedje",
-    renovation: "Renovering",
-    workshop: "Værksted",
-    forgeSpeedups: "Smedeforøgelser",
-    days: "Dage",
-    hours: "Timer",
-    minutes: "Minutter",
-    gearCrafting: "Udstyrsfremstilling",
-    rare: "Sjælden",
-    epic: "Episk",
-    legendary: "Legendarisk",
-    random: "Tilfældig",
-    medals: "Medaljer",
-    scrolls: "Ruller",
-    speedupPoints: "Speedup-point",
-    buildingSpeedups: "Bygningsforøgelser",
-    researchSpeedups: "Forskningsforøgelser",
-    signetRings: "Signetringe",
-    copperSand: "Kobbersand",
-    silverSand: "Sølvsand",
-    fineGold: "Fint guld",
-    meteorSteel: "Meteorstål",
-    fineCraft: "Fin håndværk",
-    craftCount: "Fremstillingsantal",
-    trainingTime: "Træningstid",
-    trainSpeedBuffs: "Træningshastighed og buff",
-    speedPct: "Hastighed (%)",
-    knightsRights: "Riderettigheder",
-    tacticalMaster: "Taktisk mester",
-    instructor: "Instruktør",
-    trainingSpeedups: "Træningsforøgelser",
-    train: "Træn",
-    tier: "Rang",
-    units: "Enheder",
-    promote: "Forfrem",
-    from: "Fra",
-    to: "Til",
-    max: "Maks",
-    clear: "Ryd",
-    cancel: "Annuller",
-    confirm: "Bekræft",
-    navTribes: "Stammer",
-    navHeroGrowth: "Heltevækst",
-    navSpeedupDay: "Speedup-dag",
-    navTraining: "Træning",
-    selectLang: "Vælg sprog"
-  },
-  nl: {
-    reset: "Resetten",
-    calcBadge: "CALCULATOR",
-    totalPoints: "Totaal aantal punten",
-    stamina: "Uithoudingsvermogen",
-    amount: "Hoeveelheid",
-    tribeLevel: "Stamniveau",
-    level1to35: "Niveau (1-35)",
-    forgeTime: "Smedetijd",
-    balance: "Balans",
-    points: "Punten",
-    level: "Niveau",
-    blacksmith: "Smederij",
-    renovation: "Renovatie",
-    workshop: "Werkplaats",
-    forgeSpeedups: "Smeedversnellingen",
-    days: "Dagen",
-    hours: "Uur",
-    minutes: "Minuten",
-    gearCrafting: "Uitrusting Maken",
-    rare: "Zeldzaam",
-    epic: "Episch",
-    legendary: "Legendarisch",
-    random: "Willekeurig",
-    medals: "Medailles",
-    scrolls: "Rollen",
-    speedupPoints: "Versnellingspunten",
-    buildingSpeedups: "Bouwversnellingen",
-    researchSpeedups: "Onderzoeksversnellingen",
-    signetRings: "Zegelringen",
-    copperSand: "Koperzand",
-    silverSand: "Zilverzand",
-    fineGold: "Fijn goud",
-    meteorSteel: "Meteoorstaal",
-    fineCraft: "Fijn handwerk",
-    craftCount: "Aantal knutsels",
-    trainingTime: "Trainingstijd",
-    trainSpeedBuffs: "Trainingssnelheid & Buffs",
-    speedPct: "Snelheid (%)",
-    knightsRights: "Ridderrechten",
-    tacticalMaster: "Tactisch Meester",
-    instructor: "Instructeur",
-    trainingSpeedups: "Trainingsversnellingen",
-    train: "Trainen",
-    tier: "Rang",
-    units: "Eenheden",
-    promote: "Promoveren",
-    from: "Van",
-    to: "Naar",
-    max: "Max",
-    clear: "Wis",
-    cancel: "Annuleren",
-    confirm: "Bevestigen",
-    navTribes: "Stammen",
-    navHeroGrowth: "Heldengroei",
-    navSpeedupDay: "Versnellingsdag",
-    navTraining: "Training",
-    selectLang: "Selecteer taal"
-  },
-  et: {
-    reset: "Lähtesta",
-    calcBadge: "KALKULAATOR",
-    totalPoints: "Punktid kokku",
-    stamina: "Vastupidavus",
-    amount: "Kogus",
-    tribeLevel: "Hõimu tase",
-    level1to35: "Tase (1-35)",
-    forgeTime: "Sepistamisaeg",
-    balance: "Saldo",
-    points: "Punktid",
-    level: "Tase",
-    blacksmith: "Sepp",
-    renovation: "Renoveerimine",
-    workshop: "Töökoda",
-    forgeSpeedups: "Sepistamise kiirendused",
-    days: "Päeva",
-    hours: "Tundi",
-    minutes: "Minutit",
-    gearCrafting: "Varustuse meisterdamine",
-    rare: "Haruldane",
-    epic: "Eepiline",
-    legendary: "Legendaarne",
-    random: "Juhuslik",
-    medals: "Medalid",
-    scrolls: "Kerad",
-    speedupPoints: "Kiirenduspunktid",
-    buildingSpeedups: "Ehituse kiirendused",
-    researchSpeedups: "Uuringute kiirendused",
-    signetRings: "Pitsatsõrmused",
-    copperSand: "Vaskliiv",
-    silverSand: "Hõbedane liiv",
-    fineGold: "Puhas kuld",
-    meteorSteel: "Meteoriitne teras",
-    fineCraft: "Peentöö",
-    craftCount: "Meisterdamiste arv",
-    trainingTime: "Treeninguaeg",
-    trainSpeedBuffs: "Treeningu kiirus ja buffid",
-    speedPct: "Kiirus (%)",
-    knightsRights: "Rüütli õigused",
-    tacticalMaster: "Taktikaline meister",
-    instructor: "Instruktor",
-    trainingSpeedups: "Treeningu kiirendused",
-    train: "Treeni",
-    tier: "Tase",
-    units: "Üksused",
-    promote: "Eduta",
-    from: "Alates",
-    to: "Kuni",
-    max: "Maks",
-    clear: "Tühjenda",
-    cancel: "Tühista",
-    confirm: "Kinnita",
-    navTribes: "Hõimud",
-    navHeroGrowth: "Kangelase kasv",
-    navSpeedupDay: "Kiirenduspäev",
-    navTraining: "Treening",
-    selectLang: "Vali keel"
-  },
-  fi: {
-    reset: "Nollaa",
-    calcBadge: "LASKIN",
-    totalPoints: "Kokonaispisteet",
-    stamina: "Kestävyys",
-    amount: "Määrä",
-    tribeLevel: "Heimon taso",
-    level1to35: "Taso (1-35)",
-    forgeTime: "Taonta-aika",
-    balance: "Saldo",
-    points: "Pisteet",
-    level: "Taso",
-    blacksmith: "Seppä",
-    renovation: "Kunnostus",
-    workshop: "Paja",
-    forgeSpeedups: "Taonnan nopeutukset",
-    days: "Päivää",
-    hours: "Tuntia",
-    minutes: "Minuuttia",
-    gearCrafting: "Varusteiden valmistus",
-    rare: "Harvinainen",
-    epic: "Eepinen",
-    legendary: "Legendaarinen",
-    random: "Satunnainen",
-    medals: "Mitalit",
-    scrolls: "Kääröt",
-    speedupPoints: "Nopeutuspisteet",
-    buildingSpeedups: "Rakennusnopeutukset",
-    researchSpeedups: "Tutkimusnopeutukset",
-    signetRings: "Sinettisormukset",
-    copperSand: "Kuparihiekka",
-    silverSand: "Hopeahiekka",
-    fineGold: "Hieno kulta",
-    meteorSteel: "Meteoriteräs",
-    fineCraft: "Hienotyö",
-    craftCount: "Valmistusmäärä",
-    trainingTime: "Harjoitusaika",
-    trainSpeedBuffs: "Harjoitusnopeus ja buffit",
-    speedPct: "Nopeus (%)",
-    knightsRights: "Ritarin oikeudet",
-    tacticalMaster: "Taktinen mestari",
-    instructor: "Ohjaaja",
-    trainingSpeedups: "Harjoitusnopeutukset",
-    train: "Harjoita",
-    tier: "Taso",
-    units: "Yksiköt",
-    promote: "Ylennä",
-    from: "Alkaen",
-    to: "Päättyen",
-    max: "Maks",
-    clear: "Tyhjennä",
-    cancel: "Peruuta",
-    confirm: "Vahvista",
-    navTribes: "Heimot",
-    navHeroGrowth: "Sankarin kasvu",
-    navSpeedupDay: "Nopeutuspäivä",
-    navTraining: "Harjoitus",
-    selectLang: "Valitse kieli"
-  },
-  el: {
-    reset: "Επαναφορά",
-    calcBadge: "ΥΠΟΛΟΓΙΣΤΗΣ",
-    totalPoints: "Συνολικοί Πόντοι",
-    stamina: "Αντοχή",
-    amount: "Ποσότητα",
-    tribeLevel: "Επίπεδο Φυλής",
-    level1to35: "Επίπεδο (1-35)",
-    forgeTime: "Χρόνος Σφυρηλάτησης",
-    balance: "Υπόλοιπο",
-    points: "Πόντοι",
-    level: "Επίπεδο",
-    blacksmith: "Σιδηρουργείο",
-    renovation: "Ανακαίνιση",
-    workshop: "Εργαστήριο",
-    forgeSpeedups: "Επιταχύνσεις Σφυρηλάτησης",
-    days: "Ημέρες",
-    hours: "Ώρες",
-    minutes: "Λεπτά",
-    gearCrafting: "Κατασκευή Εξοπλισμού",
-    rare: "Σπάνιο",
-    epic: "Επικό",
-    legendary: "Θρυλικό",
-    random: "Τυχαίο",
-    medals: "Μετάλλια",
-    scrolls: "Κύλινδροι",
-    speedupPoints: "Πόντοι Επιτάχυνσης",
-    buildingSpeedups: "Επιταχύνσεις Κτιρίων",
-    researchSpeedups: "Επιταχύνσεις Έρευνας",
-    signetRings: "Δαχτυλίδια Σφραγίδας",
-    copperSand: "Άμμος Χαλκού",
-    silverSand: "Άμμος Ασημιού",
-    fineGold: "Εκλεκτός Χρυσός",
-    meteorSteel: "Ατσάλι Μετεωρίτη",
-    fineCraft: "Λεπτή Κατασκευή",
-    craftCount: "Αριθμός Κατασκευών",
-    trainingTime: "Χρόνος Εκπαίδευσης",
-    trainSpeedBuffs: "Ταχύτητα & Buffs Εκπαίδευσης",
-    speedPct: "Ταχύτητα (%)",
-    knightsRights: "Δικαιώματα Ιπποτών",
-    tacticalMaster: "Τακτικός Δάσκαλος",
-    instructor: "Εκπαιδευτής",
-    trainingSpeedups: "Επιταχύνσεις Εκπαίδευσης",
-    train: "Εκπαίδευση",
-    tier: "Βαθμίδα",
-    units: "Μονάδες",
-    promote: "Προαγωγή",
-    from: "Από",
-    to: "Σε",
-    max: "Μέγ",
-    clear: "Καθαρισμός",
-    cancel: "Άκυρο",
-    confirm: "Επιβεβαίωση",
-    navTribes: "Φυλές",
-    navHeroGrowth: "Ανάπτυξη Ήρωα",
-    navSpeedupDay: "Ημέρα Επιτάχυνσης",
-    navTraining: "Εκπαίδευση",
-    selectLang: "Επιλογή γλώσσας"
-  },
-  hu: {
-    reset: "Visszaállítás",
-    calcBadge: "SZÁMOLÓGÉP",
-    totalPoints: "Összes Pont",
-    stamina: "Kitartás",
-    amount: "Mennyiség",
-    tribeLevel: "Törzs Szintje",
-    level1to35: "Szint (1-35)",
-    forgeTime: "Kovácsolási Idő",
-    balance: "Egyenleg",
-    points: "Pontok",
-    level: "Szint",
-    blacksmith: "Kovácsműhely",
-    renovation: "Felújítás",
-    workshop: "Műhely",
-    forgeSpeedups: "Kovácsolási Gyorsítók",
-    days: "Nap",
-    hours: "Óra",
-    minutes: "Perc",
-    gearCrafting: "Felszerelés Készítés",
-    rare: "Ritka",
-    epic: "Epikus",
-    legendary: "Legendás",
-    random: "Véletlenszerű",
-    medals: "Medálok",
-    scrolls: "Tekercsek",
-    speedupPoints: "Gyorsító Pontok",
-    buildingSpeedups: "Építési Gyorsítók",
-    researchSpeedups: "Kutatási Gyorsítók",
-    signetRings: "Pecsétgyűrűk",
-    copperSand: "Réz homok",
-    silverSand: "Ezüst homok",
-    fineGold: "Finom arany",
-    meteorSteel: "Meteor acél",
-    fineCraft: "Finom kézművesség",
-    craftCount: "Készítések száma",
-    trainingTime: "Kiképzési Idő",
-    trainSpeedBuffs: "Kiképzési Sebesség és Bónuszok",
-    speedPct: "Sebesség (%)",
-    knightsRights: "Lovagi Jogok",
-    tacticalMaster: "Taktikai Mester",
-    instructor: "Oktató",
-    trainingSpeedups: "Kiképzési Gyorsítók",
-    train: "Kiképzés",
-    tier: "Rang",
-    units: "Egységek",
-    promote: "Előléptetés",
-    from: "Innen",
-    to: "Ide",
-    max: "Max",
-    clear: "Törlés",
-    cancel: "Mégse",
-    confirm: "Megerősítés",
-    navTribes: "Törzsek",
-    navHeroGrowth: "Hős Fejlődés",
-    navSpeedupDay: "Gyorsító Nap",
-    navTraining: "Kiképzés",
-    selectLang: "Nyelv kiválasztása"
-  },
-  ga: {
-    reset: "Athshocraigh",
-    calcBadge: "ÁIREAMHÁN",
-    totalPoints: "Pointí Iomlána",
-    stamina: "Fuinneamh",
-    amount: "Cainníocht",
-    tribeLevel: "Leibhéal Treibhe",
-    level1to35: "Leibhéal (1-35)",
-    forgeTime: "Am Gabhlachais",
-    balance: "Iarmhéid",
-    points: "Pointí",
-    level: "Leibhéal",
-    blacksmith: "Gabha",
-    renovation: "Athchóiriú",
-    workshop: "Ceardlann",
-    forgeSpeedups: "Luathuithe Gabhlachais",
-    days: "Lá",
-    hours: "Uaireanta",
-    minutes: "Nóiméid",
-    gearCrafting: "Déantúsaíocht Trealaimh",
-    rare: "Neamhionann",
-    epic: "Eipiciúil",
-    legendary: "Finscéalach",
-    random: "Randamach",
-    medals: "Bonn",
-    scrolls: "Scrollaí",
-    speedupPoints: "Pointí Luathaithe",
-    buildingSpeedups: "Luathuithe Foirgníochta",
-    researchSpeedups: "Luathuithe Taighde",
-    signetRings: "Fáinní Séalaithe",
-    copperSand: "Gaineamh Copair",
-    silverSand: "Gaineamh Airgid",
-    fineGold: "Óir Fine",
-    meteorSteel: "Cruach Meitéir",
-    fineCraft: "Ceardaíocht Fine",
-    craftCount: "Líon na nDéantús",
-    trainingTime: "Am Oiliúna",
-    trainSpeedBuffs: "Luas & Buffs Oiliúna",
-    speedPct: "Luas (%)",
-    knightsRights: "Cearta Ridirí",
-    tacticalMaster: "Máistir Tacticiúil",
-    instructor: "Treoraí",
-    trainingSpeedups: "Luathuithe Oiliúna",
-    train: "Traenáil",
-    tier: "Tier",
-    units: "Aonaid",
-    promote: "Cuir chun cinn",
-    from: "Ó",
-    to: "Go",
-    max: "Max",
-    clear: "Glan",
-    cancel: "Cealaigh",
-    confirm: "Deimhnigh",
-    navTribes: "Treibheanna",
-    navHeroGrowth: "Fás Laoch",
-    navSpeedupDay: "Lá Luathaithe",
-    navTraining: "Oiliúint",
-    selectLang: "Roghnaigh teanga"
-  },
-  lv: {
-    reset: "Atiestatīt",
-    calcBadge: "KALKULATORS",
-    totalPoints: "Kopējie punkti",
-    stamina: "Izturība",
-    amount: "Daudzums",
-    tribeLevel: "Cts līmenis",
-    level1to35: "Līmenis (1-35)",
-    forgeTime: "Kalas laiks",
-    balance: "Bilance",
-    points: "Punkti",
-    level: "Līmenis",
-    blacksmith: "Kalve",
-    renovation: "Renovācija",
-    workshop: "Darbnīca",
-    forgeSpeedups: "Kalas paātrinājumi",
-    days: "Dienas",
-    hours: "Stundas",
-    minutes: "Minūtes",
-    gearCrafting: "Aprīkojuma izgatavošana",
-    rare: "Reti",
-    epic: "Episks",
-    legendary: "Leģendārs",
-    random: "Nejaušs",
-    medals: "Medaļas",
-    scrolls: "Ruļļi",
-    speedupPoints: "Paātrinājuma punkti",
-    buildingSpeedups: "Būvniecības paātrinājumi",
-    researchSpeedups: "Pētniecības paātrinājumi",
-    signetRings: "Gredzeni",
-    copperSand: "Vara smiltis",
-    silverSand: "Sudraba smiltis",
-    fineGold: "Smalks zelts",
-    meteorSteel: "Meteorīta tērauds",
-    fineCraft: "Smalks darbs",
-    craftCount: "Izgatavošanu skaits",
-    trainingTime: "Apmācības laiks",
-    trainSpeedBuffs: "Apmācības ātrums un bonusi",
-    speedPct: "Ātrums (%)",
-    knightsRights: "Bruņinieku tiesības",
-    tacticalMaster: "Taktiskais meistars",
-    instructor: "Instruktors",
-    trainingSpeedups: "Apmācības paātrinājumi",
-    train: "Apmācīt",
-    tier: "Līmenis",
-    units: "Vienības",
-    promote: "Paaugstināt",
-    from: "No",
-    to: "Līdz",
-    max: "Maks.",
-    clear: "Notīrīt",
-    cancel: "Atcelt",
-    confirm: "Apstiprināt",
-    navTribes: "Ciltis",
-    navHeroGrowth: "Varoņa izaugsme",
-    navSpeedupDay: "Paātrinājuma diena",
-    navTraining: "Apmācība",
-    selectLang: "Izvēlēties valodu"
-  },
-  lt: {
-    reset: "Atstatyti",
-    calcBadge: "SKAIČIUOTUVAS",
-    totalPoints: "Iš viso taškų",
-    stamina: "Ištvermė",
-    amount: "Kiekis",
-    tribeLevel: "Genties lygis",
-    level1to35: "Lygis (1-35)",
-    forgeTime: "Kalimo laikas",
-    balance: "Likutis",
-    points: "Taškai",
-    level: "Lygis",
-    blacksmith: "Kalvė",
-    renovation: "Renovacija",
-    workshop: "Dirbtuvės",
-    forgeSpeedups: "Kalimo greitinimai",
-    days: "Dienos",
-    hours: "Valandos",
-    minutes: "Minutės",
-    gearCrafting: "Įrangos gamyba",
-    rare: "Retas",
-    epic: "Epinis",
-    legendary: "Legendinis",
-    random: "Atsitiktinis",
-    medals: "Medaliai",
-    scrolls: "Ritiniai",
-    speedupPoints: "Greitinimo taškai",
-    buildingSpeedups: "Statybų greitinimai",
-    researchSpeedups: "Tyrimų greitinimai",
-    signetRings: "Žiedai",
-    copperSand: "Vario smėlis",
-    silverSand: "Sidabro smėlis",
-    fineGold: "Grynas auksas",
-    meteorSteel: "Meteoritinis plienas",
-    fineCraft: "Smulkus amatas",
-    craftCount: "Gamybos skaičius",
-    trainingTime: "Treniruočių laikas",
-    trainSpeedBuffs: "Treniruočių greitis ir sustiprinimai",
-    speedPct: "Greitis (%)",
-    knightsRights: "Riterių teisės",
-    tacticalMaster: "Taktikos meistras",
-    instructor: "Instruktorius",
-    trainingSpeedups: "Treniruočių greitinimai",
-    train: "Treniruoti",
-    tier: "Pakopa",
-    units: "Vienetai",
-    promote: "Paaukštinti",
-    from: "Nuo",
-    to: "Iki",
-    max: "Maks",
-    clear: "Išvalyti",
-    cancel: "Atšaukti",
-    confirm: "Patvirtinti",
-    navTribes: "Gentys",
-    navHeroGrowth: "Herojaus augimas",
-    navSpeedupDay: "Greitinimo diena",
-    navTraining: "Treniruočių",
-    selectLang: "Pasirinkti kalbą"
-  },
-  mt: {
-    reset: "Irrisetja",
-    calcBadge: "KALKULATUR",
-    totalPoints: "Punti Totali",
-    stamina: "Stamina",
-    amount: "Ammont",
-    tribeLevel: "Livell tat-Tribù",
-    level1to35: "Livell (1-35)",
-    forgeTime: "Ħin tal-Fforġar",
-    balance: "Bilanc",
-    points: "Punti",
-    level: "Livell",
-    blacksmith: "Ħaddied",
-    renovation: "Rinovazzjoni",
-    workshop: "Workshop",
-    forgeSpeedups: "Aċċelerazzjonijiet tal-Fforġar",
-    days: "Jiem",
-    hours: "Sigħat",
-    minutes: "Minuti",
-    gearCrafting: "Manifattura tat-Tagħmir",
-    rare: "Rari",
-    epic: "Epiku",
-    legendary: "Leġġendarju",
-    random: "Każwali",
-    medals: "Medalji",
-    scrolls: "Skrolls",
-    speedupPoints: "Punti ta' Aċċelerazzjoni",
-    buildingSpeedups: "Aċċelerazzjonijiet tal-Bini",
-    researchSpeedups: "Aċċelerazzjonijiet tar-Riċerka",
-    signetRings: "Ċrieket tas-Sigill",
-    copperSand: "Ramel tal-Kupru",
-    silverSand: "Ramel tal-Fidda",
-    fineGold: "Deheb Fina",
-    meteorSteel: "Azzar Meteoriku",
-    fineCraft: "Snajja Fina",
-    craftCount: "Għadd ta' Snajja",
-    trainingTime: "Ħin tat-Taħriġ",
-    trainSpeedBuffs: "Veloċità u Buffs tat-Taħriġ",
-    speedPct: "Veloċità (%)",
-    knightsRights: "Drittijiet tal-Kavallieri",
-    tacticalMaster: "Kaptan Tattiku",
-    instructor: "Istruttur",
-    trainingSpeedups: "Aċċelerazzjonijiet tat-Taħriġ",
-    train: "Tħarreġ",
-    tier: "Livell",
-    units: "Unitajiet",
-    promote: "Promovi",
-    from: "Minn",
-    to: "Sa",
-    max: "Maks",
-    clear: "Ikklerja",
-    cancel: "Ikkanċella",
-    confirm: "Ikkonferma",
-    navTribes: "Tribujiet",
-    navHeroGrowth: "Tkabbir tal-Eroj",
-    navSpeedupDay: "Jum ta' Aċċelerazzjoni",
-    navTraining: "Taħriġ",
-    selectLang: "Agħżel lingwa"
-  },
-  pl: {
-    reset: "Resetuj",
-    calcBadge: "KALKULATOR",
-    totalPoints: "Całkowite punkty",
-    stamina: "Stamina",
-    amount: "Ilość",
-    tribeLevel: "Poziom plemienia",
-    level1to35: "Poziom (1-35)",
-    forgeTime: "Czas kuźni",
-    balance: "Bilans",
-    points: "Punkty",
-    level: "Poziom",
-    blacksmith: "Kowal",
-    renovation: "Renowacja",
-    workshop: "Warsztat",
-    forgeSpeedups: "Przyspieszenia kuźni",
-    days: "Dni",
-    hours: "Godziny",
-    minutes: "Minuty",
-    gearCrafting: "Wytwarzanie ekwipunku",
-    rare: "Rzadki",
-    epic: "Epicki",
-    legendary: "Legendarny",
-    random: "Losowy",
-    medals: "Medale",
-    scrolls: "Zwoje",
-    speedupPoints: "Punkty przyspieszenia",
-    buildingSpeedups: "Przyspieszenia budowy",
-    researchSpeedups: "Przyspieszenia badań",
-    signetRings: "Pierścienie z pieczęcią",
-    copperSand: "Miedziany piasek",
-    silverSand: "Srebrny piasek",
-    fineGold: "Czyste złoto",
-    meteorSteel: "Stal meteorytowa",
-    fineCraft: "Precyzyjne rzemiosło",
-    craftCount: "Liczba wytworzeń",
-    trainingTime: "Czas szkolenia",
-    trainSpeedBuffs: "Szybkość i bonusy szkolenia",
-    speedPct: "Prędkość (%)",
-    knightsRights: "Prawa rycerskie",
-    tacticalMaster: "Mistrz taktyki",
-    instructor: "Instruktor",
-    trainingSpeedups: "Przyspieszenia szkolenia",
-    train: "Szkól",
-    tier: "Krąg",
-    units: "Jednostki",
-    promote: "Awansuj",
-    from: "Od",
-    to: "Do",
-    max: "Maks",
-    clear: "Wyczyść",
-    cancel: "Anuluj",
-    confirm: "Potwierdź",
-    navTribes: "Plemienia",
-    navHeroGrowth: "Rozwój bohatera",
-    navSpeedupDay: "Dzień przyspieszenia",
-    navTraining: "Szkolenie",
-    selectLang: "Wybierz język"
-  },
-  ro: {
-    reset: "Resetează",
-    calcBadge: "CALCULATOR",
-    totalPoints: "Puncte Totale",
-    stamina: "Energie",
-    amount: "Cantitate",
-    tribeLevel: "Nivel Trib",
-    level1to35: "Nivel (1-35)",
-    forgeTime: "Timp Forjare",
-    balance: "Balanță",
-    points: "Puncte",
-    level: "Nivel",
-    blacksmith: "Fierărie",
-    renovation: "Renovare",
-    workshop: "Atelier",
-    forgeSpeedups: "Accelerări Forjare",
-    days: "Zile",
-    hours: "Ore",
-    minutes: "Minute",
-    gearCrafting: "Fabricare Echipament",
-    rare: "Rar",
-    epic: "Epic",
-    legendary: "Legendar",
-    random: "Aleator",
-    medals: "Medalii",
-    scrolls: "Pergaminere",
-    speedupPoints: "Puncte Accelerare",
-    buildingSpeedups: "Accelerări Construcție",
-    researchSpeedups: "Accelerări Cercetare",
-    signetRings: "Inele cu Sigiliu",
-    copperSand: "Nisip de Cupru",
-    silverSand: "Nisip de Argint",
-    fineGold: "Aur Fin",
-    meteorSteel: "Oțel Meteoritic",
-    fineCraft: "Meșteșug Fin",
-    craftCount: "Număr Fabricări",
-    trainingTime: "Timp Antrenament",
-    trainSpeedBuffs: "Viteză și Bonusuri Antrenament",
-    speedPct: "Viteză (%)",
-    knightsRights: "Drepturile Cavalerilor",
-    tacticalMaster: "Maestru Tactic",
-    instructor: "Instructor",
-    trainingSpeedups: "Accelerări Antrenament",
-    train: "Antrenează",
-    tier: "Nivel",
-    units: "Unități",
-    promote: "Promovează",
-    from: "De la",
-    to: "La",
-    max: "Max",
-    clear: "Șterge",
-    cancel: "Anulează",
-    confirm: "Confirmă",
-    navTribes: "Triburi",
-    navHeroGrowth: "Creștere Erou",
-    navSpeedupDay: "Ziua Accelerării",
-    navTraining: "Antrenament",
-    selectLang: "Selectează limba"
-  },
-  sk: {
-    reset: "Obnoviť",
-    calcBadge: "KALKULAČKA",
-    totalPoints: "Celkové body",
-    stamina: "Výdrž",
-    amount: "Množstvo",
-    tribeLevel: "Úroveň kmeňa",
-    level1to35: "Úroveň (1-35)",
-    forgeTime: "Čas kovania",
-    balance: "Zostatok",
-    points: "Body",
-    level: "Úroveň",
-    blacksmith: "Kováreň",
-    renovation: "Renovácia",
-    workshop: "Dielňa",
-    forgeSpeedups: "Zrýchlenia kovania",
-    days: "Dni",
-    hours: "Hodiny",
-    minutes: "Minúty",
-    gearCrafting: "Výroba vybavenia",
-    rare: "Zriedkavé",
-    epic: "Epické",
-    legendary: "Legendárne",
-    random: "Náhodné",
-    medals: "Medaile",
-    scrolls: "Zvitky",
-    speedupPoints: "Body zrýchlenia",
-    buildingSpeedups: "Zrýchlenia stavby",
-    researchSpeedups: "Zrýchlenia výskumu",
-    signetRings: "Pečatné prstene",
-    copperSand: "Medený piesok",
-    silverSand: "Strieborný piesok",
-    fineGold: "Jemné zlato",
-    meteorSteel: "Meteoritová oceľ",
-    fineCraft: "Jemná výroba",
-    craftCount: "Počet výrob",
-    trainingTime: "Čas výcviku",
-    trainSpeedBuffs: "Rýchlosť a bonusy výcviku",
-    speedPct: "Rýchlosť (%)",
-    knightsRights: "Rytierske práva",
-    tacticalMaster: "Taktický majster",
-    instructor: "Inštruktor",
-    trainingSpeedups: "Zrýchlenia výcviku",
-    train: "Cvičiť",
-    tier: "Úroveň",
-    units: "Jednotky",
-    promote: "Povýšiť",
-    from: "Od",
-    to: "Do",
-    max: "Max",
-    clear: "Vymazať",
-    cancel: "Zrušiť",
-    confirm: "Potvrdiť",
-    navTribes: "Kmene",
-    navHeroGrowth: "Rast hrdinu",
-    navSpeedupDay: "Deň zrýchlenia",
-    navTraining: "Výcvik",
-    selectLang: "Vybrať jazyk"
-  },
-  sl: {
-    reset: "Ponastavi",
-    calcBadge: "KALKULATOR",
-    totalPoints: "Skupne točke",
-    stamina: "Vzdržljivost",
-    amount: "Količina",
-    tribeLevel: "Raven plemena",
-    level1to35: "Raven (1-35)",
-    forgeTime: "Čas kovanja",
-    balance: "Stanje",
-    points: "Točke",
-    level: "Raven",
-    blacksmith: "Kovačnica",
-    renovation: "Prenova",
-    workshop: "Delavnica",
-    forgeSpeedups: "Pospeški kovanja",
-    days: "Dnevi",
-    hours: "Ure",
-    minutes: "Minute",
-    gearCrafting: "Izdelava opreme",
-    rare: "Redko",
-    epic: "Epsko",
-    legendary: "Legendarno",
-    random: "Naključno",
-    medals: "Medalje",
-    scrolls: "Zvitki",
-    speedupPoints: "Točke pospeševanja",
-    buildingSpeedups: "Pospeški gradnje",
-    researchSpeedups: "Pospeški raziskav",
-    signetRings: "Pečatni prstani",
-    copperSand: "Bakreni pesek",
-    silverSand: "Srebrni pesek",
-    fineGold: "Fino zlato",
-    meteorSteel: "Meteorsko jeklo",
-    fineCraft: "Fina izdelava",
-    craftCount: "Število izdelav",
-    trainingTime: "Čas urjenja",
-    trainSpeedBuffs: "Hitrost in dodatki urjenja",
-    speedPct: "Hitrost (%)",
-    knightsRights: "Viteške pravice",
-    tacticalMaster: "Taktični mojster",
-    instructor: "Instruktor",
-    trainingSpeedups: "Pospeški urjenja",
-    train: "Urji",
-    tier: "Stopnja",
-    units: "Enote",
-    promote: "Napreduj",
-    from: "Od",
-    to: "Do",
-    max: "Maks",
-    clear: "Počisti",
-    cancel: "Prekliči",
-    confirm: "Potrdi",
-    navTribes: "Plem",
-    navHeroGrowth: "Rast junaka",
-    navSpeedupDay: "Dan pospeševanja",
-    navTraining: "Urjenje",
-    selectLang: "Izberi jezik"
+  ar: {
+    reset: "إعادة ضبط",
+    calcBadge: "حاسبة",
+    totalPoints: "إجمالي النقاط",
+    stamina: "القدرة على التحمل",
+    amount: "الكمية",
+    tribeLevel: "مستوى القبيلة",
+    level1to35: "المستوى (1-35)",
+    forgeTime: "وقت الحدادة",
+    balance: "الرصيد",
+    points: "النقاط",
+    level: "المستوى",
+    blacksmith: "الحداد",
+    renovation: "التجديد",
+    workshop: "الورشة",
+    forgeSpeedups: "تسريعات الحدادة",
+    days: "أيام",
+    hours: "ساعات",
+    minutes: "دقائق",
+    gearCrafting: "صناعة العتاد",
+    rare: "نادر",
+    epic: "ملحمي",
+    legendary: "أسطوري",
+    random: "عشوائي",
+    medals: "الميداليات",
+    scrolls: "لفائف",
+    speedupPoints: "نقاط التسريع",
+    buildingSpeedups: "تسريعات البناء",
+    researchSpeedups: "تسريعات البحث",
+    signetRings: "خواتم الخاتم",
+    copperSand: "رمل نحاسي",
+    silverSand: "رمل فضي",
+    fineGold: "ذهب نقي",
+    meteorSteel: "فولاذ نيزكي",
+    fineCraft: "صناعة دقيقة",
+    craftCount: "عدد الصناعات",
+    trainingTime: "وقت التدريب",
+    trainSpeedBuffs: "سرعة التدريب والتعزيزات",
+    speedPct: "السرعة (%)",
+    knightsRights: "حقوق الفرسان",
+    tacticalMaster: "سيد التكتيك",
+    instructor: "المدرب",
+    trainingSpeedups: "تسريعات التدريب",
+    train: "تدريب",
+    tier: "المستوى",
+    units: "الوحدات",
+    promote: "ترقية",
+    from: "من",
+    to: "إلى",
+    max: "الحد الأقصى",
+    clear: "مسح",
+    cancel: "إلغاء",
+    confirm: "تأكيد",
+    navTribes: "القبائل",
+    navHeroGrowth: "نمو البطل",
+    navSpeedupDay: "يوم التسريع",
+    navTraining: "التدريب",
+    selectLang: "اختر اللغة"
   }
 };
 
-const langNames = {
-  en: "English",
-  sv: "Svenska",
-  zh: "中文",
-  es: "Español",
-  de: "Deutsch",
-  fr: "Français",
-  it: "Italiano",
-  pt: "Português",
-  ru: "Русский",
-  ja: "日本語",
-  ko: "한국어",
-  bg: "Български",
-  hr: "Hrvatski",
-  cs: "Čeština",
-  da: "Dansk",
-  nl: "Nederlands",
-  et: "Eesti",
-  fi: "Suomi",
-  el: "Ελληνικά",
-  hu: "Magyar",
-  ga: "Gaeilge",
-  lv: "Latviešu",
-  lt: "Lietuvių",
-  mt: "Malti",
-  pl: "Polski",
-  ro: "Română",
-  sk: "Slovenčina",
-  sl: "Slovenščina"
-};
+function getSystemLanguage() {
+  const stored = localStorage.getItem('aoem_lang');
+  if (stored && translations[stored]) return stored;
+  const navLang = (navigator.language || navigator.userLanguage || 'en').toLowerCase().split('-')[0];
+  return translations[navLang] ? navLang : 'en';
+}
 
-const rawLang = (navigator.language || 'en').toLowerCase();
-const langCode = rawLang.split('-')[0];
-const supportedLangs = [
-  'en', 'sv', 'zh', 'es', 'de', 'fr', 'it', 'pt', 'ru', 'ja', 'ko',
-  'bg', 'hr', 'cs', 'da', 'nl', 'et', 'fi', 'el', 'hu', 'ga', 'lv', 'lt', 'mt', 'pl', 'ro', 'sk', 'sl'
-];
-const deviceLang = supportedLangs.includes(langCode) ? langCode : 'en';
+let currentLang = getSystemLanguage();
+let globalPointsMode = 'tmg';
+let activeNumpadTarget = null;
+let numpadTempValue = '0';
 
-let currentLang = deviceLang;
-const langBtn = document.getElementById('lang-toggle');
-langBtn.textContent = currentLang.toUpperCase();
+function switchTab(tabId, btn) {
+  document.querySelectorAll('.tab-content').forEach(tc => tc.classList.remove('active'));
+  document.querySelectorAll('.nav-item').forEach(ni => ni.classList.remove('active'));
 
-function applyTranslation() {
-  document.querySelectorAll('[data-i18n]').forEach(el => {
-    const key = el.getAttribute('data-i18n');
-    if (translations[currentLang] && translations[currentLang][key]) {
-      el.textContent = translations[currentLang][key];
-    }
-  });
-  langBtn.textContent = currentLang.toUpperCase();
-  recalcAll();
+  document.getElementById('tab-' + tabId).classList.add('active');
+  btn.classList.add('active');
 }
 
 function openLangModal() {
-  const listEl = document.getElementById('lang-list');
-  listEl.innerHTML = '';
-
-  let langs = supportedLangs.filter(code => code !== 'en' && code !== deviceLang);
-  langs.sort((a, b) => langNames[a].localeCompare(langNames[b]));
-
-  let ordered = ['en'];
-  if (deviceLang !== 'en' && supportedLangs.includes(deviceLang)) {
-    ordered.push(deviceLang);
-  }
-  ordered = ordered.concat(langs);
-
-  ordered.forEach(code => {
+  const list = document.getElementById('lang-list');
+  list.innerHTML = '';
+  const langNames = { sv: 'Svenska', en: 'English', ko: '한국어', it: 'Italiano', zh: '中文', es: 'Español', de: 'Deutsch', fr: 'Français', ar: 'العربية' };
+  
+  for (let code in translations) {
     const btn = document.createElement('button');
     btn.type = 'button';
-    btn.className = 'btn-reset';
+    btn.className = 'btn-max';
     btn.style.width = '100%';
-    btn.style.textAlign = 'center';
     btn.style.padding = '8px';
-    btn.style.background = (code === currentLang) ? '#4a4845' : '#333235';
+    btn.style.textAlign = 'center';
     btn.textContent = langNames[code] || code.toUpperCase();
-    btn.onclick = () => {
-      currentLang = code;
-      closeLangModal();
-      applyTranslation();
-    };
-    listEl.appendChild(btn);
-  });
+    btn.onclick = () => { setLanguage(code); closeLangModal(); };
+    list.appendChild(btn);
+  }
   document.getElementById('lang-modal').style.display = 'flex';
 }
 
@@ -2556,170 +1387,427 @@ function closeLangModal() {
   document.getElementById('lang-modal').style.display = 'none';
 }
 
-function switchTab(tabId, btn) {
-  document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
-  document.querySelectorAll('.nav-item').forEach(el => el.classList.remove('active'));
-  document.getElementById('tab-' + tabId).classList.add('active');
-  btn.classList.add('active');
+function setLanguage(lang) {
+  currentLang = lang;
+  localStorage.setItem('aoem_lang', lang);
+  document.getElementById('lang-toggle').textContent = lang.toUpperCase();
+  document.documentElement.dir = (lang === 'ar') ? 'rtl' : 'ltr';
+  const dict = translations[lang] || translations.en;
+  
+  document.querySelectorAll('[data-i18n]').forEach(el => {
+    const key = el.dataset.i18n;
+    if (dict[key]) {
+      el.textContent = dict[key];
+    }
+  });
   recalcAll();
 }
 
-let activeInput = null;
+function workshopPct(level){ return level * 2; }
 
-function openNumpad(box) {
-  activeInput = box;
-  const currentVal = box.textContent.trim().replace(/,/g, '');
-  document.getElementById('numpad-current').textContent = currentVal;
-  const min = box.getAttribute('data-min') || '0';
-  const max = box.getAttribute('data-max') || '9999';
-  document.getElementById('numpad-range').textContent = min + '-' + max;
-  document.getElementById('numpad-modal').style.display = 'flex';
+const BLACKSMITH_PCT = {
+  1:2, 2:4, 3:6, 4:8, 5:10, 6:12, 7:14, 8:16, 9:18, 10:21,
+  11:24, 12:27, 13:30, 14:33, 15:36, 16:39, 17:42, 18:45, 19:48, 20:52,
+  21:56, 22:60, 23:64, 24:68, 25:73, 26:78, 27:83, 28:88, 29:94, 30:101,
+  31:107, 32:115, 33:123, 34:131, 35:141, 36:151, 37:162, 38:174, 39:187, 40:201
+};
+
+const RENOVATION_PCT = { 0:0, 1:8, 2:16, 3:24, 4:32, 5:40 };
+
+const TIER_BASE_SECONDS = {
+  1: 10,
+  2: 14,
+  3: 19,
+  4: 28,
+  5: 42,
+  6: 75,
+  7: 130,
+  8: 195,
+  9: 360
+};
+
+const TIER_POINTS = {
+  1: 2,
+  2: 3,
+  3: 5,
+  4: 10,
+  5: 20,
+  6: 50,
+  7: 100,
+  8: 150,
+  9: 200
+};
+
+function formatTime(totalSeconds){
+  let totalMins = Math.round(totalSeconds / 60);
+  if (totalMins === 0) return "0";
+  const days = Math.floor(totalMins / 1440);
+  totalMins %= 1440;
+  const hours = Math.floor(totalMins / 60);
+  const mins = totalMins % 60;
+  return `${days}d ${hours}h ${mins}m`;
 }
 
-function closeNumpad(confirm) {
-  if (confirm && activeInput) {
-    let val = document.getElementById('numpad-current').textContent.trim();
-    if (val === '') val = activeInput.getAttribute('data-default') || '0';
-    let num = parseInt(val, 10);
-    const min = parseInt(activeInput.getAttribute('data-min') || '0', 10);
-    const max = parseInt(activeInput.getAttribute('data-max') || '9999', 10);
-    if (num < min) num = min;
-    if (num > max) num = max;
-    activeInput.textContent = num;
-    recalcAll();
-  }
-  activeInput = null;
-  document.getElementById('numpad-modal').style.display = 'none';
+function formatPoints(n){
+  if (n >= 1000000) return (n/1000000).toFixed(n % 1000000 === 0 ? 0 : 1).replace(/\.0$/,'') + 'm';
+  if (n >= 1000) return (n/1000).toFixed(n % 1000 === 0 ? 0 : 1).replace(/\.0$/,'') + 'k';
+  return String(n);
 }
 
-function numpadPress(val) {
-  let display = document.getElementById('numpad-current');
-  let current = display.textContent;
-  if (val === 'CLEAR') {
-    display.textContent = '0';
-  } else if (val === 'MAX') {
-    if (activeInput) {
-      display.textContent = activeInput.getAttribute('data-max') || '9999';
-    }
-  } else {
-    if (current === '0') {
-      display.textContent = val;
-    } else {
-      display.textContent = current + val;
-    }
-  }
+function initInputs(){
+  document.querySelectorAll('.numpad-trigger').forEach(el => {
+    const def = el.dataset.default || '0';
+    el.textContent = def;
+  });
+  setLanguage(currentLang);
 }
-
-document.querySelectorAll('.numpad-trigger').forEach(box => {
-  box.onclick = () => openNumpad(box);
-});
-
-document.querySelectorAll('.points-toggle button').forEach(btn => {
-  btn.onclick = () => {
-    document.querySelectorAll('.points-toggle button').forEach(b => b.classList.remove('active'));
-    btn.classList.add('active');
-    recalcAll();
-  };
-});
 
 function resetAll() {
-  document.querySelectorAll('.numpad-trigger').forEach(box => {
-    box.textContent = box.getAttribute('data-default') || '0';
+  document.querySelectorAll('.numpad-trigger').forEach(el => {
+    const def = el.dataset.default || '0';
+    el.textContent = def;
   });
-  document.querySelectorAll('input[type="checkbox"]').forEach(chk => {
-    chk.checked = false;
+  document.querySelectorAll('input[type="checkbox"]').forEach(cb => {
+    cb.checked = false;
   });
   recalcAll();
 }
 
 function copyUid(el) {
-  const text = el.textContent.replace('UID: ', '');
-  navigator.clipboard.writeText(text);
-  const orig = el.textContent;
+  const uidText = "5012140737488439073";
+  navigator.clipboard.writeText(uidText);
+  const origText = el.textContent;
   el.textContent = "COPIED!";
-  setTimeout(() => el.textContent = orig, 1500);
+  setTimeout(() => { el.textContent = origText; }, 1200);
 }
 
-function recalcAll() {
-  const activeMode = document.querySelector('.points-toggle button.active').getAttribute('data-mode');
+function updateVisibility() {
+  const isTmg = globalPointsMode === 'tmg';
+  document.getElementById('sec-signets').style.display = isTmg ? 'flex' : 'none';
+  document.getElementById('sec-finecraft').style.display = isTmg ? 'flex' : 'none';
+  document.getElementById('sec-hero-items').style.display = isTmg ? 'flex' : 'none';
+}
 
-  // Tribes
-  const stamina = parseInt(document.getElementById('staminaInput').textContent, 10) || 0;
-  const tribeLvl = parseInt(document.getElementById('tribeLevel').textContent, 10) || 1;
-  const tribePointsPerStamina = tribeLvl * 10;
-  const tribeTotalPoints = stamina * tribePointsPerStamina;
-  document.getElementById('tribesLabel').textContent = `Points for 0 Tribes`; // placeholder or update logic
-  document.getElementById('tribesPointsDisplay').textContent = tribeTotalPoints.toLocaleString();
+function getVal(id) {
+  const el = document.getElementById(id);
+  if (!el) return 0;
+  return parseInt(el.textContent.replace(/,/g, ''), 10) || 0;
+}
 
-  // Hero Growth Time & Points
-  const bsLvl = parseInt(document.getElementById('lvl-blacksmith').textContent, 10) || 1;
-  const renLvl = parseInt(document.getElementById('lvl-renovation').textContent, 10) || 0;
-  const wsLvl = parseInt(document.getElementById('lvl-workshop').textContent, 10) || 0;
+document.querySelectorAll('.numpad-trigger').forEach(el => {
+  el.addEventListener('click', () => {
+    activeNumpadTarget = el;
+    numpadTempValue = '0';
+    const min = el.dataset.min || '0';
+    const max = el.dataset.max || '9999';
+    
+    document.getElementById('numpad-range').textContent = `${min}-${max}`;
+    document.getElementById('numpad-current').textContent = Number(numpadTempValue).toLocaleString('en-US');
+    document.getElementById('numpad-modal').style.display = 'flex';
+  });
+});
 
-  const spDays = parseInt(document.getElementById('sp-forge-d').textContent, 10) || 0;
-  const spHours = parseInt(document.getElementById('sp-forge-h').textContent, 10) || 0;
-  const spMins = parseInt(document.getElementById('sp-forge-m').textContent, 10) || 0;
-  const totalForgeSpeedSec = (spDays * 86400) + (spHours * 3600) + (spMins * 60);
+function numpadPress(char) {
+  const max = parseInt(activeNumpadTarget.dataset.max, 10);
 
-  let gearTimeSec = 0;
-  let gearPoints = 0;
+  if (char === 'CLEAR') {
+    numpadTempValue = '0';
+  } else if (char === 'MAX') {
+    numpadTempValue = String(isNaN(max) ? 9999 : max);
+  } else if (char === '00') {
+    if (numpadTempValue !== '0') {
+      numpadTempValue += '00';
+    }
+  } else {
+    if (numpadTempValue === '0') {
+      numpadTempValue = char;
+    } else {
+      numpadTempValue += char;
+    }
+  }
+
+  if (!isNaN(max) && parseInt(numpadTempValue, 10) > max) {
+    numpadTempValue = String(max);
+  }
+
+  document.getElementById('numpad-current').textContent = Number(numpadTempValue).toLocaleString('en-US');
+}
+
+function closeNumpad(commit) {
+  if (commit && activeNumpadTarget) {
+    const min = parseInt(activeNumpadTarget.dataset.min || '0', 10);
+    const max = parseInt(activeNumpadTarget.dataset.max, 10);
+    let val = parseInt(numpadTempValue, 10);
+    if (isNaN(val)) val = min;
+    if (val < min) val = min;
+    if (!isNaN(max) && val > max) val = max;
+
+    activeNumpadTarget.textContent = val;
+    recalcAll();
+  }
+  document.getElementById('numpad-modal').style.display = 'none';
+  activeNumpadTarget = null;
+}
+
+function getTribesPoints() {
+  const stamina = getVal('staminaInput');
+  const tribeLevel = getVal('tribeLevel');
+  const tribesCount = Math.floor(stamina / 5);
+  
+  let ptsPerTribe = 24000;
+  if (globalPointsMode === 'tmg') {
+    if (tribeLevel <= 4) ptsPerTribe = 50;
+    else if (tribeLevel <= 8) ptsPerTribe = 80;
+    else if (tribeLevel <= 12) ptsPerTribe = 100;
+    else if (tribeLevel <= 16) ptsPerTribe = 150;
+    else if (tribeLevel <= 20) ptsPerTribe = 180;
+    else if (tribeLevel <= 24) ptsPerTribe = 220;
+    else if (tribeLevel <= 28) ptsPerTribe = 260;
+    else ptsPerTribe = 300;
+  }
+  return tribesCount * ptsPerTribe;
+}
+
+function recalcTribes(){
+  const stamina = getVal('staminaInput');
+  const tribesCount = Math.floor(stamina / 5);
+  const totalPoints = getTribesPoints();
+
+  document.getElementById('tribesLabel').textContent = `Points for ${tribesCount} Tribes`;
+  document.getElementById('tribesPointsDisplay').textContent = formatPoints(totalPoints);
+}
+
+function getHeroGrowthPoints() {
+  const blacksmithLevel = getVal('lvl-blacksmith');
+  const workshopLevel = getVal('lvl-workshop');
+  const renovationLevel = getVal('lvl-renovation');
+
+  const blacksmithPct = BLACKSMITH_PCT[blacksmithLevel] || 0;
+  const workPct = workshopPct(workshopLevel);
+  const renoPct = RENOVATION_PCT[renovationLevel] || 0;
+
+  const totalSpeedupPct = blacksmithPct + workPct + renoPct;
+  const speedFactor = 1 + (totalSpeedupPct / 100);
+
+  let grandSeconds = 0;
+  let grandPoints = 0;
 
   document.querySelectorAll('.gear-item').forEach(item => {
-    const qty = parseInt(item.querySelector('.qty').textContent, 10) || 0;
-    const baseSec = parseInt(item.getAttribute('data-base'), 10) || 0;
-    gearTimeSec += qty * baseSec;
+    const qtyEl = item.querySelector('.num-box');
+    const qty = qtyEl ? (parseInt(qtyEl.textContent.replace(/,/g, ''), 10) || 0) : 0;
+    const baseSeconds = parseFloat(item.dataset.base) || 0;
+    const pointsPerItem = parseFloat(globalPointsMode === 'tmg' ? item.dataset.pointsTmg : item.dataset.pointsTme) || 0;
 
-    const pts = parseInt(item.getAttribute(activeMode === 'tmg' ? 'data-points-tmg' : 'data-points-tme'), 10) || 0;
-    gearPoints += qty * pts;
+    const subtotalSeconds = (baseSeconds / speedFactor) * qty;
+    grandSeconds += subtotalSeconds;
+    grandPoints += pointsPerItem * qty;
   });
 
-  document.getElementById('totalTime').textContent = formatSeconds(gearTimeSec);
-  const balanceSec = totalForgeSpeedSec - gearTimeSec;
+  if (globalPointsMode === 'tmg') {
+    const medalEpic = getVal('medal-epic');
+    const medalLegendary = getVal('medal-legendary');
+    const scrollEpic = getVal('scroll-epic');
+    const scrollLegendary = getVal('scroll-legendary');
+
+    grandPoints += (medalEpic * 500) + (medalLegendary * 2500) + (scrollEpic * 350) + (scrollLegendary * 2000);
+  }
+
+  return { grandSeconds, grandPoints };
+}
+
+function recalcHeroGrowth(){
+  const { grandSeconds, grandPoints } = getHeroGrowthPoints();
+
+  const totalTimeEl = document.getElementById('totalTime');
+  totalTimeEl.textContent = grandSeconds > 0 ? formatTime(grandSeconds) : '0';
+  document.getElementById('totalPoints').textContent = formatPoints(grandPoints);
+
+  const spD = getVal('sp-forge-d');
+  const spH = getVal('sp-forge-h');
+  const spM = getVal('sp-forge-m');
+  const bankedSeconds = spD*86400 + spH*3600 + spM*60;
+
+  const diff = bankedSeconds - grandSeconds;
   const balanceEl = document.getElementById('balanceValue');
-  balanceEl.textContent = formatSeconds(Math.abs(balanceSec));
-  balanceEl.className = "total-value " + (balanceSec >= 0 ? "balance-ahead" : "balance-behind");
-  document.getElementById('totalPoints').textContent = gearPoints.toLocaleString();
 
-  // Speedup Day
-  const bldgSec = ((parseInt(document.getElementById('sp-bldg-d').textContent, 10) || 0) * 86400) +
-                  ((parseInt(document.getElementById('sp-bldg-h').textContent, 10) || 0) * 3600) +
-                  ((parseInt(document.getElementById('sp-bldg-m').textContent, 10) || 0) * 60);
-  const resSec = ((parseInt(document.getElementById('sp-res-d').textContent, 10) || 0) * 86400) +
-                 ((parseInt(document.getElementById('sp-res-h').textContent, 10) || 0) * 3600) +
-                 ((parseInt(document.getElementById('sp-res-m').textContent, 10) || 0) * 60);
-  const speedupDayPts = Math.floor((bldgSec + resSec) / 60); // example scaling
-  document.getElementById('speedupDayPointsDisplay').textContent = speedupDayPts.toLocaleString();
-
-  // Training
-  const trainSec = 0;
-  document.getElementById('trainingTime').textContent = formatSeconds(trainSec);
-  document.getElementById('trainingBalance').textContent = formatSeconds(0);
-  document.getElementById('trainingPointsDisplay').textContent = "0";
-
-  // Grand Total
-  const grandTotal = tribeTotalPoints + gearPoints + speedupDayPts;
-  document.getElementById('grandTotalPointsDisplay').textContent = grandTotal.toLocaleString();
+  if (bankedSeconds === 0 && grandSeconds === 0) {
+    balanceEl.textContent = '0';
+    balanceEl.className = 'total-value';
+  } else {
+    const formattedDiff = formatTime(Math.abs(diff));
+    if (formattedDiff === '0') {
+      balanceEl.textContent = '0';
+      balanceEl.className = 'total-value balance-ahead';
+    } else {
+      balanceEl.textContent = (diff >= 0 ? '+' : '-') + formattedDiff;
+      balanceEl.className = 'total-value ' + (diff >= 0 ? 'balance-ahead' : 'balance-behind');
+    }
+  }
 }
 
-function formatSeconds(sec) {
-  if (sec === 0) return '0s';
-  const d = Math.floor(sec / 86400);
-  const h = Math.floor((sec % 86400) / 3600);
-  const m = Math.floor((sec % 3600) / 60);
-  const s = sec % 60;
-  let res = '';
-  if (d > 0) res += d + 'd ';
-  if (h > 0 || d > 0) res += h + 'h ';
-  if (m > 0 || h > 0 || d > 0) res += m + 'm ';
-  res += s + 's';
-  return res.trim();
+function getSpeedupDayPoints() {
+  const bldgD = getVal('sp-bldg-d');
+  const bldgH = getVal('sp-bldg-h');
+  const bldgM = getVal('sp-bldg-m');
+  const bldgTotalMins = bldgD * 1440 + bldgH * 60 + bldgM;
+
+  const resD = getVal('sp-res-d');
+  const resH = getVal('sp-res-h');
+  const resM = getVal('sp-res-m');
+  const resTotalMins = resD * 1440 + resH * 60 + resM;
+
+  let fineCraft = 0;
+  let copperSand = 0;
+  let silverSand = 0;
+  let fineGold = 0;
+  let meteorSteel = 0;
+
+  if (globalPointsMode === 'tmg') {
+    fineCraft = getVal('fine-craft-qty');
+    copperSand = getVal('signet-copper');
+    silverSand = getVal('signet-silver');
+    fineGold = getVal('signet-gold');
+    meteorSteel = getVal('signet-steel');
+  }
+
+  let ptsBldgMin = globalPointsMode === 'tmg' ? 30 : 240;
+  let ptsResMin = globalPointsMode === 'tmg' ? 30 : 240;
+  let ptsCraft = 2000;
+  let ptsCopper = 400;
+  let ptsSilver = 1000;
+  let ptsGold = 3000;
+  let ptsSteel = 20000;
+
+  return (bldgTotalMins * ptsBldgMin) +
+         (resTotalMins * ptsResMin) +
+         (fineCraft * ptsCraft) +
+         (copperSand * ptsCopper) +
+         (silverSand * ptsSilver) +
+         (fineGold * ptsGold) +
+         (meteorSteel * ptsSteel);
 }
 
-function checkTrainingSpeedups() {
-  recalcAll();
+function recalcSpeedupDay(){
+  const totalPoints = getSpeedupDayPoints();
+  document.getElementById('speedupDayPointsDisplay').textContent = formatPoints(totalPoints);
 }
 
-applyTranslation();
+function getTrainingData() {
+  let baseSpd = getVal('train-speed-pct');
+  if (document.getElementById('buff-knights').checked) baseSpd += 10;
+  if (document.getElementById('buff-tactical').checked) baseSpd += 10;
+  if (document.getElementById('buff-instructor').checked) baseSpd += 5;
+
+  const speedFactor = 1 + (baseSpd / 100);
+
+  const trainTier = getVal('train-tier');
+  const trainQty = getVal('train-qty');
+  const trainBaseSec = TIER_BASE_SECONDS[trainTier] || 0;
+  const trainSeconds = (trainBaseSec / speedFactor) * trainQty;
+  const trainPts = (TIER_POINTS[trainTier] || 0) * trainQty;
+
+  let promFrom = getVal('promote-from');
+  let promTo = getVal('promote-to');
+  if (promFrom >= promTo) promTo = promFrom + 1;
+  const promQty = getVal('promote-qty');
+  const promBaseFrom = TIER_BASE_SECONDS[promFrom] || 0;
+  const promBaseTo = TIER_BASE_SECONDS[promTo] || 0;
+  const promDiffSec = Math.max(0, promBaseTo - promBaseFrom);
+  const promoteSeconds = (promDiffSec / speedFactor) * promQty;
+
+  const ptsFrom = TIER_POINTS[promFrom] || 0;
+  const ptsTo = TIER_POINTS[promTo] || 0;
+  const promotePts = Math.max(0, ptsTo - ptsFrom) * promQty;
+
+  const grandSeconds = trainSeconds + promoteSeconds;
+  const grandPoints = trainPts + promotePts;
+
+  const spD = getVal('sp-train-d');
+  const spH = getVal('sp-train-h');
+  const spM = getVal('sp-train-m');
+  const bankedSeconds = spD * 86400 + spH * 3600 + spM * 60;
+
+  const trainHeader = document.getElementById('train-balance-header');
+  const promoteHeader = document.getElementById('promote-balance-header');
+
+  const trainSecPerUnit = trainBaseSec / speedFactor;
+  const promSecPerUnit = promDiffSec / speedFactor;
+
+  const trainTimeUsed = trainSecPerUnit * trainQty;
+  const promTimeUsed = promSecPerUnit * promQty;
+
+  const trainRemainingSec = Math.max(0, bankedSeconds - promTimeUsed);
+  const promRemainingSec = Math.max(0, bankedSeconds - trainTimeUsed);
+
+  if (bankedSeconds === 0) {
+    trainHeader.style.display = 'none';
+    promoteHeader.style.display = 'none';
+  } else {
+    trainHeader.style.display = '';
+    promoteHeader.style.display = '';
+
+    const trainUnitBalance = trainSecPerUnit > 0 ? Math.floor(trainRemainingSec / trainSecPerUnit) : 0;
+    const promUnitBalance = promSecPerUnit > 0 ? Math.floor(promRemainingSec / promSecPerUnit) : 0;
+
+    trainHeader.textContent = `Balance: ${trainUnitBalance.toLocaleString('en-US')} units`;
+    promoteHeader.textContent = `Balance: ${promUnitBalance.toLocaleString('en-US')} units`;
+  }
+
+  return { grandSeconds, grandPoints };
+}
+
+function recalcTraining() {
+  const { grandSeconds, grandPoints } = getTrainingData();
+
+  document.getElementById('trainingTime').textContent = grandSeconds > 0 ? formatTime(grandSeconds) : '0';
+  document.getElementById('trainingPointsDisplay').textContent = formatPoints(grandPoints);
+
+  const spD = getVal('sp-train-d');
+  const spH = getVal('sp-train-h');
+  const spM = getVal('sp-train-m');
+  const bankedSeconds = spD*86400 + spH*3600 + spM*60;
+
+  const diff = bankedSeconds - grandSeconds;
+  const balanceEl = document.getElementById('trainingBalance');
+
+  if (bankedSeconds === 0 && grandSeconds === 0) {
+    balanceEl.textContent = '0';
+    balanceEl.className = 'total-value';
+  } else {
+    const formattedDiff = formatTime(Math.abs(diff));
+    if (formattedDiff === '0') {
+      balanceEl.textContent = '0';
+      balanceEl.className = 'total-value balance-ahead';
+    } else {
+      balanceEl.textContent = (diff >= 0 ? '+' : '-') + formattedDiff;
+      balanceEl.className = 'total-value ' + (diff >= 0 ? 'balance-ahead' : 'balance-behind');
+    }
+  }
+}
+
+function recalcAll(){
+  updateVisibility();
+  recalcHeroGrowth();
+  recalcTribes();
+  recalcSpeedupDay();
+  recalcTraining();
+
+  const grandTotal = getTribesPoints() + getHeroGrowthPoints().grandPoints + getSpeedupDayPoints() + getTrainingData().grandPoints;
+  document.getElementById('grandTotalPointsDisplay').textContent = formatPoints(grandTotal);
+}
+
+initInputs();
+
+document.querySelectorAll('.global-toggle-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    globalPointsMode = btn.dataset.mode;
+    document.querySelectorAll('.global-toggle-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    recalcAll();
+  });
+});
+
+recalcAll();
 </script>
 </body>
 </html>
